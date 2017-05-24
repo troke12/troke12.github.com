@@ -4,7 +4,7 @@
 body
 {
    background-color: #FFFF00;
-   background: url(images/The-Night-Sky-Wallpaper.jpg) top center no-repeat;
+   background: url(https://github.com/troke12/trokewebsite/blob/master/images/The-Night-Sky-Wallpaper.jpg?raw=true) top center no-repeat;
    background-size: cover;
    color: #000000;
    font-size: 13px;
