@@ -24,7 +24,21 @@ i
 	i mostly play csgo and dota. </p></i>
 	
 <a href="https://steamcommunity.com/id/troke/" target="_blank"><img src="https://steam.mmosvc.com/76561198156763836/v1.png" alt="76561198156763836" /></a>
-<br><iframe src="https://discordapp.com/widget?id=394088570673037324&theme=dark" width="405" height="500" allowtransparency="true" frameborder="0"></iframe>
+<br><widgetbot
+  server="394088570673037324"
+  channel="394088571201388546"
+  id="embed"
+></widgetbot>
+<script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
+
+<script>
+  const embed = document.getElementById('embed')
+
+  embed.on('signIn', data => {
+    console.log(`Guest signed in as ${data.name}`)
+    embed.emit('sendMessage', 'Halo anjing')
+  })
+</script>
 <p>2016 - 2018 Ochi Darma Putra</p>
 </body>
 </html>
