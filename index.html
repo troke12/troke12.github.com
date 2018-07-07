@@ -24,21 +24,20 @@ i
 	i mostly play csgo and dota. </p></i>
 	
 <a href="https://steamcommunity.com/id/troke/" target="_blank"><img src="https://steam.mmosvc.com/76561198156763836/v1.png" alt="76561198156763836" /></a>
-<br><widgetbot
-  server="394088570673037324"
-  channel="394088571201388546"
-  id="embed"
-  width="100%"
-  height="700"
-></widgetbot>
-<script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
-
-<script>
-  const embed = document.getElementById('embed')
-
-  embed.on('signIn', data => {
-    console.log(`Guest signed in as ${data.name}`)
+<script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer>
+  const button = new Crate({
+    server: '394088570673037324',
+    channel: '394088571201388546',
+    defer: true
   })
+  
+  // Random color every 300 milliseconds
+  setInterval(() => {
+    button.options.color = "#000000".replace(/0/g, () => {
+          return (~~(Math.random() * 16)).toString(16)
+        })
+  }, 300)
+  
 </script>
 <p>2016 - 2018 Ochi Darma Putra</p>
 </body>
