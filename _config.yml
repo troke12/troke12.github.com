@@ -1,14 +1,14 @@
 # Site
-title:              Moon
-bio:                'Minimal, one column jekyll theme.'
-description:        "Moon is a minimal, one column jekyll theme for your blog."
+title:              Trokezi
+bio:                'I Made Ocy Darma Putra personal website'
+description:        "Made by Jekyll and theme by Moon"
 reading_time:       true
 words_per_minute:   200
 logo:               'assets/img/logo.png'
 background:         'assets/img/placeholder-big.jpg'
 tiled_bg:           false   # Set this true if you want to tile your background image, otherwise it will be covered
 locale:             en_US
-url:                https://taylantatli.github.io/Moon
+url:                https://troke.id/
 
 # Jekyll
 permalink:          /:title/
@@ -26,7 +26,7 @@ sass:
   style:            compressed
 
 # Comments
-disqus_shortname:   taylantatli
+disqus_shortname:   troke12
 
 # Social
 # if you don't have any of social below, comment the line.
@@ -38,19 +38,19 @@ disqus_shortname:   taylantatli
   #ad-slot:
 #bing-verify:
 #email:
-twitter:            username
-facebook:           username
-github-url:         username
+twitter:            darma_ochi
+#facebook:           username
+github-url:         troke12
 #stackoverflow:     123456/username   from a "http://stackoverflow.com/users/123456/username" link
-#linkedin:          username
+linkedin:           troke
 #xing:              username
-instagram:          username
+instagram:          troke_ochi
 #lastfm:            username
-#tumblr:            username
+tumblr:             troke12
 #medium:            '@username'
 #pinterest:         username
 #foursquare:        username
-steam:              username
+steam:              troke
 #dribbble:          username
 #youtube:           username
 #youtube-channel:   channel
