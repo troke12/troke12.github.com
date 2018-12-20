@@ -9,6 +9,7 @@ background:         'assets/img/placeholder-big.jpg'
 tiled_bg:           false   # Set this true if you want to tile your background image, otherwise it will be covered
 locale:             en_US
 url:                https://troke.id
+email:              ochi@troke.id
 
 # Jekyll
 permalink:          /:title/
@@ -46,7 +47,7 @@ linkedin:           troke
 #xing:              username
 instagram:          troke_ochi
 #lastfm:            username
-tumblr:             troke12
+#tumblr:             troke12
 #medium:            '@username'
 #pinterest:         username
 #foursquare:        username
