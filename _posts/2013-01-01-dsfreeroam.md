@@ -9,6 +9,11 @@ comments: true
 
 ![dsfreeroam](https://cdn.discordapp.com/attachments/441609566531223552/525170642480529428/487911_328363847284129_785369556_n.png)
 
+   _   _   _   _   _   _   _   _   _   _  
+  / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ 
+ ( D | S | F | R | E | E | R | O | A | M )
+  \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+
 ### Description
 DriftStuntingIndonesia is a server community of Grand Theft Auto San Andreas Multiplayer (Online), This is a gamemodes from this server
 you can use this for build an server in sa-mp, don't remove my credits
