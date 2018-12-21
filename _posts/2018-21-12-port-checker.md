@@ -7,8 +7,9 @@ comments: true
 <object width="500" height="220" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
 <param value="http://troke.id/port/novell_port_test.swf" name="movie">
 <param value="high" name="quality">
-<embed width="500" height="220" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" quality="high" src="novell_port_test.swf">
+<embed width="500" height="220" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" quality="high" src="http://troke.id/port/novell_port_test.swf">
 </object>
+*Tekan Enable untuk menjalankan program*
 
 ### Description
 Port Indihome jika ke block / failed akan kemungkinan terjadi lambat atau beberapa aplikasi yg terhubung dengan internet tidak akan bisa dibuka atau speed internetnya dibatasi oleh Telkom
