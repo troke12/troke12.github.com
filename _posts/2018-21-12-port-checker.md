@@ -2,6 +2,7 @@
 layout: post
 title:  "Port Checker"
 date:   2018-12-21
+excerpt: "Port Indihome jika ke block / failed akan kemungkinan terjadi lambat atau beberapa aplikasi yg terhubung dengan internet tidak akan bisa dibuka atau speed internetnya dibatasi oleh Telkom, kondisi port Indihome jika unblock akan seperti RTMPT Port 80 Success / All status Success, jika statusnya seperti itu jaringan dari telkom kembali normal dan tidak dibatasi oleh Telkom"
 comments: true
 ---
 <object width="500" height="220" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
