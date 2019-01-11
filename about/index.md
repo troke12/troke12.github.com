@@ -5,9 +5,9 @@ date: 2018-12-20
 comments: false
 ---
     
-<center><a href="http://troke.id"><b>Troke</b></a> - Selamat datang di personal website saya</center>
+<center><a href="http://troke.id"><b>Troke</b></a> - Welcome to my personal website</center>
 
-## Works
+## Works / Portfolio
 * Web Management at SMK Nadi Pariwisata Bali (https://smknadi-bali.com)
 * Disc Computer System (IT Computer Services Solutions) - July 2018 -> December 2018
 
@@ -17,6 +17,7 @@ comments: false
 * [steam main account](http://steamcommunity.com/id/troke)
 * [twitter](https://twitter.com/darma_ochi)
 * [facebook](http://facebook.com/darma.ochi)
+* [Curriculum Vitae](https://troke.id/CV.docx)
 
       
 [Back](https://troke.id){: .btn}
