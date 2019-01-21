@@ -18,6 +18,7 @@ comments: false
 * [twitter](https://twitter.com/darma_ochi)
 * [facebook](http://facebook.com/darma.ochi)
 * [Curriculum Vitae](https://troke.id/CV.docx)
+* [WhatsApp Direct Messages](https://api.whatsapp.com/send?phone=085937007032)
 
       
 [Back](https://troke.id){: .btn}
