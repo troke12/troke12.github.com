@@ -14,5 +14,5 @@ Nah saya disini mau ngasi tau caranya agar bisa ngirim pesan tanpa tambah kontak
 
 Ganti dulu nomornya setelah itu enter nanti akan muncul seperti ini, nah kemudian langsung aja kirim pesan ke nomor tersebut
 
-[gambar](https://cdn.discordapp.com/attachments/408950289962369025/537866523398635520/unknown.png]
+[gambar](https://cdn.discordapp.com/attachments/408950289962369025/537866523398635520/unknown.png)
 
