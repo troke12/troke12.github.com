@@ -12,6 +12,12 @@ Nah saya disini mau ngasi tau caranya agar bisa ngirim pesan tanpa tambah kontak
 
 `https://api.whatsapp.com/send?phone=NomorGanti`
 
+atau 
+
+`https://wa.me/NomorGanti`
+
+Inget jangan lupa pake +62 atau langsung 0859 misalnya
+
 Ganti dulu nomornya setelah itu enter nanti akan muncul seperti ini, nah kemudian langsung aja kirim pesan ke nomor tersebut
 
 ![gambar](https://cdn.discordapp.com/attachments/408950289962369025/537866523398635520/unknown.png)
