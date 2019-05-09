@@ -31,5 +31,7 @@ Ikat salah satu kombinasi, contoh ujung pertama : Putih orange dengan orange dii
 
 ### Keempat
 Kalau meterannya bergerak artinya kabel masih mulus dan lancar, kalau Tidak berarti not Good.
+![gambar](https://cdn.discordapp.com/attachments/408950289962369025/575894320843063307/image0.jpg)
+
 
 Sekian Tutorial dari saya
