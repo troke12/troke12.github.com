@@ -1,0 +1,57 @@
+body {
+  text-align: center;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.box-0 {
+  height: 650px;
+  width: 100%;
+  background-color: #f7f1f0;
+}
+
+.box-1 {
+  height: 100vh;
+  width: 100%;
+  background-attachment: fixed;
+  background-image: url(../images/ring2.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.info {
+  padding-top: 8%;
+  padding-bottom: 8%;
+}
+
+h2, h4 {
+  font-family: 'Raleway', sans-serif;
+}
+
+h4 {
+  font-size: 22px;
+}
+
+button {
+  font-family: "Playfair Display", sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  outline: 0;
+  padding: 8px 18px;
+  box-sizing: border-box;
+  border-width: 1px;
+  margin: 0 auto;
+  transform: perspective(1px) translateZ(0);
+  transition-duration: 0.3s;
+  transition-property: transform;
+}
+
+button a {
+  text-decoration: none;
+  color: black;
+}
+
+button:hover {
+  transform: scale(1.1);
+}

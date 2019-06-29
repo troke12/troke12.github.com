@@ -1,0 +1,122 @@
+
+/* --------------------------------------------------------------------------
+Base styles:
+----------------------------------------------------------------------------- */
+/* Fix to include padding and border in the total width for each element */
+* {
+  box-sizing: border-box;
+}
+
+/* Fix for responsive images */
+img {
+  max-width: 100%;
+}
+body {
+  margin: 0 auto;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.nav-links {
+  text-align: center;
+  margin: 0 auto;
+  padding: 10px 18px;
+}
+
+.nav-links a {
+  display: inline-block;
+  font-size: 14.5px;
+  color: black;
+  text-transform: capitalize;
+  text-decoration: none;
+  padding: 20px 42px;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.hamburger {
+  display: none;
+}
+
+.home {
+  padding-top: 30px;
+  background-image: url(../images/homepage2.jpg);
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  height: 90vh;
+  min-height: 600px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+h2 {
+  font-size: 36px;
+  text-transform: capitalize;
+  margin: 0 auto;
+  text-align: center;
+}
+
+h1 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 88px;
+  text-transform: capitalize;
+  margin: 0 auto;
+  margin-top: 25px;
+}
+
+.home p {
+  font-family: "Playfair Display", sans-serif;
+  font-size: 16px;
+  text-transform: capitalize;
+  margin: 0 auto;
+  margin-top: 25px;
+  margin-bottom: 35px;
+}
+
+.home button {
+  font-family: "Playfair Display", sans-serif;
+  font-size: 14.5px;
+  text-transform: uppercase;
+  outline: 0;
+  padding: 10px 24px;
+  box-sizing: border-box;
+  border-width: 1px;
+  margin: 0 auto;
+  transform: perspective(1px) translateZ(0);
+  transition-duration: 0.3s;
+  transition-property: transform;
+}
+
+.home button a {
+  text-decoration: none;
+  color: black;
+}
+
+.home button:hover {
+  transform: scale(1.1);
+}
+
+.footer {
+  text-align: center;
+  margin: 0 auto;
+  background-color: #EEE2DF;
+  overflow: overlay;
+}
+.socialmedia li {
+  display: inline-block;
+  margin: 0 auto;
+  font-size: 28px;
+  padding: 10px 12px;
+
+}
+
+.footer p {
+  font-size: 10px;
+  text-transform: uppercase;
+  padding-left: 3%;
+}
