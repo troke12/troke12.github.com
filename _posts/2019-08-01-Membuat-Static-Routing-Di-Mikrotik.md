@@ -19,7 +19,7 @@ Siapkan Mikrotik apapun yg kalian punya (Disini saya memakai **RB951Ui-2ND**), n
 ![gambar1](https://cdn.discordapp.com/attachments/408950289962369025/606289857442217994/IMG_2275.JPG)
 
 ### Kedua
-Nah Kalian harus masuk ke mikrotiknya terlebih dahulu menggunakan Winbox, pastikan Mikrotiknya sudah dalam keadaan reset total, jadi kita mulai dari 0 dulu. Yang harus dilakukan disini adalah mengetahui IP Modem dan segmentnya, jadi sebelum itu kita melakukan test dulu dari Modem ke laptop, kalau laptop kita dapat ip 192.168.1.3 berarti di dalam Mikrotik kita Tambahkan IP Address 192.168.1.4 Interfacenya ether1, sebagai contoh disini IP Modem saya adalah 192.168.50.xxx jadi saya putuskan di Addresses saya tambah 192.168.50.62/24 (kenapa 62? ~karena negara kita adalah +62~ karena disini kita bebas menggunakan berapapun itu asal tidak terjadi bentrok dengan ip yg lain, pastikan ip itu tidak ada yg menggunakannnya.
+Nah Kalian harus masuk ke mikrotiknya terlebih dahulu menggunakan Winbox, pastikan Mikrotiknya sudah dalam keadaan reset total, jadi kita mulai dari 0 dulu. Yang harus dilakukan disini adalah mengetahui IP Modem dan segmentnya, jadi sebelum itu kita melakukan test dulu dari Modem ke laptop, kalau laptop kita dapat ip _192.168.1.3_ berarti nanti di dalam Mikrotik kita Tambahkan IP Address _192.168.1.4_ Interfacenya ether1, sebagai contoh disini IP Modem saya adalah *192.168.50.xxx* jadi saya putuskan di Addresses saya tambah *192.168.50.62/24* (kenapa 62? ~~karena negara kita adalah +62~~ karena disini kita bebas menggunakan berapapun itu asal tidak terjadi bentrok dengan ip yg lain, pastikan ip itu tidak ada yg menggunakannnya.
 ![gambar2](https://cdn.discordapp.com/attachments/408950289962369025/606302918194495501/Screenshot_96.png)
 
 ### Ketiga
@@ -40,12 +40,12 @@ Selanjutnya kita akan menyalurkan internet tersebut ke Laptop, disini Ether2 yg 
 ![gambar6](https://cdn.discordapp.com/attachments/408950289962369025/606302940096888872/Screenshot_101.png)
 
 ### Ketujuh
-Lalu masuk ke **IP -> DHCP Server** nah disini Fungsi DHCP Server bagi kalian belum tau adalah membuat IP yang tadi kita buat di Addresses itu dibagi-bagi/disebar oleh DHCP Server ini, jadi kalian hanya perlu membuatnya dengan mengklik tombol **DHCP Setup** dengan step seperti ini : 
+Lalu masuk ke **IP -> DHCP Server** disini Fungsi DHCP Server, bagi kalian yang belum tau adalah membuat IP yang tadi kita buat di Addresses itu dibagi-bagi/disebar oleh DHCP Server ini, jadi kalian hanya perlu membuatnya dengan mengklik tombol **DHCP Setup** dengan step seperti ini : 
 DHCP Setup > interface = ether2 > DHCP Addresses Space Next aja > Gateway DHCP Network Next aja > Addresses to Give out Next aja > DNS Server (bebas isi 8.8.8.8 atau 1.1.1.1 boleh) > Lease Time Next aja > Finish
 ![gambar7](https://cdn.discordapp.com/attachments/408950289962369025/606302945071464449/Screenshot_102.png)
 
 ### Kedelapan
-Setelah selesai membuat DHCP Server kalian boleh mencabut kabel LAN kalian dari Mikrotik ke Laptop lalu pasangkan kembali, atau Men Disable Enable Interface Network di Control Panel > Network and Internet > Network Connections, disini saya cuma disable dan enable saja karena males cabut hehehe.
+Setelah selesai membuat DHCP Server, kalian boleh mencabut kabel LAN kalian dari Mikrotik ke Laptop lalu pasang kembali, atau dengan cara Disable Enable Interface Network di Control Panel > Network and Internet > Network Connections, disini saya menggunakan disable dan enable saja karena males cabut hehehe.
 ![gambar8](https://cdn.discordapp.com/attachments/408950289962369025/606302950712934420/Screenshot_103.png)
 ![gambar81](https://cdn.discordapp.com/attachments/408950289962369025/606302956597280769/Screenshot_104.png)
 
