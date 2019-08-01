@@ -40,7 +40,7 @@ Selanjutnya kita akan menyalurkan internet tersebut ke Laptop, disini Ether2 yg 
 ![gambar6](https://cdn.discordapp.com/attachments/408950289962369025/606302940096888872/Screenshot_101.png)
 
 ### Ketujuh
-Lalu masuk ke **IP -> DHCP Server** disini Fungsi DHCP Server, bagi kalian yang belum tau adalah membuat IP yang tadi kita buat di Addresses itu dibagi-bagi/disebar oleh DHCP Server ini, jadi kalian hanya perlu membuatnya dengan mengklik tombol **DHCP Setup** dengan step seperti ini : 
+Lalu masuk ke **IP -> DHCP Server** disini Fungsi DHCP Server, bagi kalian yang belum tau Fungsi dari DHCP Server ialah membuat IP yang tadi kita buat di Addresses dibagi-bagi/disebar oleh DHCP Server ini, jadi kalian hanya perlu membuatnya dengan mengklik tombol **DHCP Setup** dengan step seperti ini : 
 DHCP Setup > interface = ether2 > DHCP Addresses Space Next aja > Gateway DHCP Network Next aja > Addresses to Give out Next aja > DNS Server (bebas isi 8.8.8.8 atau 1.1.1.1 boleh) > Lease Time Next aja > Finish
 ![gambar7](https://cdn.discordapp.com/attachments/408950289962369025/606302945071464449/Screenshot_102.png)
 
