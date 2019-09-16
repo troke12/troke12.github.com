@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
   <script src="https://use.fontawesome.com/c0d001d2e4.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat|Raleway" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Pinyon+Script" rel="stylesheet">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/story.css">
@@ -21,39 +21,138 @@
       <a href="index.html">home</a>
       <a href="story.html">our story</a>
       <a href="wedding.html">the wedding</a>
-      <a href="weddingparty.html">wedding party</a>
-      <a href="details.html">details</a>
-      <a href="register.html">RSVP now</a>
     </div>
   </nav>
 
   <section class="story">
-    <h1>our story</h1>
+    <h1>KAMI YANG BERBAHAGIA</h1>
 
     <div class="story-wrapper">
 
       <div>
-        <img src="images/lucy.jpg" alt="bride">
-        <h2>lucy's story</h2>
+        <img src="images/ketut.jpg" alt="bride">
+        <h2>I Ketut Adi Semara Putra</h2>
         <hr>
-        <p>I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font.</p>
+        <p>Anak dari pasangan I Made Sunaka dan Ni Made Riani.</p>
       </div>
 
       <div>
-        <img src="images/leo.jpg" alt="groom">
-        <h2>leo's story</h2>
+        <img src="images/yanti.jpg" alt="groom">
+        <h2>Ns. Ni Putu Yanti Septiani S.Kep</h2>
         <hr>
-        <p>I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. </p>
+        <p>Anak dari pasangan I Made Sukadana dan Ni Luh Sukartini. </p>
       </div>
     </div>
   </section>
+<h2 style="text-align:center">Gallery</h2>
 
-  <section class="images">
-    <img src="images/kiss.jpg" alt="couple1">
-    <img src="images/pillowfight.jpg" alt="couple2">
-    <img src="images/popcorn.jpg" alt="couple4">
-    <img src="images/relaxed.jpg" alt="couple5">
-  </section>
+<div class="row">
+  <div class="column">
+    <img src="images/1.jpg" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor">
+  </div>
+  <div class="column">
+    <img src="images/2.jpg" style="width:100%" onclick="openModal();currentSlide(2)" class="hover-shadow cursor">
+  </div>
+  <div class="column">
+    <img src="images/3.jpg" style="width:100%" onclick="openModal();currentSlide(3)" class="hover-shadow cursor">
+  </div>
+  <div class="column">
+    <img src="images/4.jpg" style="width:100%" onclick="openModal();currentSlide(4)" class="hover-shadow cursor">
+  </div>
+    <div class="column">
+    <img src="images/5.jpg" style="width:100%" onclick="openModal();currentSlide(5)" class="hover-shadow cursor">
+  </div>
+    <div class="column">
+    <img src="images/6.jpg" style="width:100%" onclick="openModal();currentSlide(6)" class="hover-shadow cursor">
+  </div>
+    <div class="column">
+    <img src="images/7.jpg" style="width:100%" onclick="openModal();currentSlide(7)" class="hover-shadow cursor">
+  </div>
+    <div class="column">
+    <img src="images/8.jpg" style="width:100%" onclick="openModal();currentSlide(8)" class="hover-shadow cursor">
+  </div>
+</div>
+
+<div id="myModal" class="modal">
+  <span class="close cursor" onclick="closeModal()">&times;</span>
+  <div class="modal-content">
+
+    <div class="mySlides">
+      <div class="numbertext">1 / 10</div>
+      <img src="images/1.jpg" style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">2 / 10</div>
+      <img src="images/2.jpg" style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">3 / 10</div>
+      <img src="images/3.jpg" style="width:100%">
+    </div>
+    
+    <div class="mySlides">
+      <div class="numbertext">4 / 10</div>
+      <img src="images/4.jpg" style="width:100%">
+    </div>
+	
+	<div class="mySlides">
+      <div class="numbertext">5 / 10</div>
+      <img src="images/5.jpg" style="width:100%">
+    </div>
+	
+	<div class="mySlides">
+      <div class="numbertext">6 / 10</div>
+      <img src="images/6.jpg" style="width:100%">
+    </div>
+	
+	<div class="mySlides">
+      <div class="numbertext">7 / 10</div>
+      <img src="images/7.jpg" style="width:100%">
+    </div>
+	
+	<div class="mySlides">
+      <div class="numbertext">8 / 10</div>
+      <img src="images/8.jpg" style="width:100%">
+    </div>
+	
+    </div>    
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+    <div class="caption-container">
+      <p id="caption"></p>
+    </div>
+
+
+    <div class="column">
+      <img class="demo cursor" src="images/1.jpg" style="width:100%" onclick="currentSlide(1)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="images/2.jpg" style="width:100%" onclick="currentSlide(2)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="images/3.jpg" style="width:100%" onclick="currentSlide(3)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="images/4.jpg" style="width:100%" onclick="currentSlide(4)">
+    </div>
+	<div class="column">
+      <img class="demo cursor" src="images/5.jpg" style="width:100%" onclick="currentSlide(5)">
+    </div>
+	<div class="column">
+      <img class="demo cursor" src="images/6.jpg" style="width:100%" onclick="currentSlide(6)">
+    </div>
+	<div class="column">
+      <img class="demo cursor" src="images/7.jpg" style="width:100%" onclick="currentSlide(7)">
+    </div>
+	<div class="column">
+      <img class="demo cursor" src="images/8.jpg" style="width:100%" onclick="currentSlide(8)">
+    </div>
+  </div>
+</div>
+
 
 </body>
 
@@ -63,18 +162,53 @@
 
   <div class="socialmedia">
     <ul>
-      <li><i class="fa fa-facebook-square" aria-hidden="true"></i></li>
-      <li><i class="fa fa-instagram" aria-hidden="true"></i></li>
-      <li><i class="fa fa-twitter-square" aria-hidden="true"></i></li>
-      <li><i class="fa fa-pinterest-square" aria-hidden="true"></i></li>
+      <li><a href="https://www.instagram.com/semaraputra68"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
     </ul>
 
-    <p>&copy copyright of kassandra pereira, llc</p>
+    <p>&copy troke.id</p>
   </div>
 
 </footer>
 
 <script src="js/jquery-1.12.0.min.js"></script>
 <script src="js/main.js"></script>
+<script>
+function openModal() {
+  document.getElementById("myModal").style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("myModal").style.display = "none";
+}
+
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  var captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  captionText.innerHTML = dots[slideIndex-1].alt;
+}
+</script>
 </body>
 </html>
