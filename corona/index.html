@@ -95,13 +95,13 @@
 // https://covid19.mathdro.id/api/countries/ID
 // https://api.kawalcorona.com/indonesia/
 
-let url = 'https://api.kawalcorona.com/indonesia';
+let url = 'https://coronavirus-19-api.herokuapp.com/countries/Indonesia';
 fetch(url)
 .then(res => res.json())
 .then((out) => {
-document.getElementById("corona-positif").innerHTML = '<h1 class="uk-heading-divider">POSITIF</h1> ' + out.positif;
-document.getElementById("corona-meninggal").innerHTML = '<h1 class="uk-heading-divider">MENINGGAL</h1> ' + out.meninggal;
-document.getElementById("corona-sembuh").innerHTML = '<h1 class="uk-heading-divider">SEMBUH</h1> ' + out.sembuh;
+document.getElementById("corona-positif").innerHTML = '<h1 class="uk-heading-divider">POSITIF</h1> ' + out.cases;
+document.getElementById("corona-meninggal").innerHTML = '<h1 class="uk-heading-divider">MENINGGAL</h1> ' + out.deaths;
+document.getElementById("corona-sembuh").innerHTML = '<h1 class="uk-heading-divider">SEMBUH</h1> ' + out.recovered;
 })
 .catch(err => { throw err });
 </script>
