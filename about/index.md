@@ -22,5 +22,9 @@ comments: false
 * [Curriculum Vitae](https://troke.id/CV.docx)
 * [WhatsApp](https://api.whatsapp.com/send?phone=6285937007032)
 
+## Discord
+
+<iframe src="https://discord.com/widget?id=775604382753619988&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+
       
 [Back](https://troke.id){: .btn}
