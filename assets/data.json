@@ -1,0 +1,12 @@
+{
+  "about": "null",
+  "servers": [
+    {
+	    "name": "DT",
+	    "ip": "103.152.118.200",
+	    "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/bancho.png?raw=true",
+	    "certificate_url": "https://cdn.troke.id/dt.cer",
+	    "discord_url": "https://link.troke.id/dc"
+    }
+]
+}
