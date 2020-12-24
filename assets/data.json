@@ -2,11 +2,13 @@
   "about": "null",
   "servers": [
     {
-	    "name": "DT",
-	    "ip": "103.152.118.200",
-	    "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/bancho.png?raw=true",
-	    "certificate_url": "https://cdn.troke.id/dt.cer",
-	    "discord_url": "https://link.troke.id/dc"
+      "name": "Datenshi",
+      "featured": true,
+      "ip": "103.152.118.200",
+      "website_url": "https://osu.troke.id/",
+      "icon_url": "https://github.com/MinisBett/ultimate-osu-server-switcher/blob/master/data/icons/bancho.png?raw=true",
+      "certificate_thumbprint": "1CC98B7AA832873E6B8B8C40FB24EEDB296AC2E6",
+      "certificate_url": "https://cdn.troke.id/dt.cer"
     }
 ]
 }
