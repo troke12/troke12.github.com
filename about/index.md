@@ -19,8 +19,6 @@ comments: false
 * [steam main account](http://steamcommunity.com/id/troke)
 * [twitter](https://twitter.com/darma_ochi)
 * [facebook](http://facebook.com/darma.ochi)
-* [Curriculum Vitae](https://troke.id/CV.pdf)
-* [WhatsApp](https://api.whatsapp.com/send?phone=6285937007032)
 
 ## Discord
 
