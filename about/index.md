@@ -18,11 +18,5 @@ comments: false
 * [steam csgo](http://steamcommunity.com/id/mekatukan)
 * [steam main account](http://steamcommunity.com/id/troke)
 * [twitter](https://twitter.com/darma_ochi)
-* [facebook](http://facebook.com/darma.ochi)
 
-## Discord
-
-<iframe src="https://discord.com/widget?id=775604382753619988&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-
-      
 [Back](https://troke.id){: .btn}
