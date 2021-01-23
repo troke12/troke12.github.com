@@ -5,7 +5,7 @@ date: 2018-12-20
 comments: false
 ---
     
-<center>Welcome to my personal website</center>
+Hello there! My Name is I Made Ocy Darma Putra, 20 from Bali, Indonesia. I'm just simple guy who interest in Programming, Networking and Gaming, mostly active as Network Technician, also i'm a business owner of small internet cafe "OCHI-NET" at my local home, freely contact me if you need some help, i accept for help. Thanks for visiting my website!
 
 ## Works / Portfolio
 * Web Management at SMK Nadi Pariwisata Bali (https://smknadi-bali.com)
