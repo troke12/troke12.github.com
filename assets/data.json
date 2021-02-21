@@ -6,9 +6,9 @@
       "featured": true,
       "ip": "139.180.145.85",
       "website_url": "https://osu.troke.id/",
-      "icon_url": "https://cdn.troke.id/static/logos/text-white.png",
+      "icon_url": "https://cdn.discordapp.com/attachments/408950289962369025/813035551443386389/text-white.png",
       "certificate_thumbprint": "41E304FD14F34B71FEFDE11B7DFAF7D2C3AB7BD5",
-      "certificate_url": "https://cdn.troke.id/dt.cer"
+      "certificate_url": "https://troke.id/assets/dt.cer"
     }
 ]
 }
