@@ -115,6 +115,50 @@ dilihat dari `status` itu menandakan sudah selesai mengirim pesan dan hasilnya a
 
 ![image](https://user-images.githubusercontent.com/10250068/134544791-d305e9bb-85fb-47ed-ad76-4a4de78a7b43.png)
 
+### Netwatch
+
+Lanjut kita akan mengimplementasikannya ke **Netwatch**, dimana semua device yang sudah kita catat terpantau disana, berikut ini adalah screenshotnya
+
+![image](https://user-images.githubusercontent.com/10250068/134600484-67fba1d3-82c4-46c6-b5d9-7813d3160e1b.png)
+
+Jadi saya disini menerapkannya pada INDIHOME saya, pada bagian `content` saya ubah dengan `INDIHOME HIDUP` dan hasilnya akan jadi seperti ini
+
+![image](https://user-images.githubusercontent.com/10250068/134600590-767630d0-c2ee-4b6d-b578-c22d56c1c346.png)
+
+Pada bagian content kalian bisa ubah sesuka hati, misalnya jadi seperti ini
+
+![image](https://user-images.githubusercontent.com/10250068/134603444-d96d7db4-b891-4eff-955a-33553f9d861e.png)
+
+```json
+{
+  "content": "Memanggil paduka <@176829603321610240>",
+  "embeds": [
+    {
+      "author": {
+        "name": "OCHI WIFI",
+        "url": "https://www.troke.id/",
+        "icon_url": "https://cdn.discordapp.com/attachments/874251888357441537/890757320466911252/pngegg.png"
+      },
+      "color": 15258703,
+      "fields": [
+        {
+          "name": "Status Perangkat INDIHOME",
+          "value": "HIDUP"
+        }
+      ]
+    }
+  ]
+}
+```
+
+![image](https://user-images.githubusercontent.com/10250068/134604226-78b85d3a-552c-47eb-8a30-0ab5d1d4cd77.png)
+
+
+- Pada bagian `<@176829603321610240>` itu adalah ID discord saya, jadi nanti bakalan di mention otomatis
+- Perlu diperhatikan jika kalian melakukan converter, untuk bagian URL yang ada `"url": "https://www.troke.id/"` akan berubah menjadi `"url\": \"https:\/\/www.troke.id\/\"` karena akibat convert, jika kalian tidak mengubahnya, tentu mikrotik tidak akan bisa melakukan pengiriman message, ini dikarenakan mikrotik tidak bisa membacanya / error, oleh karena itu segeralah ganti menjadi `"url\": \"https://www.troke.id/\"` dan ini berlaku bagi semua URL, jika ada URL lain segera ganti / samakan dengan URL sebelum di convert.
+- Untuk Color kalian bisa gunakan [SpyColor](https://spycolor.com) untuk mendapatkan HEX Numbernya
+
+
 ### Kesimpulan
 
 Memang agak ribet, tapi jika kita mau belajar memahami dan mencoba tentunya yang namanya ribet itu pasti gak ada! Saya sendiri sudah mencoba beberapa kali bereksperimen dan hasilnya sudah bbrp kali gagal, gagal karena saya ga baca :D, jadi penting banget jika kalian ingin memahami Discord Webhook dan MikroTik kalian harus benar-benar giat membaca, dari apa yang saya hasilkan ini saya bisa mengakalinya dengan cara membuat script simple dalam bentuk PHP yang sudah di hosting ke Heroku, kalian bisa membaca di project [MikrotikToDiscord](https://github.com/troke12/MikrotikToDiscord), sekian terima kasih! semoga bermanfaat!
