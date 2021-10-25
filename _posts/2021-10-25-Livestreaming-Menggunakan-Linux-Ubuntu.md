@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "vestreaming Menggunakan Linux Ubuntu"
+title:  "Livestreaming Menggunakan Linux Ubuntu"
 date:   2021-10-25
 excerpt: "Live stream dengan cara menggunakan linux ubuntu server"
 comments: true
