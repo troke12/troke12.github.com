@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Pengalaman Menggunakan Mimosa C5x"
-date:   2021-01-08
+date:   2022-01-08
 excerpt: "Mikrotik atau Ubiquiti? Bukan! ini adalah Mimosa"
 comments: true
 ---
