@@ -5,7 +5,10 @@ date: 2018-12-20
 comments: false
 ---
     
-Hello there! My Name is I Made Ocy Darma Putra, 20 from Bali, Indonesia. I'm just simple guy who interest in Programming, Networking and Gaming, mostly active as Network Technician, also i'm a business owner of small internet cafe "OCHI-NET" at my local home, freely contact me if you need some help, i accept for help. Thanks for visiting my website!
+Hello there! My Name is I Made Ocy Darma Putra, 22 from Bali, Indonesia. I'm just simple guy who interest in Programming, Networking and Gaming, Currently active as DevOps Engineer, also i'm a business owner of small internet cafe "OCHI-NET" at my local home, freely contact me if you need some help, i accept for help. Thanks for visiting my website!
+
+## For Personal Business
+I accept for work as freelance to manage some server or network infrastructure, feel free to contact me by [business email](mailto:ochi@troke.id)
 
 ## Works / Portfolio
 * Web Management at SMK Nadi Pariwisata Bali (https://smknadi-bali.com)
@@ -13,7 +16,8 @@ Hello there! My Name is I Made Ocy Darma Putra, 20 from Bali, Indonesia. I'm jus
 * SMKN 5 Denpasar (Teknisi UNBK) - 28 January 2019 -> 29 January 2019
 * PT Universal BroadBand (Technical Network Support) - 18 February 2019 -> 1 July 2022
 * PT Datenshi Games Indonesia (Founder) - 12 July 2020 -> Present
-* PT ICE Messenger Indonesia (DevOps Engineer) - 11 July 2022 -> Present
+* PT ICE Messenger Indonesia (DevOps Engineer) - 11 July 2022 -> 10 April 2023
+* ITSEC Asia (DevOps Engineer) - 11 April 2023 - Present
 
 ## Links
 * [github](https://github.com/troke12)
