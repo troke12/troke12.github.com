@@ -1,9 +1,8 @@
 ---
 layout: post
 title:  "Membuat Static Routing Di Mikrotik"
-tag: tutorial network
+tags: tutorial network
 ---
-
 ### Persiapan
 - Internet Connection dari ISP
 - Mikrotik

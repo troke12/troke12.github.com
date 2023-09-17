@@ -2,9 +2,9 @@ title: I Made Ocy Darma Putra
 author: troke12
 email: ochi@troke.id
 description: > # this means to ignore newlines until "show_exerpts:"
-  Hi, My name is I Made Ocy Darma Putra, just call me ocy or troke, currently i'm working on ITSEC Asia as System Administrator/DevOps R&D Team,
+  Hi, My name is I Made Ocy Darma Putra, currently working at ITSEC Asia as System Administrator/DevOps for R&D Team
   <br/>feel free to contact me by email or linkedin profile!
-show_excerpts: true # set to true to show excerpts on the homepage
+show_excerpts: false # set to true to show excerpts on the homepage
 
 paginate: 5
 paginate_path: "/blog/page:num/"
@@ -30,7 +30,7 @@ dash:
       icon: twitter-square
       color: blue
     - url: https://linkedin.com/in/troke
-      icon: linkedin-square
+      icon: linkedin
       color: blue
     - url: https://github.com/troke12
       icon: github-square

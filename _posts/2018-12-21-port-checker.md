@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Port Checker"
-tag: tools
+tags: tools
 ---
 <object width="500" height="220" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
 <param value="https://troke.id/port/novell_port_test.swf" name="movie">

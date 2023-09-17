@@ -1,9 +1,8 @@
 ---
 layout: post
 title:  "Cara Cek Kabel LAN Dengan Avometer"
-tag: tutorial
+tags: tutorial
 ---
-
 ## Persiapan
 - Avometer
 - Kabel LAN tanpa RJ45

@@ -1,9 +1,8 @@
 ---
 layout: post
 title:  "Pengalaman Menggunakan Mimosa C5x"
-tag: review network
+tags: review network
 ---
-
 Mikrotik atau Ubiquiti? Bukan! ini adalah [Mimosa](https://mimosa.co), Merk yang satu ini terbilang cukup mahal tapi beberapa produknya bisa dibilang sangat terjamin kualitasnya, oleh karena itu disini saya ingin membahas pengalaman saya menggunakan salah satu produk dari Mimosa ini yaitu [Mimosa C5x](https://mimosa.co/product/c5x)
 
 ![gambarmimosa](https://mimosa.co/uploads/C5x-homepage.jpg)
