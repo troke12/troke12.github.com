@@ -1,9 +1,7 @@
 ---
 layout: post
 title:  "Livestreaming Menggunakan Linux Ubuntu"
-date:   2021-10-25
-excerpt: "Live stream dengan cara menggunakan linux ubuntu server"
-comments: true
+tag: tutorial
 ---
 
 Baik, kali ini kita akan membahas livestreaming, akhir-akhir ini banyak banget yang mencoba untuk meniti karir sebagai streamer, mostly akhir-akhir ini kita sering melihat trend Virtual Youtuber yang makin hari makin banyak bermunculan, tetapi tidak hanya itu juga, kalian mungkin pernah melihat di Youtube "lofi hip hop radio - beats to relax/study to" atau "jazz/lofi hip hop radio🌱chill beats to relax/study to [LIVE 24/7]" kan? nah channel tersebut diketahui sudah melakukan streaming dalam 24 jam bahkan sudah setahun lebih mereka melakukan penyiaran musik di kanal youtube, bagaimana bisa mereka melakukan itu? nah disini kita akan bahas caranya, perlu diperhatikan disini saya cuma akan membahas secara dasar dan tidak lebih karena ini juga hasil daripada eksperiment saya sendiri.

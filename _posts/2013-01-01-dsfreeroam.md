@@ -1,10 +1,7 @@
 ---
 layout: post
 title:  "Drift Stunting Indonesia Freeroam"
-date:   2013-01-01
-project: true
-tag:
-comments: true
+tag: source-code project
 ---
 
 ![dsfreeroam](https://cdn.discordapp.com/attachments/441609566531223552/525170642480529428/487911_328363847284129_785369556_n.png)

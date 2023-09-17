@@ -1,9 +1,7 @@
 ---
 layout: post
 title:  "Membuat Static Routing Di Mikrotik"
-date:   2019-08-01
-excerpt: "Dengan menggunakan metode Static Routing, IP yang didapatkan oleh mikrotik tidak akan berubah-ubah"
-comments: true
+tag: tutorial network
 ---
 
 ### Persiapan

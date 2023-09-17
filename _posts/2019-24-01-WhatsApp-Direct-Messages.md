@@ -1,9 +1,7 @@
 ---
 layout: post
 title:  "WhatsApp Direct Messages"
-date:   2018-12-21
-excerpt: "Biasanya di WhatsApp versi Desktop/Web gk ada yang namanya tambah kontak atau ngirim pesan lewat WA nya, harus tambah kontak setelah itu baru bisa kirim pesan"
-comments: true
+tag: tutorial
 ---
 
 Biasanya di WhatsApp versi Desktop/Web gk ada yang namanya tambah kontak atau ngirim pesan lewat WA nya, harus tambah kontak setelah itu baru bisa kirim pesan.

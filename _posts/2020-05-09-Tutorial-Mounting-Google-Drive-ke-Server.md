@@ -1,9 +1,7 @@
 ---
 layout: post
 title:  "Tutorial Mounting Google Drive ke Server"
-date:   2020-09-05
-excerpt: "Seperti halnya dengan flashdisk, tinggal colok pasang, namun berbeda."
-comments: true
+tag: tutorial
 ---
 
 Seperti halnya dengan flashdisk, tinggal colok pasang, namun berbeda.

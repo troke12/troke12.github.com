@@ -1,9 +1,7 @@
 ---
 layout: post
 title:  "Mikrotik To Discord"
-date:   2020-07-25
-excerpt: "Sending your mikrotik log to Discord!"
-comments: true
+tag: source-code project tutorial
 ---
 
 Sebuah eksperimen yang berawal dari kegabutan saya, nah sebenernya kita pernah mendengar hal yang namanya mengirim pesan melalui mikrotik ke telegram bukan? harusnya itu sudah banyak tutorial yang beredar di google, dulu juga saya menggunakannya untuk mendedeteksi siapa saja yang login melalui hotspot mikrotik saya lalu dikirim ke Telegram, namun karena jarang banget buka Telegram dan lebih berfokus menggunakan aplikasi yang bernama Discord, yap Discord adalah sebuah platform yang memungkinkan penggunanya untuk saling mengirim chat, gambar, audio, video, bahkan hingga share screen. 
