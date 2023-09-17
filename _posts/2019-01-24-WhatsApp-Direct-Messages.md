@@ -1,9 +1,8 @@
 ---
 layout: post
 title:  "WhatsApp Direct Messages"
-tag: tutorial
+tags: tutorial
 ---
-
 Biasanya di WhatsApp versi Desktop/Web gk ada yang namanya tambah kontak atau ngirim pesan lewat WA nya, harus tambah kontak setelah itu baru bisa kirim pesan.
 
 Nah saya disini mau ngasi tau caranya agar bisa ngirim pesan tanpa tambah kontak dulu, tapi pastikan kalian harus Login di WhatsApp versi Desktop/Web dulu. Setelah itu cantumkan Code ini di addressbar kalian

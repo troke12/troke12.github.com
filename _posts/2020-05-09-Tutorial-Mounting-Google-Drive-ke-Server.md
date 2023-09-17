@@ -1,9 +1,8 @@
 ---
 layout: post
 title:  "Tutorial Mounting Google Drive ke Server"
-tag: tutorial
+tags: tutorial
 ---
-
 Seperti halnya dengan flashdisk, tinggal colok pasang, namun berbeda.
 
 Saya akan memberi cara bagaimana mounting google drive di server atau non-server, disini server saya menggunakan OS Ubuntu 18.04, kalian bebas menggunakan apa aja, lalu yang harus dilakukan pertama adalah menginstall [google-drive-ocamlfuse](https://github.com/astrada/google-drive-ocamlfuse)
