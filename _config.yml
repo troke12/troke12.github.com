@@ -1,78 +1,62 @@
-# Site
-title:              Trokezi
-bio:                'I Made Ocy Darma Putra personal website'
-description:        "Made by Jekyll and theme by Moon"
-reading_time:       true
-words_per_minute:   200
-logo:               'assets/img/logo.png'
-background:         'assets/img/placeholder-big.jpg'
-tiled_bg:           false   # Set this true if you want to tile your background image, otherwise it will be covered
-locale:             en_US
-url:                https://troke.id
-email:              ochi@troke.id
+title: I Made Ocy Darma Putra
+author: troke12
+email: ochi@troke.id
+description: > # this means to ignore newlines until "show_exerpts:"
+  Hi, My name is I Made Ocy Darma Putra, just call me ocy or troke, currently i'm working on ITSEC Asia as System Administrator/DevOps R&D Team,
+  feel free to contact me by email or linkedin profile!
+show_excerpts: true # set to true to show excerpts on the homepage
 
-# Jekyll
-permalink:          /:title/
-markdown:           kramdown
-highlighter:        rouge
-kramdown:
-  auto_ids:         true
-  footnote_nr:      1
-  entity_output:    as_char
-  toc_levels:       1..6
-  enable_coderay:   false
-mathjax:            true
-sass:
-  sass_dir:         _sass
-  style:            compressed
+paginate: 1
+paginate_path: "/blog/page:num/"
 
-# Comments
-disqus_shortname:   troke12
+tag_permalink_style: pretty
+tag_page_layout: tag_page
+tag_page_dir: tag
 
-# Social
-# if you don't have any of social below, comment the line.
-#google:
-  #plus:            #username
-  #analytics:
-  #verify:
-  #ad-client:
-  #ad-slot:
-#bing-verify:
-#email:
-twitter:            darma_ochi
-#facebook:           username
-github-url:         troke12
-#stackoverflow:     123456/username   from a "http://stackoverflow.com/users/123456/username" link
-linkedin:           troke
-#xing:              username
-instagram:          troke_ochi
-#lastfm:            username
-#tumblr:             troke12
-#medium:            '@username'
-#pinterest:         username
-#foursquare:        username
-steam:              troke
-osu:                troke
-#dribbble:          username
-#youtube:           username
-#youtube-channel:   channel
-#soundcloud:        username
-#weibo:             username
-#flickr:            username
-#codepen:           username
-#keybase:           username
-#xmpp:              username@server.com
-#hackernews:        username
+# jekyll-dash date format
+# refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
+dash:
+  # the way how dates should be displayed
+  date_format: "%b %-d, %Y"
 
-# Gems
-gems:
-  - jekyll-mentions
-  - jekyll-feed
-  - jekyll-sitemap
-  - jekyll-gist
+  # (optional) discqus comment configuration
+  disqus:
+    shortname: troke12
 
-jekyll-mentions:
-    base_url: https://github.com
+  # generate social links in footer
+  # supported colors: green, red, orange, blue, cyan, pink, teal, yellow, indigo, purple
+  social_links:
+    - url: https://twitter.com/darma_ochi
+      icon: twitter-square
+      color: blue
+    - url: https://linkedin.com/in/troke
+      icon: linkedin-square
+      color: blue
+    - url: https://github.com/troke12
+      icon: github-square
+      color: purple
 
-# Exclude list
-exclude: [README.md, Gemfile, Gemfile.lock, node_modules, gulpfile.js, package.json, _site, src, vendor, CNAME, LICENSE, Rakefile]
+  # wether the author box should be displayed
+  show_author: true
+
+  # the animation speed of the scroll-in effect
+  animation_speed: 50
+
+  # wether to enable Right-to-Left support or not
+  rtl: false
+
+  # Replaces the default avatar provider (gravatar)
+  avatar_source: github
+  github_username: troke12
+  #avatar_source: local
+  #avatar_path: /assets/avatar.png
+
+# Build settings
+theme: jekyll-dash
+
+plugins:
+ - jekyll-feed
+ - jekyll-seo-tag
+ - jekyll-paginate
+ - liquid-md5
+ - jekyll/tagging

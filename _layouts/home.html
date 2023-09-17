@@ -1,50 +1,44 @@
 ---
-layout: compress
+layout: default
 ---
-<!DOCTYPE html>
-<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8"><![endif]-->
-<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9"><![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"><!--<![endif]-->
-<head>
-    {% include head.html %}
-</head>
-<body>
-    {% include nav.html %}
-    <!-- Header -->
-    <header class="header flex" role="banner">
-        <div class="container animated fadeIn">
-            <div class="row">
-                    <a href="{{ site.url }}">
-                        <img src="{{ site.logo }}" class="img-circle zoombtn animated rotateIn">
-                    </a>
-                    <h3 class="title">
-                        <a class="zoombtn" href="{{ site.url }}">
-                        	<p style="font-size:1.2rem;font-weight:300">{{ site.title }}</p>
-			            </a>
-                    </h3>
-                    <hr class="hr-line">
-                    <h3 class="title">
-                        <a href="{{ site.url }}">
-                        	<p style="font-size:1rem;font-weight:300">{{ site.bio }}</p>
-			            </a>
-                    </h3>
-                    {% include social-links.html %}
-                  <hr class="hr-line">
-                  <h3 class="title">
-                         <a class="btn zoombtn" href="{{ site.url }}/about">
-                         About
-                         </a>
-                         <a class="btn zoombtn" href="{{ site.url }}/posts">
-                         Posts
-                         </a>
-                         <a class="btn zoombtn" href="{{ site.url }}/projects">
-                         Projects
-                         </a>
-                 </h3>
+{% unless site.dash.show_author == false %}
+  {% include author.html %}
+{% endunless %}
+{{ content }}
+{% assign posts_count = paginator.posts | size %}
+{% if posts_count > 0 %}
+<h1>recent articles</h1>
+    <div class="post-links">
+      {% for post in paginator.posts %}
+        <div class="post-link-wrapper">
+          <a href="{{ post.url | relative_url }}" class="post-link">{{ post.title }}</a>
+          <div class="post-meta">
+
+            {% if site.plugins contains "jekyll/tagging" %}
+            <div class="post-tags">
+                {% for tag in post.tags %}
+                <a class="tag" href="{{ tag | tag_url }}">{{ tag }}</a>
+                {% endfor %}
             </div>
+            {% endif %}
+            {% if site.dash.date_format %}
+              {{ post.date | date: site.dash.date_format }}
+            {% else %}
+              {{ post.date | date: "%b %-d, %Y" }}
+            {% endif %}
+            {% if site.show_excerpts == true %}
+              <div class="post-excerpt">
+                {{ post.content | strip_html | truncatewords: 50 }}
+              </div>
+            {% endif %}
+          </div>
         </div>
-    </header>
-    {% include scripts.html %}
-</body>
-</html>
+      {% endfor %}
+    </div>
+
+    {% include pagination.html %}
+
+    {% include tagcloud.html %}
+{% else %}
+<h2>no posts yet.</h2>
+{% endif %}

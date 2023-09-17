@@ -1,9 +1,7 @@
 ---
 layout: post
 title:  "Cara Cek Kabel LAN Dengan Avometer"
-date:   2019-05-09
-excerpt: "Maksud Saya kali ini adalah untuk mengecek fungsi kabel LAN tanpa menggunakan LAN Tester dengan kondisi kabel yang tanpa RJ45 nya"
-comments: true
+tag: tutorial
 ---
 
 ## Persiapan
