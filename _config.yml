@@ -1,9 +1,12 @@
+url: https://troke.id
+
 title: I Made Ocy Darma Putra
 author: troke12
 email: ochi@troke.id
 description: > # this means to ignore newlines until "show_exerpts:"
-  Hi, My name is I Made Ocy Darma Putra, currently working at ITSEC Asia as System Administrator/DevOps for R&D Team
-  <br/>feel free to contact me by email or linkedin profile!
+  Hi, my name is I Made Ocy Darma Putra from Bali, Indonesia
+  <br/>Currently working at ITSEC Asia as System Administrator/DevOps for R&D Team in Jakarta, Indonesia
+  <br/>Feel free to contact me by email or linkedin profile!
 show_excerpts: false # set to true to show excerpts on the homepage
 
 paginate: 5
@@ -37,7 +40,7 @@ dash:
       color: purple
 
   # wether the author box should be displayed
-  show_author: true
+  show_author: false
 
   # the animation speed of the scroll-in effect
   animation_speed: 50
