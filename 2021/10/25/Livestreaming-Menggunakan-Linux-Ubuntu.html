@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Livestreaming Menggunakan Linux Ubuntu &#8211; I Made Ocy Darma Putra</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Livestreaming Menggunakan Linux Ubuntu | I Made Ocy Darma Putra</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="Livestreaming Menggunakan Linux Ubuntu" />
+<meta name="author" content="troke12" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Baik, kali ini kita akan membahas livestreaming, akhir-akhir ini banyak banget yang mencoba untuk meniti karir sebagai streamer, mostly akhir-akhir ini kita sering melihat trend Virtual Youtuber yang makin hari makin banyak bermunculan, tetapi tidak hanya itu juga, kalian mungkin pernah melihat di Youtube “lofi hip hop radio - beats to relax/study to” atau “jazz/lofi hip hop radio🌱chill beats to relax/study to [LIVE 24/7]” kan? nah channel tersebut diketahui sudah melakukan streaming dalam 24 jam bahkan sudah setahun lebih mereka melakukan penyiaran musik di kanal youtube, bagaimana bisa mereka melakukan itu? nah disini kita akan bahas caranya, perlu diperhatikan disini saya cuma akan membahas secara dasar dan tidak lebih karena ini juga hasil daripada eksperiment saya sendiri." />
+<meta property="og:description" content="Baik, kali ini kita akan membahas livestreaming, akhir-akhir ini banyak banget yang mencoba untuk meniti karir sebagai streamer, mostly akhir-akhir ini kita sering melihat trend Virtual Youtuber yang makin hari makin banyak bermunculan, tetapi tidak hanya itu juga, kalian mungkin pernah melihat di Youtube “lofi hip hop radio - beats to relax/study to” atau “jazz/lofi hip hop radio🌱chill beats to relax/study to [LIVE 24/7]” kan? nah channel tersebut diketahui sudah melakukan streaming dalam 24 jam bahkan sudah setahun lebih mereka melakukan penyiaran musik di kanal youtube, bagaimana bisa mereka melakukan itu? nah disini kita akan bahas caranya, perlu diperhatikan disini saya cuma akan membahas secara dasar dan tidak lebih karena ini juga hasil daripada eksperiment saya sendiri." />
+<link rel="canonical" href="https://troke.id/2021/10/25/Livestreaming-Menggunakan-Linux-Ubuntu.html" />
+<meta property="og:url" content="https://troke.id/2021/10/25/Livestreaming-Menggunakan-Linux-Ubuntu.html" />
+<meta property="og:site_name" content="I Made Ocy Darma Putra" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-10-25T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Livestreaming Menggunakan Linux Ubuntu" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"troke12"},"dateModified":"2021-10-25T00:00:00+00:00","datePublished":"2021-10-25T00:00:00+00:00","description":"Baik, kali ini kita akan membahas livestreaming, akhir-akhir ini banyak banget yang mencoba untuk meniti karir sebagai streamer, mostly akhir-akhir ini kita sering melihat trend Virtual Youtuber yang makin hari makin banyak bermunculan, tetapi tidak hanya itu juga, kalian mungkin pernah melihat di Youtube “lofi hip hop radio - beats to relax/study to” atau “jazz/lofi hip hop radio🌱chill beats to relax/study to [LIVE 24/7]” kan? nah channel tersebut diketahui sudah melakukan streaming dalam 24 jam bahkan sudah setahun lebih mereka melakukan penyiaran musik di kanal youtube, bagaimana bisa mereka melakukan itu? nah disini kita akan bahas caranya, perlu diperhatikan disini saya cuma akan membahas secara dasar dan tidak lebih karena ini juga hasil daripada eksperiment saya sendiri.","headline":"Livestreaming Menggunakan Linux Ubuntu","mainEntityOfPage":{"@type":"WebPage","@id":"https://troke.id/2021/10/25/Livestreaming-Menggunakan-Linux-Ubuntu.html"},"url":"https://troke.id/2021/10/25/Livestreaming-Menggunakan-Linux-Ubuntu.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" href="/assets/favicon.ico" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="https://troke.id/feed.xml" title="I Made Ocy Darma Putra" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">troke12<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        
+        
+        <a class="color-blue-hover" href="https://twitter.com/darma_ochi"><i class="fab fa-twitter-square"></i></a>
+        
+        
+        
+        <a class="color-blue-hover" href="https://linkedin.com/in/troke"><i class="fab fa-linkedin"></i></a>
+        
+        
+        
+        <a class="color-purple-hover" href="https://github.com/troke12"><i class="fab fa-github-square"></i></a>
+        
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    https://github.com/troke12.png
+" class="author-avatar" alt="Avatar" />
+<div class="description">Hi, my name is I Made Ocy Darma Putra from Bali, Indonesia <br/>Currently working at ITSEC Asia as System Administrator/DevOps for R&D Team in Jakarta, Indonesia <br/>Feel free to contact me by email or linkedin profile!
+</div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">Livestreaming Menggunakan Linux Ubuntu</h1>
+  
+  <div class="post-tags">
+      
+      <a class="tag" href="/tag/tutorial/">tutorial</a>
+      
+  </div>
+  
+  <div class="post-date">
+    Published on 25 Oct 2021
+    
+  </div>
+  
+  <p>Baik, kali ini kita akan membahas livestreaming, akhir-akhir ini banyak banget yang mencoba untuk meniti karir sebagai streamer, mostly akhir-akhir ini kita sering melihat trend Virtual Youtuber yang makin hari makin banyak bermunculan, tetapi tidak hanya itu juga, kalian mungkin pernah melihat di Youtube “lofi hip hop radio - beats to relax/study to” atau “jazz/lofi hip hop radio🌱chill beats to relax/study to [LIVE 24/7]” kan? nah channel tersebut diketahui sudah melakukan streaming dalam 24 jam bahkan sudah setahun lebih mereka melakukan penyiaran musik di kanal youtube, bagaimana bisa mereka melakukan itu? nah disini kita akan bahas caranya, perlu diperhatikan disini saya cuma akan membahas secara dasar dan tidak lebih karena ini juga hasil daripada eksperiment saya sendiri.</p>
+
+<h3 id="streaming-247">Streaming 24/7</h3>
+<p><img src="https://user-images.githubusercontent.com/10250068/138690302-9a2b92d3-29b2-49a8-b816-1a14bb4aaf18.png" alt="image" /></p>
+
+<p>Yap, ss diatas merupakan contoh dari streaming 24 jam.</p>
+
+<p>Secara umum tidak mungkin orang bisa melakukan livestreaming selama 24 jam lebih, kecuali orang tersebut punya niat untuk melakukannya. Cara paling efektif ialah menggunakan server, jika kalian punya server nganggur bisa kalian ikuti cara saya</p>
+
+<h3 id="instalasi">Instalasi</h3>
+
+<p><strong>Yang dibutuhkan :</strong></p>
+<ul>
+  <li>Ubuntu Server 18.04 (bebas)</li>
+  <li>ffmpeg</li>
+  <li>Youtube Account</li>
+  <li>Video Pekora Joget-Joget (Kalian bebas pakai apa aja)</li>
+</ul>
+
+<p>Perlu diperhatikan untuk server kalian tidak perlu membutuhkan spesifikasi yang tinggi dan kalau bisa carilah yang gratis, kalian bisa mendapatkannya di AlibabaCloud secara trial selama 12 bulan.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@ochirecloud:~# screenfetch
+                          ./+o+-       root@ochirecloud
+                  yyyyy- <span class="nt">-yyyyyy</span>+      OS: Ubuntu 18.04 bionic
+               ://+//////-yyyyyyo      Kernel: x86_64 Linux 4.15.0-45-generic
+           .++ .:/++++++/-.+sss/<span class="sb">`</span>      Uptime: 163d 6h 15m
+         .:++o:  /++++++++/:--:/-      Packages: 981
+        o:+o+:++.<span class="sb">`</span>..<span class="sb">```</span>.-/oo+++++/     Shell: bash 4.4.20
+       .:+o:+o/.          <span class="sb">`</span>+sssoo+/    CPU: Intel Xeon Platinum 8163 @ 2.5GHz
+  .++/+:+oo+o:<span class="sb">`</span>             /sssooo.   GPU: cirrusdrmfb
+ /+++//+:<span class="sb">`</span>oo+o               /::--:.   RAM: 525MiB / 985MiB
+ <span class="se">\+</span>/+o+++<span class="sb">`</span>o++o               ++////.
+  .++.o+++oo+:<span class="sb">`</span>             /dddhhh.
+       .+.o+oo:.          <span class="sb">`</span>oddhhhh+
+        <span class="se">\+</span>.++o+o<span class="sb">``</span>-<span class="sb">````</span>.:ohdhhhhh+
+         <span class="sb">`</span>:o+++ <span class="sb">`</span>ohhhhhhhhyo++os:
+           .o:<span class="sb">`</span>.syhhhhhhh/.oo++o<span class="sb">`</span>
+               /osyyyyyyo++ooo+++/
+                   <span class="sb">`````</span> +oo+++o<span class="se">\:</span>
+                          <span class="sb">`</span>oo++.
+root@ochirecloud:~#
+</code></pre></div></div>
+<p>Selanjutnya kita akan memulai pemasangan ffmpeg, buat yang belum tau ffmpeg ini adalah sebuah library dan program yang digunakan untuk menghandle video, audio dan media lainnya secara command line (CMIIW) untuk lebih lengkap bisa ke websitenya.</p>
+
+<p>Update dulu guys</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt-get update # update package dulu guys
+</code></pre></div></div>
+<p>Kemudian kita install ffmpeg</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt-get install ffmpeg
+</code></pre></div></div>
+<p>Tunggu hingga selesai lalu check ffmpeg menggunakan argument version</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ffmpeg -version
+</code></pre></div></div>
+<p>Output nya akan seperti ini</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ffmpeg -version
+ffmpeg version N-58069-gc253b180cb-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2021 the FFmpeg developers
+built with gcc 8 (Debian 8.3.0-6)
+configuration: --enable-gpl --enable-version3 --enable-static --disable-debug --disable-ffplay --disable-indev=sndio --disable-outdev=sndio --cc=gcc --enable-fontconfig --enable-frei0r --enable-gnutls --enable-gmp --enable-libgme --enable-gray --enable-libaom --enable-libfribidi --enable-libass --enable-libvmaf --enable-libfreetype --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-librubberband --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libvorbis --enable-libopus --enable-libtheora --enable-libvidstab --enable-libvo-amrwbenc --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libdav1d --enable-libxvid --enable-libzvbi --enable-libzimg
+libavutil      57.  2.100 / 57.  2.100
+libavcodec     59.  3.102 / 59.  3.102
+libavformat    59.  4.101 / 59.  4.101
+libavdevice    59.  0.100 / 59.  0.100
+libavfilter     8.  0.103 /  8.  0.103
+libswscale      6.  0.100 /  6.  0.100
+libswresample   4.  0.100 /  4.  0.100
+libpostproc    56.  0.100 / 56.  0.100
+</code></pre></div></div>
+<p>Jika kalian mengalami trouble ketika pemasangan ffmpeg, kalian bisa melakukan manual build dan mengatur PATH nya jika sudah selesai build ffmpeg secara manual.</p>
+
+<p>Selanjutnya kita akan akan pergi menuju Youtube Livestream Dashboard</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/138695806-66650a8c-21c4-4e0f-9f12-e31326802e8e.png" alt="image" /></p>
+
+<p>Pada bagian Streaming Settings kalian catat dulu stream key nya nanti format streaming menggunakan ffmpeg akan seperti ini</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rtmp://a.rtmp.youtube.com/live2/STREAMING_KEY
+</code></pre></div></div>
+<p>Untuk judul, thumbnail dan lain-lain kalian persiapkan dulu hingga selesai.</p>
+
+<p>Lalu kita akan coba melakukan streaming menggunakan ffmpeg</p>
+
+<p>Ketik ini pada terminal</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffmpeg -re -stream_loop -1 -i pekora.mp4 -c copy -f flv -flvflags no_duration_filesize rtmp://a.rtmp.youtube.com/live2/STREAMING_KEY
+</code></pre></div></div>
+
+<p>Perlu diperhatikan ini adalah basic command dari ffmpeg untuk melakukan streaming ke youtube, disana terlihat <code class="language-plaintext highlighter-rouge">pekora.mp4</code> yang sudah saya siapkan dan ada options <code class="language-plaintext highlighter-rouge">-stream_loop</code> yang artinya video <code class="language-plaintext highlighter-rouge">pekora.mp4</code> akan diputar secara berulang-ulang, untuk options lainnya masih banyak yang belum saya tau, jadi saya cuma menjelaskan yang saya tau aja 😄</p>
+
+<p>Tampilan outputnya akan jadi seperti ini :</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/138698459-da751a2f-dbc1-493c-b977-83b8a7303ddb.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/138698846-9f38de81-e52b-409e-b25c-d3bb8398f67f.png" alt="image" /></p>
+
+<h3 id="hasil-pengujian-dari-saya">Hasil pengujian dari saya</h3>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/138699140-5412ab7e-d892-4ccf-a7b1-70c858652528.png" alt="image" /></p>
+
+<p>Pada streaming pertama saya gagal mencapai lebih dari 1 jam, karena pada opsi ffmpeg tidak berisi <code class="language-plaintext highlighter-rouge">no_duration_filesize</code> kalau ndak isi bakalan mentok di satu jam dan stream otomatis di stop.</p>
+
+<p>Pada streaming kedua saya berhasil mencapai 65 jam dan itu juga di stop otomatis oleh ffmpeg sendiri karena error, errornya sampai sekarang masih belum saya telusuri lagi tapi bagi saya ini sudah lebih dari cukup.</p>
+
+<p>Itu saja mungkin dari saya, semoga artikel ini bermanfaat bagi kalian! terima kasih sudah membaca!</p>
+
+</div>
+
+
+<div class="comments">
+<div id="disqus_thread"></div>
+<script>
+ var disqus_config = function () {
+     this.page.url = 'https://troke.id/2021/10/25/Livestreaming-Menggunakan-Linux-Ubuntu.html';
+     this.page.identifier = '/2021/10/25/Livestreaming-Menggunakan-Linux-Ubuntu';
+     this.page.title = 'Livestreaming Menggunakan Linux Ubuntu';
+ };
+
+ (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+     var d = document, s = d.createElement('script');
+
+     s.src = '//troke12.disqus.com/embed.js';
+
+     s.setAttribute('data-timestamp', +new Date());
+     (d.head || d.body).appendChild(s);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2024/05/17/Download-File-dari-GCP-Menggunakan-Docker.html">
+            Download File dari GCP Menggunakan Docker
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/08/01/Pengalaman-Menggunakan-Mimosa-C5x.html">
+            Pengalaman Menggunakan Mimosa C5x
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2020/07/25/Mikrotik-To-Discord.html">
+            Mikrotik To Discord
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+  <h2>all tags</h2>
+  <div class="tag-cloud"><a href="/tag/docker/" class="set-1">docker</a> <a href="/tag/hobby/" class="set-1">hobby</a> <a href="/tag/network/" class="set-1">network</a> <a href="/tag/project/" class="set-4">project</a> <a href="/tag/review/" class="set-1">review</a> <a href="/tag/source-code/" class="set-4">source-code</a> <a href="/tag/tools/" class="set-1">tools</a> <a href="/tag/tutorial/" class="set-5">tutorial</a></div>
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>

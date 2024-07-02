@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Membuat Static Routing Di Mikrotik &#8211; I Made Ocy Darma Putra</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Membuat Static Routing Di Mikrotik | I Made Ocy Darma Putra</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="Membuat Static Routing Di Mikrotik" />
+<meta name="author" content="troke12" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Persiapan Internet Connection dari ISP Mikrotik Kabel LAN" />
+<meta property="og:description" content="Persiapan Internet Connection dari ISP Mikrotik Kabel LAN" />
+<link rel="canonical" href="https://troke.id/2019/08/01/Membuat-Static-Routing-Di-Mikrotik.html" />
+<meta property="og:url" content="https://troke.id/2019/08/01/Membuat-Static-Routing-Di-Mikrotik.html" />
+<meta property="og:site_name" content="I Made Ocy Darma Putra" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-08-01T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Membuat Static Routing Di Mikrotik" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"troke12"},"dateModified":"2019-08-01T00:00:00+00:00","datePublished":"2019-08-01T00:00:00+00:00","description":"Persiapan Internet Connection dari ISP Mikrotik Kabel LAN","headline":"Membuat Static Routing Di Mikrotik","mainEntityOfPage":{"@type":"WebPage","@id":"https://troke.id/2019/08/01/Membuat-Static-Routing-Di-Mikrotik.html"},"url":"https://troke.id/2019/08/01/Membuat-Static-Routing-Di-Mikrotik.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" href="/assets/favicon.ico" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="https://troke.id/feed.xml" title="I Made Ocy Darma Putra" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">troke12<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        
+        
+        <a class="color-blue-hover" href="https://twitter.com/darma_ochi"><i class="fab fa-twitter-square"></i></a>
+        
+        
+        
+        <a class="color-blue-hover" href="https://linkedin.com/in/troke"><i class="fab fa-linkedin"></i></a>
+        
+        
+        
+        <a class="color-purple-hover" href="https://github.com/troke12"><i class="fab fa-github-square"></i></a>
+        
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    https://github.com/troke12.png
+" class="author-avatar" alt="Avatar" />
+<div class="description">Hi, my name is I Made Ocy Darma Putra from Bali, Indonesia <br/>Currently working at ITSEC Asia as System Administrator/DevOps for R&D Team in Jakarta, Indonesia <br/>Feel free to contact me by email or linkedin profile!
+</div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">Membuat Static Routing Di Mikrotik</h1>
+  
+  <div class="post-tags">
+      
+      <a class="tag" href="/tag/tutorial/">tutorial</a>
+      
+      <a class="tag" href="/tag/network/">network</a>
+      
+  </div>
+  
+  <div class="post-date">
+    Published on 01 Aug 2019
+    
+  </div>
+  
+  <h3 id="persiapan">Persiapan</h3>
+<ul>
+  <li>Internet Connection dari ISP</li>
+  <li>Mikrotik</li>
+  <li>Kabel LAN</li>
+</ul>
+
+<h2 id="penjelasan">Penjelasan</h2>
+<p>Dengan menggunakan metode Static Routing, IP yang didapatkan oleh mikrotik tidak akan berubah-ubah, Umumnya orang lain lebih memilih menggunakan Dynamic Routing daripada menggunakan Static Routing karena lebih gampang menggunakan Dynamic, tapi Static Routing juga sangat gampang dilakukan, oleh karena itu saya disini akan membuat static routing yang mudah dipahami oleh pemula</p>
+
+<h3 id="pertama">Pertama</h3>
+<p>Siapkan Mikrotik apapun yg kalian punya (Disini saya memakai <strong>RB951Ui-2ND</strong>), nah selanjutnya kabel lan yg kalian sudah siapkan pasang di ether1 (Port1) dan ether2 (Port2), untuk Port1 itu jalur masuknya Internet dari Modem ISP, contoh : kalian punya Modem indihome, kabel lan sisi pertama untuk Indihome di port lan manapun kalian boleh pasang, nah sedangkan sisi kedua kabel lan kalian masuk ke Port1 Mikrotik kalian. Nah untuk Ether2 itu untuk Lokal Kalian, jadi kalian pasang ke mikrotik (ether2) lalu ke laptop.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606289857442217994/IMG_2275.JPG" alt="gambar1" /></p>
+
+<h3 id="kedua">Kedua</h3>
+<p>Nah Kalian harus masuk ke mikrotiknya terlebih dahulu menggunakan Winbox, pastikan Mikrotiknya sudah dalam keadaan reset total, jadi kita mulai dari 0 dulu. Yang harus dilakukan disini adalah mengetahui IP Modem dan segmentnya, jadi sebelum itu kita melakukan test dulu dari Modem ke laptop, kalau laptop kita dapat ip <em>192.168.1.3</em> berarti nanti di dalam Mikrotik kita Tambahkan IP Address <em>192.168.1.4</em> Interfacenya ether1, sebagai contoh disini IP Modem saya adalah <em>192.168.50.xxx</em> jadi saya putuskan di Addresses saya tambah <em>192.168.50.62/24</em> (kenapa 62? <del>karena negara kita adalah +62</del> karena disini kita bebas menggunakan berapapun itu asal tidak terjadi bentrok dengan ip yg lain, pastikan ip itu tidak ada yg menggunakannnya.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302918194495501/Screenshot_96.png" alt="gambar2" /></p>
+
+<h3 id="ketiga">Ketiga</h3>
+<p>Lalu kalian masuk ke IP &gt; Routes, disini sangat penting karena kita akan memasukan Gateway modem kita agar bisa mendapatkan akses dari modem ke mikrotik, simplenya kita masukkan kunci ke gembok. Nah IP Gateway modem saya disini adalah 192.168.50.1 jika segment ip kalian 192.168.1.xxx berarti pakai 192.168.1.1 untuk gateway nya, Pastikan nanti gateway yg kalian masukkan itu reachable karena kalau tidak reachable kalian tidak akan bisa mendapatkan akses internet.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302919658307606/Screenshot_97.png" alt="gambar3" /></p>
+
+<h3 id="keempat">Keempat</h3>
+<p>Setelah itu masuk ke IP &gt; Firewall, di Firewall pilih tab NAT lalu tambahkan seperti ini <strong>Chain : srcnat, Out.Interface : ether1</strong> (ini harus teliti, jika tidak ip dari gateway masih akan terblock oleh mikrotik, pastikan disini memilih interface yg dimana interface nya tersebut adalah sumber dari Internet kalian, lalu pada Tab <em>Action</em> kalian pilih <strong>masquerade</strong> lalu klik Apply dan OK.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302925500710912/Screenshot_98.png" alt="gambar4" />
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302930462572564/Screenshot_99.png" alt="gambar41" /></p>
+
+<h3 id="kelima">Kelima</h3>
+<p>Setelah itu kalian buka New Terminal dan ping 8.8.8.8, jika bisa… artinya kalian sudah bisa memiliki akses internet dari Modem ke mikrotik kalian.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302935516839947/Screenshot_100.png" alt="gambar5" /></p>
+
+<h3 id="keenam">Keenam</h3>
+<p>Selanjutnya kita akan menyalurkan internet tersebut ke Laptop, disini Ether2 yg sudah dipasangkan kabel ke Laptop kalian skrng kita setting agar bisa mendapatkan akses internet, Jadi kita kembali lagi ke <strong>IP -&gt; Addresses</strong> disini kalian bebas menggunakan IP apapun, Saya disini menggunakan 192.168.2.1/24 biar lebih simple dan pastikan interface nya adalah <strong>ether2</strong>.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302940096888872/Screenshot_101.png" alt="gambar6" /></p>
+
+<h3 id="ketujuh">Ketujuh</h3>
+<p>Lalu masuk ke <strong>IP -&gt; DHCP Server</strong> disini Fungsi DHCP Server, bagi kalian yang belum tau Fungsi dari DHCP Server ialah membuat IP yang tadi kita buat di Addresses dibagi-bagi/disebar oleh DHCP Server ini, jadi kalian hanya perlu membuatnya dengan mengklik tombol <strong>DHCP Setup</strong> dengan step seperti ini : 
+DHCP Setup &gt; interface = ether2 &gt; DHCP Addresses Space Next aja &gt; Gateway DHCP Network Next aja &gt; Addresses to Give out Next aja &gt; DNS Server (bebas isi 8.8.8.8 atau 1.1.1.1 boleh) &gt; Lease Time Next aja &gt; Finish
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302945071464449/Screenshot_102.png" alt="gambar7" /></p>
+
+<h3 id="kedelapan">Kedelapan</h3>
+<p>Setelah selesai membuat DHCP Server, kalian boleh mencabut kabel LAN kalian dari Mikrotik ke Laptop lalu pasang kembali, atau dengan cara Disable Enable Interface Network di Control Panel &gt; Network and Internet &gt; Network Connections, disini saya menggunakan disable dan enable saja karena males cabut hehehe.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302950712934420/Screenshot_103.png" alt="gambar8" />
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302956597280769/Screenshot_104.png" alt="gambar81" /></p>
+
+<h3 id="kesembilan">Kesembilan</h3>
+<p>Jika sudah terbuhung tandanya akan seperti digambar ini, nanti di Network and Sharing Center muncul <strong>Internet</strong> yang artinya sudah terhubung dengan koneksi Mikrotik ke laptop dan lakukan test ping di CMD.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302960816881664/Screenshot_105.png" alt="gambar9" /></p>
+
+<h3 id="kesepuluh">Kesepuluh</h3>
+<p>Nah itu saja tutorial dari saya, mudah-mudahan bermanfaat bagi kawan-kawan semua dan mohon maaf bila ada salah dan tolong dibenarkan jika saya salah, sekian dan Terima kasih sudah membaca artikel saya :)</p>
+
+</div>
+
+
+<div class="comments">
+<div id="disqus_thread"></div>
+<script>
+ var disqus_config = function () {
+     this.page.url = 'https://troke.id/2019/08/01/Membuat-Static-Routing-Di-Mikrotik.html';
+     this.page.identifier = '/2019/08/01/Membuat-Static-Routing-Di-Mikrotik';
+     this.page.title = 'Membuat Static Routing Di Mikrotik';
+ };
+
+ (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+     var d = document, s = d.createElement('script');
+
+     s.src = '//troke12.disqus.com/embed.js';
+
+     s.setAttribute('data-timestamp', +new Date());
+     (d.head || d.body).appendChild(s);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2024/05/17/Download-File-dari-GCP-Menggunakan-Docker.html">
+            Download File dari GCP Menggunakan Docker
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/08/01/Pengalaman-Menggunakan-Mimosa-C5x.html">
+            Pengalaman Menggunakan Mimosa C5x
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2021/10/25/Livestreaming-Menggunakan-Linux-Ubuntu.html">
+            Livestreaming Menggunakan Linux Ubuntu
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+  <h2>all tags</h2>
+  <div class="tag-cloud"><a href="/tag/docker/" class="set-1">docker</a> <a href="/tag/hobby/" class="set-1">hobby</a> <a href="/tag/network/" class="set-1">network</a> <a href="/tag/project/" class="set-4">project</a> <a href="/tag/review/" class="set-1">review</a> <a href="/tag/source-code/" class="set-4">source-code</a> <a href="/tag/tools/" class="set-1">tools</a> <a href="/tag/tutorial/" class="set-5">tutorial</a></div>
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>

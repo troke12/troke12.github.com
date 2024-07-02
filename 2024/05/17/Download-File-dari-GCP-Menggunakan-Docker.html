@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Download File dari GCP Menggunakan Docker &#8211; I Made Ocy Darma Putra</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Download File dari GCP Menggunakan Docker | I Made Ocy Darma Putra</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="Download File dari GCP Menggunakan Docker" />
+<meta name="author" content="troke12" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Penjelasan Sudah lama tidak menulis, kali ini saya akan mencoba membuat sebuah tutorial dimana kondisi ini terjadi jika kalian menggunakan Google Cloud Storage (Bucket) dan ingin mendownload file di dalam bucket namun bucket tersebut private." />
+<meta property="og:description" content="Penjelasan Sudah lama tidak menulis, kali ini saya akan mencoba membuat sebuah tutorial dimana kondisi ini terjadi jika kalian menggunakan Google Cloud Storage (Bucket) dan ingin mendownload file di dalam bucket namun bucket tersebut private." />
+<link rel="canonical" href="https://troke.id/2024/05/17/Download-File-dari-GCP-Menggunakan-Docker.html" />
+<meta property="og:url" content="https://troke.id/2024/05/17/Download-File-dari-GCP-Menggunakan-Docker.html" />
+<meta property="og:site_name" content="I Made Ocy Darma Putra" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-05-17T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Download File dari GCP Menggunakan Docker" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"troke12"},"dateModified":"2024-05-17T00:00:00+00:00","datePublished":"2024-05-17T00:00:00+00:00","description":"Penjelasan Sudah lama tidak menulis, kali ini saya akan mencoba membuat sebuah tutorial dimana kondisi ini terjadi jika kalian menggunakan Google Cloud Storage (Bucket) dan ingin mendownload file di dalam bucket namun bucket tersebut private.","headline":"Download File dari GCP Menggunakan Docker","mainEntityOfPage":{"@type":"WebPage","@id":"https://troke.id/2024/05/17/Download-File-dari-GCP-Menggunakan-Docker.html"},"url":"https://troke.id/2024/05/17/Download-File-dari-GCP-Menggunakan-Docker.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" href="/assets/favicon.ico" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="https://troke.id/feed.xml" title="I Made Ocy Darma Putra" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">troke12<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        
+        
+        <a class="color-blue-hover" href="https://twitter.com/darma_ochi"><i class="fab fa-twitter-square"></i></a>
+        
+        
+        
+        <a class="color-blue-hover" href="https://linkedin.com/in/troke"><i class="fab fa-linkedin"></i></a>
+        
+        
+        
+        <a class="color-purple-hover" href="https://github.com/troke12"><i class="fab fa-github-square"></i></a>
+        
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    https://github.com/troke12.png
+" class="author-avatar" alt="Avatar" />
+<div class="description">Hi, my name is I Made Ocy Darma Putra from Bali, Indonesia <br/>Currently working at ITSEC Asia as System Administrator/DevOps for R&D Team in Jakarta, Indonesia <br/>Feel free to contact me by email or linkedin profile!
+</div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">Download File dari GCP Menggunakan Docker</h1>
+  
+  <div class="post-tags">
+      
+      <a class="tag" href="/tag/docker/">docker</a>
+      
+      <a class="tag" href="/tag/tutorial/">tutorial</a>
+      
+  </div>
+  
+  <div class="post-date">
+    Published on 17 May 2024
+    
+  </div>
+  
+  <h3 id="penjelasan">Penjelasan</h3>
+<p>Sudah lama tidak menulis, kali ini saya akan mencoba membuat sebuah tutorial dimana kondisi ini terjadi jika kalian menggunakan Google Cloud Storage (Bucket) dan ingin mendownload file di dalam bucket namun bucket tersebut private.</p>
+
+<p>Bucket GCP ini mirip dengan AWS S3, dimana kita bisa download file tersebut secara langsung, akan tetapi dengan <em>policy</em> tertentu membuat bucket itu hanya bisa diakses ketika kita sudah memiliki <strong>secret</strong> dan <strong>access key</strong>.</p>
+
+<p>Kasus di dalam GCP ini sangat bikin saya pusing awalnya, dikarenakan saya sendiri ingin mengunduh sebuah file di dalam bucket namun bucket yang saya punya memiliki policy private, berbeda kondisinya jika bucket nya public saya tidak pusing-pusing amat karena tinggal unduh saja melalui link URL yang tersedia, jadi saya harus menggunakan sebuah Client Desktop seperti CyberDuck atau S3 Browser untuk mengunduhnya.</p>
+
+<p>Namun bagaimana jika memiliki case yang dimana sebuah services membutuhkan file tersebut dan digabungkan di dalam docker? sebagai contoh kasus: saya memiliki sebuah backend service dimana dia membutuhkan sebuah data jika mau dijalankan servicenya, tetapi saya tidak mau ketika melakukan deployment ke server / kubernetes saya harus manual mentransfer data itu, apalagi ketika di deploy ke kubernetes sangat repot sekali jika harus mengunduh dan mengcopy file tersebut ke dalam pods.</p>
+
+<h3 id="solusi">Solusi</h3>
+<p>Dari kasus itu saya melakukan berbagai macam percobaan mulai dari membuat sebuah aplikasi Golang untuk mengunduh file dari GCP, namun gagal karena authentikasi ke GCP ternyata sangat sulit walaupun mengandalkan API nya, saya akhirnya memutuskan untuk mencoba menggunakan aplikasi buatan mereka yaitu <a href="https://cloud.google.com/storage/docs/gsutil">gsutil</a>. Tool ini berguna untuk mengakses cloud storage kita.</p>
+
+<p>Lalu bagaimana caranya mengintegrasikan dengan docker? caranya cukup mudah ternyata, jika kita perhatikan dokumentasi pada instalasi gsutil, kita bisa menerapkan step tersebut di dalam Dockerfile kita</p>
+
+<p>Hal yang harus kita miliki terlebih dahulu ialah :</p>
+<ul>
+  <li>Bucket</li>
+  <li><a href="https://cloud.google.com/storage/docs/authentication/managing-hmackeys#create">HMAC Key</a></li>
+</ul>
+
+<p>Memodifikasi Dockerfile yang sudah ada, kali ini saya coba memodifkasi backend golang saya</p>
+
+<div class="language-Dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> golang</span>
+<span class="k">WORKDIR</span><span class="s"> /app</span>
+<span class="k">COPY</span><span class="s"> go.mod ./</span>
+<span class="k">COPY</span><span class="s"> go.sum ./</span>
+<span class="k">RUN </span>go mod download
+<span class="k">COPY</span><span class="s"> *.go ./</span>
+<span class="k">RUN </span>go build <span class="nt">-o</span> /docker-go-web
+<span class="k">EXPOSE</span><span class="s"> 8080</span>
+<span class="k">CMD</span><span class="s"> [ "/docker-go-web" ]</span>
+</code></pre></div></div>
+
+<p>Kita akan menggunakan metode multi-stage pada docker, pastikan <code class="language-plaintext highlighter-rouge">nama_file</code> dan path sudah sesuai keinginan.</p>
+
+<div class="language-Dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="w"> </span><span class="s">ubuntu:latest</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s">download</span>
+<span class="k">RUN </span>apt-get update
+<span class="k">RUN </span>apt-get <span class="nb">install</span> <span class="se">\
+</span>    apt-transport-https <span class="se">\
+</span>    ca-certificates <span class="se">\
+</span>    gnupg <span class="se">\
+</span>    nano <span class="se">\
+</span>    curl <span class="nt">-y</span>
+<span class="k">RUN </span>curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg <span class="nt">--dearmor</span> <span class="nt">-o</span> /usr/share/keyrings/cloud.google.gpg
+<span class="k">RUN </span><span class="nb">echo</span> <span class="s2">"deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main"</span> | <span class="nb">tee</span> <span class="nt">-a</span> /etc/apt/sources.list.d/google-cloud-sdk.list
+<span class="k">RUN </span>apt-get update <span class="o">&amp;&amp;</span> apt-get <span class="nb">install </span>google-cloud-cli <span class="nt">-y</span>
+<span class="k">COPY</span><span class="s"> .boto /root/.boto</span>
+<span class="k">ENV</span><span class="s"> BOTO_CONFIG=/root/.boto</span>
+<span class="k">RUN </span>gsutil <span class="nb">cp</span> <span class="nt">-n</span> gs://bucket_name/folder/nama_file.zip /root/.
+
+<span class="k">FROM</span><span class="s"> golang</span>
+<span class="k">WORKDIR</span><span class="s"> /app</span>
+<span class="k">COPY</span><span class="s"> go.mod ./</span>
+<span class="k">COPY</span><span class="s"> go.sum ./</span>
+<span class="k">RUN </span>go mod download
+<span class="k">COPY</span><span class="s"> *.go ./</span>
+<span class="k">COPY</span><span class="s"> --from=download /root/nama_file.zip /path/to/nama_file.zip</span>
+<span class="k">RUN </span>go build <span class="nt">-o</span> /docker-go-web
+<span class="k">EXPOSE</span><span class="s"> 8080</span>
+<span class="k">CMD</span><span class="s"> [ "/docker-go-web" ]</span>
+</code></pre></div></div>
+<p>Jangan lupa kita membuat <code class="language-plaintext highlighter-rouge">.boto</code> file yaitu sebuah config gsutil yang nantinya akan di copy ke docker untuk menjalankan gsutil. Pastikan access dan secret sudah dibuat sebelumnya menggunakan HMAC Keys</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Credentials]
+gs_access_key_id = MASUKAN_ACCESS_KEY
+gs_secret_access_key = MASUKAN_SECRET_ACCESS_KEY
+
+[Boto]
+https_validate_certificates = True
+
+[GSUtil]
+content_language = en
+default_api_version = 1
+</code></pre></div></div>
+<p>Kemudian build docker backend kita lalu coba running dan check hasilnya dengan cara <code class="language-plaintext highlighter-rouge">docker exec -it nama_container ls -l /path/to/file</code></p>
+
+<h3 id="summary">Summary</h3>
+<p>Sangat mudah bukan mengakali GCP ? ini yang saya rasakan ketika sudah berurusan dengan GCP, memang bagus authentication berlapis lapis tapi itu sangat menyulitkan kita as developer, berbeda dengan S3 AWS, MiniO yang mudah diintegrasikan menggunakan API Library mereka sendiri.</p>
+
+<p>Dengan menggunakan multi-stage tadi juga tidak mengikutsertakan secret key dan access key ke step terakhir, jadi bisa dipastikan aman dan tidak membuat size docker kalian boncos terkecuali file yg tadi di download dari GCP bisa 10GB sama aja boncos hahahaha.</p>
+
+<p>Begitu juga dengan deployment pada kubernetes, tidak perlu manual lagi untuk mengunggah file ke pods.</p>
+
+<p>Sekian terima kasih karena sudah membaca cerita singkat saya, semoga bermanfaat.</p>
+
+</div>
+
+
+<div class="comments">
+<div id="disqus_thread"></div>
+<script>
+ var disqus_config = function () {
+     this.page.url = 'https://troke.id/2024/05/17/Download-File-dari-GCP-Menggunakan-Docker.html';
+     this.page.identifier = '/2024/05/17/Download-File-dari-GCP-Menggunakan-Docker';
+     this.page.title = 'Download File dari GCP Menggunakan Docker';
+ };
+
+ (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+     var d = document, s = d.createElement('script');
+
+     s.src = '//troke12.disqus.com/embed.js';
+
+     s.setAttribute('data-timestamp', +new Date());
+     (d.head || d.body).appendChild(s);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2022/08/01/Pengalaman-Menggunakan-Mimosa-C5x.html">
+            Pengalaman Menggunakan Mimosa C5x
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2021/10/25/Livestreaming-Menggunakan-Linux-Ubuntu.html">
+            Livestreaming Menggunakan Linux Ubuntu
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2020/07/25/Mikrotik-To-Discord.html">
+            Mikrotik To Discord
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+  <h2>all tags</h2>
+  <div class="tag-cloud"><a href="/tag/docker/" class="set-1">docker</a> <a href="/tag/hobby/" class="set-1">hobby</a> <a href="/tag/network/" class="set-1">network</a> <a href="/tag/project/" class="set-4">project</a> <a href="/tag/review/" class="set-1">review</a> <a href="/tag/source-code/" class="set-4">source-code</a> <a href="/tag/tools/" class="set-1">tools</a> <a href="/tag/tutorial/" class="set-5">tutorial</a></div>
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>

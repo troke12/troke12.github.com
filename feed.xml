@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="https://troke.id/feed.xml" rel="self" type="application/atom+xml" /><link href="https://troke.id/" rel="alternate" type="text/html" /><updated>2024-07-02T06:07:30+00:00</updated><id>https://troke.id/feed.xml</id><title type="html">I Made Ocy Darma Putra</title><subtitle>Hi, my name is I Made Ocy Darma Putra from Bali, Indonesia &lt;br/&gt;Currently working at ITSEC Asia as System Administrator/DevOps for R&amp;D Team in Jakarta, Indonesia &lt;br/&gt;Feel free to contact me by email or linkedin profile!
+</subtitle><author><name>troke12</name></author><entry><title type="html">Download File dari GCP Menggunakan Docker</title><link href="https://troke.id/2024/05/17/Download-File-dari-GCP-Menggunakan-Docker.html" rel="alternate" type="text/html" title="Download File dari GCP Menggunakan Docker" /><published>2024-05-17T00:00:00+00:00</published><updated>2024-05-17T00:00:00+00:00</updated><id>https://troke.id/2024/05/17/Download-File-dari-GCP-Menggunakan-Docker</id><content type="html" xml:base="https://troke.id/2024/05/17/Download-File-dari-GCP-Menggunakan-Docker.html"><![CDATA[<h3 id="penjelasan">Penjelasan</h3>
+<p>Sudah lama tidak menulis, kali ini saya akan mencoba membuat sebuah tutorial dimana kondisi ini terjadi jika kalian menggunakan Google Cloud Storage (Bucket) dan ingin mendownload file di dalam bucket namun bucket tersebut private.</p>
+
+<p>Bucket GCP ini mirip dengan AWS S3, dimana kita bisa download file tersebut secara langsung, akan tetapi dengan <em>policy</em> tertentu membuat bucket itu hanya bisa diakses ketika kita sudah memiliki <strong>secret</strong> dan <strong>access key</strong>.</p>
+
+<p>Kasus di dalam GCP ini sangat bikin saya pusing awalnya, dikarenakan saya sendiri ingin mengunduh sebuah file di dalam bucket namun bucket yang saya punya memiliki policy private, berbeda kondisinya jika bucket nya public saya tidak pusing-pusing amat karena tinggal unduh saja melalui link URL yang tersedia, jadi saya harus menggunakan sebuah Client Desktop seperti CyberDuck atau S3 Browser untuk mengunduhnya.</p>
+
+<p>Namun bagaimana jika memiliki case yang dimana sebuah services membutuhkan file tersebut dan digabungkan di dalam docker? sebagai contoh kasus: saya memiliki sebuah backend service dimana dia membutuhkan sebuah data jika mau dijalankan servicenya, tetapi saya tidak mau ketika melakukan deployment ke server / kubernetes saya harus manual mentransfer data itu, apalagi ketika di deploy ke kubernetes sangat repot sekali jika harus mengunduh dan mengcopy file tersebut ke dalam pods.</p>
+
+<h3 id="solusi">Solusi</h3>
+<p>Dari kasus itu saya melakukan berbagai macam percobaan mulai dari membuat sebuah aplikasi Golang untuk mengunduh file dari GCP, namun gagal karena authentikasi ke GCP ternyata sangat sulit walaupun mengandalkan API nya, saya akhirnya memutuskan untuk mencoba menggunakan aplikasi buatan mereka yaitu <a href="https://cloud.google.com/storage/docs/gsutil">gsutil</a>. Tool ini berguna untuk mengakses cloud storage kita.</p>
+
+<p>Lalu bagaimana caranya mengintegrasikan dengan docker? caranya cukup mudah ternyata, jika kita perhatikan dokumentasi pada instalasi gsutil, kita bisa menerapkan step tersebut di dalam Dockerfile kita</p>
+
+<p>Hal yang harus kita miliki terlebih dahulu ialah :</p>
+<ul>
+  <li>Bucket</li>
+  <li><a href="https://cloud.google.com/storage/docs/authentication/managing-hmackeys#create">HMAC Key</a></li>
+</ul>
+
+<p>Memodifikasi Dockerfile yang sudah ada, kali ini saya coba memodifkasi backend golang saya</p>
+
+<div class="language-Dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> golang</span>
+<span class="k">WORKDIR</span><span class="s"> /app</span>
+<span class="k">COPY</span><span class="s"> go.mod ./</span>
+<span class="k">COPY</span><span class="s"> go.sum ./</span>
+<span class="k">RUN </span>go mod download
+<span class="k">COPY</span><span class="s"> *.go ./</span>
+<span class="k">RUN </span>go build <span class="nt">-o</span> /docker-go-web
+<span class="k">EXPOSE</span><span class="s"> 8080</span>
+<span class="k">CMD</span><span class="s"> [ "/docker-go-web" ]</span>
+</code></pre></div></div>
+
+<p>Kita akan menggunakan metode multi-stage pada docker, pastikan <code class="language-plaintext highlighter-rouge">nama_file</code> dan path sudah sesuai keinginan.</p>
+
+<div class="language-Dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="w"> </span><span class="s">ubuntu:latest</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s">download</span>
+<span class="k">RUN </span>apt-get update
+<span class="k">RUN </span>apt-get <span class="nb">install</span> <span class="se">\
+</span>    apt-transport-https <span class="se">\
+</span>    ca-certificates <span class="se">\
+</span>    gnupg <span class="se">\
+</span>    nano <span class="se">\
+</span>    curl <span class="nt">-y</span>
+<span class="k">RUN </span>curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg <span class="nt">--dearmor</span> <span class="nt">-o</span> /usr/share/keyrings/cloud.google.gpg
+<span class="k">RUN </span><span class="nb">echo</span> <span class="s2">"deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main"</span> | <span class="nb">tee</span> <span class="nt">-a</span> /etc/apt/sources.list.d/google-cloud-sdk.list
+<span class="k">RUN </span>apt-get update <span class="o">&amp;&amp;</span> apt-get <span class="nb">install </span>google-cloud-cli <span class="nt">-y</span>
+<span class="k">COPY</span><span class="s"> .boto /root/.boto</span>
+<span class="k">ENV</span><span class="s"> BOTO_CONFIG=/root/.boto</span>
+<span class="k">RUN </span>gsutil <span class="nb">cp</span> <span class="nt">-n</span> gs://bucket_name/folder/nama_file.zip /root/.
+
+<span class="k">FROM</span><span class="s"> golang</span>
+<span class="k">WORKDIR</span><span class="s"> /app</span>
+<span class="k">COPY</span><span class="s"> go.mod ./</span>
+<span class="k">COPY</span><span class="s"> go.sum ./</span>
+<span class="k">RUN </span>go mod download
+<span class="k">COPY</span><span class="s"> *.go ./</span>
+<span class="k">COPY</span><span class="s"> --from=download /root/nama_file.zip /path/to/nama_file.zip</span>
+<span class="k">RUN </span>go build <span class="nt">-o</span> /docker-go-web
+<span class="k">EXPOSE</span><span class="s"> 8080</span>
+<span class="k">CMD</span><span class="s"> [ "/docker-go-web" ]</span>
+</code></pre></div></div>
+<p>Jangan lupa kita membuat <code class="language-plaintext highlighter-rouge">.boto</code> file yaitu sebuah config gsutil yang nantinya akan di copy ke docker untuk menjalankan gsutil. Pastikan access dan secret sudah dibuat sebelumnya menggunakan HMAC Keys</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Credentials]
+gs_access_key_id = MASUKAN_ACCESS_KEY
+gs_secret_access_key = MASUKAN_SECRET_ACCESS_KEY
+
+[Boto]
+https_validate_certificates = True
+
+[GSUtil]
+content_language = en
+default_api_version = 1
+</code></pre></div></div>
+<p>Kemudian build docker backend kita lalu coba running dan check hasilnya dengan cara <code class="language-plaintext highlighter-rouge">docker exec -it nama_container ls -l /path/to/file</code></p>
+
+<h3 id="summary">Summary</h3>
+<p>Sangat mudah bukan mengakali GCP ? ini yang saya rasakan ketika sudah berurusan dengan GCP, memang bagus authentication berlapis lapis tapi itu sangat menyulitkan kita as developer, berbeda dengan S3 AWS, MiniO yang mudah diintegrasikan menggunakan API Library mereka sendiri.</p>
+
+<p>Dengan menggunakan multi-stage tadi juga tidak mengikutsertakan secret key dan access key ke step terakhir, jadi bisa dipastikan aman dan tidak membuat size docker kalian boncos terkecuali file yg tadi di download dari GCP bisa 10GB sama aja boncos hahahaha.</p>
+
+<p>Begitu juga dengan deployment pada kubernetes, tidak perlu manual lagi untuk mengunggah file ke pods.</p>
+
+<p>Sekian terima kasih karena sudah membaca cerita singkat saya, semoga bermanfaat.</p>]]></content><author><name>troke12</name></author><category term="docker" /><category term="tutorial" /><summary type="html"><![CDATA[Penjelasan Sudah lama tidak menulis, kali ini saya akan mencoba membuat sebuah tutorial dimana kondisi ini terjadi jika kalian menggunakan Google Cloud Storage (Bucket) dan ingin mendownload file di dalam bucket namun bucket tersebut private.]]></summary></entry><entry><title type="html">Pengalaman Menggunakan Mimosa C5x</title><link href="https://troke.id/2022/08/01/Pengalaman-Menggunakan-Mimosa-C5x.html" rel="alternate" type="text/html" title="Pengalaman Menggunakan Mimosa C5x" /><published>2022-08-01T00:00:00+00:00</published><updated>2022-08-01T00:00:00+00:00</updated><id>https://troke.id/2022/08/01/Pengalaman-Menggunakan-Mimosa-C5x</id><content type="html" xml:base="https://troke.id/2022/08/01/Pengalaman-Menggunakan-Mimosa-C5x.html"><![CDATA[<p>Mikrotik atau Ubiquiti? Bukan! ini adalah <a href="https://mimosa.co">Mimosa</a>, Merk yang satu ini terbilang cukup mahal tapi beberapa produknya bisa dibilang sangat terjamin kualitasnya, oleh karena itu disini saya ingin membahas pengalaman saya menggunakan salah satu produk dari Mimosa ini yaitu <a href="https://mimosa.co/product/c5x">Mimosa C5x</a></p>
+
+<p><img src="https://mimosa.co/uploads/C5x-homepage.jpg" alt="gambarmimosa" /></p>
+
+<p>Produk ini memiliki beberapa keunggulan seperti :</p>
+<ul>
+  <li>700Mbps Capacity</li>
+  <li>4.9-6.4 Ghz Frequency</li>
+  <li>Modular Antena (Bisa ganti tipe antena)</li>
+  <li>Dan masih banyak lagi</li>
+</ul>
+
+<p><strong><em>Mimosa C5x</em></strong> ini terbilang cukup mahal bagi saya, kalian bisa check di salah satu online shop, beruntungnya saya bekerja disalah satu ISP dan bisa mencobanya tanpa mengeluarkan uang.</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/148916034-cb240853-d85f-4ab9-893a-2156e9d5f69e.png" alt="image" /></p>
+
+<p><em>Harga pada tanggal 1/8/2022</em></p>
+
+<h1 id="proses-perakitan">Proses Perakitan</h1>
+
+<p>Disini saya akan membahas perakitan Mimosa C5x ini, perakitannya ternyata gampang banget!</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/148916923-b1e3d1ba-ec78-4c3e-943a-7f806b35d38b.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/148917009-3fbcd95b-46a7-4bab-99e3-88a95a26b471.png" alt="image" /></p>
+
+<p>Kalian bisa lihat sendiri, tidak membutuhkan banyak mur atau baut, pada bagian pemasangan pole nya itu cukup diputer2 aja sampe keras, jadi ini sangat menghemat waktu ketika lagi buru-buru pemasangan di customer baru.</p>
+
+<h1 id="setting">Setting</h1>
+
+<p>Saatnya melakukan proses setting perangkatnya, pada saat melakukan proses setting saya cukup dibikin kesal, kesal karena proses booting yang membutuhkan cukup banyak waktu agar bisa masuk ke Dashboard namun untuk kualitas UI Web dashboardnya sangat mudah dipahami</p>
+
+<h3 id="konek-ke-laptop-dulu">Konek ke laptop dulu</h3>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/148917948-4b1c22b5-bcf7-4b8d-995a-0a4445939654.png" alt="image" /></p>
+
+<h3 id="mimosa-start">Mimosa start</h3>
+
+<p>Setelah menghubungkan laptop dengan perangkat, masuk ke IP (<code class="language-plaintext highlighter-rouge">192.168.1.20</code>) default mereka, tapi sebelum itu kita harus WAJIB melakukan update firmware terlebih dahulu, silahkan download di websitenya dulu.</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/148918846-aab5943e-ffa1-4f86-a5b9-6960fa8b6b9e.png" alt="image" /></p>
+
+<p>Setelah itu unlock perangkat kita ke website <a href="https://mimosa.co/start">Mimosa Start</a></p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/148918348-950e1fbb-9ac6-4d52-b36b-b9a275e06122.png" alt="image" /></p>
+
+<p>Pada halaman website mimosa, kalian diwajibkan untuk melakukan unlock perangkat mimosa, jadi kalian cukup memasukan serial number device mimosa kalian ke websitenya, nanti kalian otomatis akan mendapatkan kode random yang nantinya akan dipakai untuk manual unlock pada perangkat mimosa kalian.</p>
+
+<h3 id="mimosa-webui">Mimosa WebUI</h3>
+
+<p>Setelah proses unlock otomatis kita masuk ke WebUI nya mimosa, seperti inilah tampilan ketika pertama kali digunakan :</p>
+
+<p><img src="https://cdn.discordapp.com/attachments/874251888357441537/930360529514553344/Screenshot_173.png" alt="image" /></p>
+
+<p>Langsung aja kita masuk ke settingan Wirelessnya :</p>
+
+<p><img src="https://cdn.discordapp.com/attachments/874251888357441537/930360529933971476/Screenshot_174.png" alt="gambar" /></p>
+
+<p>Jadi saya pake PTP agar bisa menggunakan Wireless Mode nya, kalau PTMP tidak bisa, begitu pula di perangkat yang lagi satu juga saya samakan settingannya</p>
+
+<h1 id="pemasangan-di-tower">Pemasangan di tower</h1>
+
+<p>Oke karena sudah selesai setting, kita lanjut ke proses pemasangannya seperti inilah proses pemasangannya :</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/148920168-25035c9b-b5a0-45f8-9941-2c8595635317.png" alt="image" /></p>
+
+<p>Ini saya pasang di kantor saya yg paling tinggi, <em>Maaf muka saya jelek</em></p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/148920293-e05411d1-1809-435b-85ae-85b4868182a4.png" alt="image" /></p>
+
+<p>Dan ini adalah teman saya melakukan pemasangan di Tower kedua kami, jaraknya sekitar 5.7 Kilometer dari Tower kantor</p>
+
+<h1 id="hasil-ketika-kedua-perangkat-sudah-terhubung">Hasil ketika kedua perangkat sudah terhubung</h1>
+
+<p>Hasilnya sangat memuaskan, kenapa begitu? karena sebelumnya kami sudah memakai perangkat dari mikrotik yaitu Metal, yg dimana kestabilan signal tidak dapat dipastikan dan selalu drop, capacity kecil dan perbedaannya ketika menggunakan mimosa jauh diatas kata memuaskan, intinya kita pakai mimosa untuk menggantikan perangkat yang sebelumnya.</p>
+
+<p>Hasilnya seperti ini, dengan kapasitas Tx/Rx = 651Mbps/392Mbps, sinyal stabil di 50an</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/148921144-e76467b0-44c7-494b-84e1-8f36e6a18476.png" alt="image" /></p>
+
+<h1 id="summary">Summary</h1>
+
+<p>Jadi tunggu apalagi? ayo pakai mimosa kwkwkw, sekian terima kasih, artikel ini hanya sekedar berbagi pengalaman luar biasa ketika bekerja sebagai teknisi jaringan.</p>]]></content><author><name>troke12</name></author><category term="review" /><category term="network" /><summary type="html"><![CDATA[Mikrotik atau Ubiquiti? Bukan! ini adalah Mimosa, Merk yang satu ini terbilang cukup mahal tapi beberapa produknya bisa dibilang sangat terjamin kualitasnya, oleh karena itu disini saya ingin membahas pengalaman saya menggunakan salah satu produk dari Mimosa ini yaitu Mimosa C5x]]></summary></entry><entry><title type="html">Livestreaming Menggunakan Linux Ubuntu</title><link href="https://troke.id/2021/10/25/Livestreaming-Menggunakan-Linux-Ubuntu.html" rel="alternate" type="text/html" title="Livestreaming Menggunakan Linux Ubuntu" /><published>2021-10-25T00:00:00+00:00</published><updated>2021-10-25T00:00:00+00:00</updated><id>https://troke.id/2021/10/25/Livestreaming-Menggunakan-Linux-Ubuntu</id><content type="html" xml:base="https://troke.id/2021/10/25/Livestreaming-Menggunakan-Linux-Ubuntu.html"><![CDATA[<p>Baik, kali ini kita akan membahas livestreaming, akhir-akhir ini banyak banget yang mencoba untuk meniti karir sebagai streamer, mostly akhir-akhir ini kita sering melihat trend Virtual Youtuber yang makin hari makin banyak bermunculan, tetapi tidak hanya itu juga, kalian mungkin pernah melihat di Youtube “lofi hip hop radio - beats to relax/study to” atau “jazz/lofi hip hop radio🌱chill beats to relax/study to [LIVE 24/7]” kan? nah channel tersebut diketahui sudah melakukan streaming dalam 24 jam bahkan sudah setahun lebih mereka melakukan penyiaran musik di kanal youtube, bagaimana bisa mereka melakukan itu? nah disini kita akan bahas caranya, perlu diperhatikan disini saya cuma akan membahas secara dasar dan tidak lebih karena ini juga hasil daripada eksperiment saya sendiri.</p>
+
+<h3 id="streaming-247">Streaming 24/7</h3>
+<p><img src="https://user-images.githubusercontent.com/10250068/138690302-9a2b92d3-29b2-49a8-b816-1a14bb4aaf18.png" alt="image" /></p>
+
+<p>Yap, ss diatas merupakan contoh dari streaming 24 jam.</p>
+
+<p>Secara umum tidak mungkin orang bisa melakukan livestreaming selama 24 jam lebih, kecuali orang tersebut punya niat untuk melakukannya. Cara paling efektif ialah menggunakan server, jika kalian punya server nganggur bisa kalian ikuti cara saya</p>
+
+<h3 id="instalasi">Instalasi</h3>
+
+<p><strong>Yang dibutuhkan :</strong></p>
+<ul>
+  <li>Ubuntu Server 18.04 (bebas)</li>
+  <li>ffmpeg</li>
+  <li>Youtube Account</li>
+  <li>Video Pekora Joget-Joget (Kalian bebas pakai apa aja)</li>
+</ul>
+
+<p>Perlu diperhatikan untuk server kalian tidak perlu membutuhkan spesifikasi yang tinggi dan kalau bisa carilah yang gratis, kalian bisa mendapatkannya di AlibabaCloud secara trial selama 12 bulan.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@ochirecloud:~# screenfetch
+                          ./+o+-       root@ochirecloud
+                  yyyyy- <span class="nt">-yyyyyy</span>+      OS: Ubuntu 18.04 bionic
+               ://+//////-yyyyyyo      Kernel: x86_64 Linux 4.15.0-45-generic
+           .++ .:/++++++/-.+sss/<span class="sb">`</span>      Uptime: 163d 6h 15m
+         .:++o:  /++++++++/:--:/-      Packages: 981
+        o:+o+:++.<span class="sb">`</span>..<span class="sb">```</span>.-/oo+++++/     Shell: bash 4.4.20
+       .:+o:+o/.          <span class="sb">`</span>+sssoo+/    CPU: Intel Xeon Platinum 8163 @ 2.5GHz
+  .++/+:+oo+o:<span class="sb">`</span>             /sssooo.   GPU: cirrusdrmfb
+ /+++//+:<span class="sb">`</span>oo+o               /::--:.   RAM: 525MiB / 985MiB
+ <span class="se">\+</span>/+o+++<span class="sb">`</span>o++o               ++////.
+  .++.o+++oo+:<span class="sb">`</span>             /dddhhh.
+       .+.o+oo:.          <span class="sb">`</span>oddhhhh+
+        <span class="se">\+</span>.++o+o<span class="sb">``</span>-<span class="sb">````</span>.:ohdhhhhh+
+         <span class="sb">`</span>:o+++ <span class="sb">`</span>ohhhhhhhhyo++os:
+           .o:<span class="sb">`</span>.syhhhhhhh/.oo++o<span class="sb">`</span>
+               /osyyyyyyo++ooo+++/
+                   <span class="sb">`````</span> +oo+++o<span class="se">\:</span>
+                          <span class="sb">`</span>oo++.
+root@ochirecloud:~#
+</code></pre></div></div>
+<p>Selanjutnya kita akan memulai pemasangan ffmpeg, buat yang belum tau ffmpeg ini adalah sebuah library dan program yang digunakan untuk menghandle video, audio dan media lainnya secara command line (CMIIW) untuk lebih lengkap bisa ke websitenya.</p>
+
+<p>Update dulu guys</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt-get update # update package dulu guys
+</code></pre></div></div>
+<p>Kemudian kita install ffmpeg</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt-get install ffmpeg
+</code></pre></div></div>
+<p>Tunggu hingga selesai lalu check ffmpeg menggunakan argument version</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ffmpeg -version
+</code></pre></div></div>
+<p>Output nya akan seperti ini</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ffmpeg -version
+ffmpeg version N-58069-gc253b180cb-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2021 the FFmpeg developers
+built with gcc 8 (Debian 8.3.0-6)
+configuration: --enable-gpl --enable-version3 --enable-static --disable-debug --disable-ffplay --disable-indev=sndio --disable-outdev=sndio --cc=gcc --enable-fontconfig --enable-frei0r --enable-gnutls --enable-gmp --enable-libgme --enable-gray --enable-libaom --enable-libfribidi --enable-libass --enable-libvmaf --enable-libfreetype --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-librubberband --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libvorbis --enable-libopus --enable-libtheora --enable-libvidstab --enable-libvo-amrwbenc --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libdav1d --enable-libxvid --enable-libzvbi --enable-libzimg
+libavutil      57.  2.100 / 57.  2.100
+libavcodec     59.  3.102 / 59.  3.102
+libavformat    59.  4.101 / 59.  4.101
+libavdevice    59.  0.100 / 59.  0.100
+libavfilter     8.  0.103 /  8.  0.103
+libswscale      6.  0.100 /  6.  0.100
+libswresample   4.  0.100 /  4.  0.100
+libpostproc    56.  0.100 / 56.  0.100
+</code></pre></div></div>
+<p>Jika kalian mengalami trouble ketika pemasangan ffmpeg, kalian bisa melakukan manual build dan mengatur PATH nya jika sudah selesai build ffmpeg secara manual.</p>
+
+<p>Selanjutnya kita akan akan pergi menuju Youtube Livestream Dashboard</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/138695806-66650a8c-21c4-4e0f-9f12-e31326802e8e.png" alt="image" /></p>
+
+<p>Pada bagian Streaming Settings kalian catat dulu stream key nya nanti format streaming menggunakan ffmpeg akan seperti ini</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rtmp://a.rtmp.youtube.com/live2/STREAMING_KEY
+</code></pre></div></div>
+<p>Untuk judul, thumbnail dan lain-lain kalian persiapkan dulu hingga selesai.</p>
+
+<p>Lalu kita akan coba melakukan streaming menggunakan ffmpeg</p>
+
+<p>Ketik ini pada terminal</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffmpeg -re -stream_loop -1 -i pekora.mp4 -c copy -f flv -flvflags no_duration_filesize rtmp://a.rtmp.youtube.com/live2/STREAMING_KEY
+</code></pre></div></div>
+
+<p>Perlu diperhatikan ini adalah basic command dari ffmpeg untuk melakukan streaming ke youtube, disana terlihat <code class="language-plaintext highlighter-rouge">pekora.mp4</code> yang sudah saya siapkan dan ada options <code class="language-plaintext highlighter-rouge">-stream_loop</code> yang artinya video <code class="language-plaintext highlighter-rouge">pekora.mp4</code> akan diputar secara berulang-ulang, untuk options lainnya masih banyak yang belum saya tau, jadi saya cuma menjelaskan yang saya tau aja 😄</p>
+
+<p>Tampilan outputnya akan jadi seperti ini :</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/138698459-da751a2f-dbc1-493c-b977-83b8a7303ddb.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/138698846-9f38de81-e52b-409e-b25c-d3bb8398f67f.png" alt="image" /></p>
+
+<h3 id="hasil-pengujian-dari-saya">Hasil pengujian dari saya</h3>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/138699140-5412ab7e-d892-4ccf-a7b1-70c858652528.png" alt="image" /></p>
+
+<p>Pada streaming pertama saya gagal mencapai lebih dari 1 jam, karena pada opsi ffmpeg tidak berisi <code class="language-plaintext highlighter-rouge">no_duration_filesize</code> kalau ndak isi bakalan mentok di satu jam dan stream otomatis di stop.</p>
+
+<p>Pada streaming kedua saya berhasil mencapai 65 jam dan itu juga di stop otomatis oleh ffmpeg sendiri karena error, errornya sampai sekarang masih belum saya telusuri lagi tapi bagi saya ini sudah lebih dari cukup.</p>
+
+<p>Itu saja mungkin dari saya, semoga artikel ini bermanfaat bagi kalian! terima kasih sudah membaca!</p>]]></content><author><name>troke12</name></author><category term="tutorial" /><summary type="html"><![CDATA[Baik, kali ini kita akan membahas livestreaming, akhir-akhir ini banyak banget yang mencoba untuk meniti karir sebagai streamer, mostly akhir-akhir ini kita sering melihat trend Virtual Youtuber yang makin hari makin banyak bermunculan, tetapi tidak hanya itu juga, kalian mungkin pernah melihat di Youtube “lofi hip hop radio - beats to relax/study to” atau “jazz/lofi hip hop radio🌱chill beats to relax/study to [LIVE 24/7]” kan? nah channel tersebut diketahui sudah melakukan streaming dalam 24 jam bahkan sudah setahun lebih mereka melakukan penyiaran musik di kanal youtube, bagaimana bisa mereka melakukan itu? nah disini kita akan bahas caranya, perlu diperhatikan disini saya cuma akan membahas secara dasar dan tidak lebih karena ini juga hasil daripada eksperiment saya sendiri.]]></summary></entry><entry><title type="html">Mikrotik To Discord</title><link href="https://troke.id/2020/07/25/Mikrotik-To-Discord.html" rel="alternate" type="text/html" title="Mikrotik To Discord" /><published>2020-07-25T00:00:00+00:00</published><updated>2020-07-25T00:00:00+00:00</updated><id>https://troke.id/2020/07/25/Mikrotik-To-Discord</id><content type="html" xml:base="https://troke.id/2020/07/25/Mikrotik-To-Discord.html"><![CDATA[<p>Sebuah eksperimen yang berawal dari kegabutan saya, nah sebenernya kita pernah mendengar hal yang namanya mengirim pesan melalui mikrotik ke telegram bukan? harusnya itu sudah banyak tutorial yang beredar di google, dulu juga saya menggunakannya untuk mendedeteksi siapa saja yang login melalui hotspot mikrotik saya lalu dikirim ke Telegram, namun karena jarang banget buka Telegram dan lebih berfokus menggunakan aplikasi yang bernama Discord, yap Discord adalah sebuah platform yang memungkinkan penggunanya untuk saling mengirim chat, gambar, audio, video, bahkan hingga share screen.</p>
+
+<h3 id="discord">Discord</h3>
+
+<p>Discord sangat memahami betul keperluan bagi Developer, fitur-fitur yang diberikan oleh Discord kepada Developers pun sangat banyak namun memiliki batasan setiap fiturnya, tapi salah satu fitur yang bernama <strong>Webhook</strong> membuat saya tertarik, fitur ini memudahkan kita mengirim pesan dalam bentuk payload json yang akan dikirim ke channel yang sudah kita buat.</p>
+
+<p>Disini saya tidak akan menjelaskan bagaimana cara membuat webhook discord secara lengkap, namun saya akan mereferensikan kalian untuk melihat dokumentasi pembuatan discord webhook <a href="https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks">disini</a></p>
+
+<p>Oke lanjut, tentu jika kalian sudah memahami dan melakukan testing bagaimana cara kerja webhook, kalian mungkin akan melakukan testing pertama kali menggunakan metode <strong>cURL</strong>, yap mungkin seorang developer sudah sangat familiar dengan ini, jadi cURL ini adalah sebuah command yang sebagian besar ada di sistem berbasis unix, tentu jika kalian menggunakan windows kalian harus mengunduh dan memasangnya sendiri, cURL berfungsi untuk mengecek status dari sebuah URL dan juga bisa untuk transfer data, untuk mengetahui lebih lengkap contoh cURL bisa di cek <a href="https://devhints.io/curl#examples">disini</a></p>
+
+<h3 id="mikrotik">MikroTik</h3>
+
+<p>MikroTik OS / RouterOS sendiri aslinya adalah unix dengan menggunakan base Linux v2.6 kernel, namun dengan beberapa perubahan-perubahan tentunya agar memudahkan pemasangan RouterOS ke device tertentu agar lebih fleksibel untuk kedepannya. Jadi jika command yang akan kita gunakan untuk testing webhook ialah cURL, namun di RouterOS sendiri berbeda, command yang digunakan ialah <strong>fetch</strong> yang berada pada section tools, kalau versi GUI kita tidak akan melihatnya, karena ini hanya tersedia dalam CLI (Command Line Interface).</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/134517499-3fed91ba-d344-45c8-9a79-b382ea3b7ae6.png" alt="image" /></p>
+
+<p>Bisa dilihat pada screenshot diatas, fetch memiliki beberapa opsi-opsi yang bisa kalian gunakan, kalian bisa mengetahui petunjuk penggunaan opsi tersebut di halaman <a href="https://wiki.mikrotik.com/wiki/Manual:Tools/Fetch#Properties">Wikipedia mikrotik/Tools/Fetch</a></p>
+
+<h3 id="testing-webhook">Testing Webhook</h3>
+
+<p>Mari kita melakukan testing! sebelum itu kalian harus mempersiapkan webhook discord terlebih dahulu, sesudah itu mari kita pahami struktur dari sebuah discord webhook</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/134519861-72f1b457-e283-4376-8ba9-10039da613a7.png" alt="image" /></p>
+
+<p>Dari screenshot diatas hal yang paling penting adalah <code class="language-plaintext highlighter-rouge">token</code> dan <code class="language-plaintext highlighter-rouge">id</code> , tentunya URL Webhook ini tidak boleh disebar kemana-mana / exposed ke public, jika URL Webhook kalian terexpose pastikan kalian cepat-cepat menghapusnya!</p>
+
+<p>Lalu bagaimana cara mengirimnya? sebelum mengirim kita harus memahami struktur payload dari webhook ini</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Webhook"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"avatar_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://i.imgur.com/4M34hi2.png"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Text message. Up to 2000 characters."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"embeds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Birdie♫"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.reddit.com/r/cats/"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"icon_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://i.imgur.com/R66g1Pe.jpg"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Title"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://google.com/"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Text message. You can use Markdown here. *Italic* **bold** __underline__ ~~strikeout~~ [hyperlink](https://google.com) `code`"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"color"</span><span class="p">:</span><span class="w"> </span><span class="mi">15258703</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Text"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"More text"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"inline"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Even more text"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Yup"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"inline"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Use `</span><span class="se">\"</span><span class="s2">inline</span><span class="se">\"</span><span class="s2">: true` parameter, if you want to display fields in the same line."</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"okay..."</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Thanks!"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You're welcome :wink:"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"thumbnail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://upload.wikimedia.org/wikipedia/commons/3/38/4-Nature-Wallpapers-2014-1_ukaavUI.jpg"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://upload.wikimedia.org/wikipedia/commons/5/5a/A_picture_from_China_every_day_108.jpg"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"footer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Woah! So cool! :smirk:"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"icon_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://i.imgur.com/fKL31aD.jpg"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Hasil outputnya akan tampil seperti ini:</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/134521030-ae480b90-6d3b-4231-920f-89a8490ed392.png" alt="image" /></p>
+
+<p><em>Referensi dari <a href="https://birdie0.github.io/discord-webhooks-guide/discord_webhook.html">birdie0 Discord Webhook Guide</a></em></p>
+
+<p>Wow kebanyakan ya? yap memang panjang banget, jika kalian adalah orang yang sangat simpel atau gak mau ribet, mungkin kalian bisa mengikuti cara saya, cukup ambil bagian ini</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">"content"</span><span class="p">:</span><span class="s2">"test"</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Hasil outputnya akan jadi seperti ini</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/134522052-2e044065-6685-477f-a7da-5e299ac22665.png" alt="image" /></p>
+
+<p>Lalu bagaimana kita menjalankannya pada mikrotik? sangat mudah cukup ikuti command ini dan jalankan,</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/tool fetch http-method<span class="o">=</span>post http-header-field<span class="o">=</span><span class="s2">"Content-Type: application/json"</span> http-data<span class="o">=</span><span class="s2">"{</span><span class="se">\"</span><span class="s2">content</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">test</span><span class="se">\"</span><span class="s2">}"</span> <span class="nv">url</span><span class="o">=</span><span class="s2">"MASUKIN_DISCORD_WEBHOOK_URL_DISINI"</span>
+</code></pre></div></div>
+
+<p>Kenapa kok <code class="language-plaintext highlighter-rouge">{"content":"test"}</code> berubah menjadi <code class="language-plaintext highlighter-rouge">{\"content\":\"test\"}</code> ? ini namanya escape json, jadi karena payloadnya ini ada di dalem quotes <code class="language-plaintext highlighter-rouge">"</code> dan isinya quotes lagi otomatis jadi bentrok (cmiiw) / otomatis dia jadinya special character, saya udah coba single quote <code class="language-plaintext highlighter-rouge">'</code> atau backtick <code class="language-plaintext highlighter-rouge">`</code> hasilnya ga bisa, jadi mikrotik sendiri harus pake quotes <code class="language-plaintext highlighter-rouge">"</code>, terus biar gampang gimana? pake tools online <a href="https://onlinejsontools.com/escape-json">escape json converter</a> tinggal copy-paste saja lalu dia nanti otomatis ke convert.</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/134544594-e5f361dc-f3fd-4189-bb90-c07a2e6b1f0d.png" alt="image" /></p>
+
+<p>dilihat dari <code class="language-plaintext highlighter-rouge">status</code> itu menandakan sudah selesai mengirim pesan dan hasilnya akan jadi seperti ini :</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/134544791-d305e9bb-85fb-47ed-ad76-4a4de78a7b43.png" alt="image" /></p>
+
+<h3 id="netwatch">Netwatch</h3>
+
+<p>Lanjut kita akan mengimplementasikannya ke <strong>Netwatch</strong>, dimana semua device yang sudah kita catat terpantau disana, berikut ini adalah screenshotnya</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/134600484-67fba1d3-82c4-46c6-b5d9-7813d3160e1b.png" alt="image" /></p>
+
+<p>Jadi saya disini menerapkannya pada INDIHOME saya, pada bagian <code class="language-plaintext highlighter-rouge">content</code> saya ubah dengan <code class="language-plaintext highlighter-rouge">INDIHOME HIDUP</code> dan hasilnya akan jadi seperti ini</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/134600590-767630d0-c2ee-4b6d-b578-c22d56c1c346.png" alt="image" /></p>
+
+<p>Pada bagian content kalian bisa ubah sesuka hati, misalnya jadi seperti ini</p>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/134603444-d96d7db4-b891-4eff-955a-33553f9d861e.png" alt="image" /></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Memanggil paduka &lt;@176829603321610240&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"embeds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OCHI WIFI"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.troke.id/"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"icon_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://cdn.discordapp.com/attachments/874251888357441537/890757320466911252/pngegg.png"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"color"</span><span class="p">:</span><span class="w"> </span><span class="mi">15258703</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Status Perangkat INDIHOME"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIDUP"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/10250068/134604226-78b85d3a-552c-47eb-8a30-0ab5d1d4cd77.png" alt="image" /></p>
+
+<ul>
+  <li>Pada bagian <code class="language-plaintext highlighter-rouge">&lt;@176829603321610240&gt;</code> itu adalah ID discord saya, jadi nanti bakalan di mention otomatis</li>
+  <li>Perlu diperhatikan jika kalian melakukan converter, untuk bagian URL yang ada <code class="language-plaintext highlighter-rouge">"url": "https://www.troke.id/"</code> akan berubah menjadi <code class="language-plaintext highlighter-rouge">"url\": \"https:\/\/www.troke.id\/\"</code> karena akibat convert, jika kalian tidak mengubahnya, tentu mikrotik tidak akan bisa melakukan pengiriman message, ini dikarenakan mikrotik tidak bisa membacanya / error, oleh karena itu segeralah ganti menjadi <code class="language-plaintext highlighter-rouge">"url\": \"https://www.troke.id/\"</code> dan ini berlaku bagi semua URL, jika ada URL lain segera ganti / samakan dengan URL sebelum di convert.</li>
+  <li>Untuk Color kalian bisa gunakan <a href="https://spycolor.com">SpyColor</a> untuk mendapatkan HEX Numbernya</li>
+</ul>
+
+<h3 id="kesimpulan">Kesimpulan</h3>
+
+<p>Memang agak ribet, tapi jika kita mau belajar memahami dan mencoba tentunya yang namanya ribet itu pasti gak ada! Saya sendiri sudah mencoba beberapa kali bereksperimen dan hasilnya sudah bbrp kali gagal, gagal karena saya ga baca :D, jadi penting banget jika kalian ingin memahami Discord Webhook dan MikroTik kalian harus benar-benar giat membaca, dari apa yang saya hasilkan ini saya bisa mengakalinya dengan cara membuat script simple dalam bentuk PHP yang sudah di hosting ke Heroku, kalian bisa membaca di project <a href="https://github.com/troke12/MikrotikToDiscord">MikrotikToDiscord</a>, sekian terima kasih! semoga bermanfaat!</p>]]></content><author><name>troke12</name></author><category term="source-code" /><category term="project" /><category term="tutorial" /><summary type="html"><![CDATA[Sebuah eksperimen yang berawal dari kegabutan saya, nah sebenernya kita pernah mendengar hal yang namanya mengirim pesan melalui mikrotik ke telegram bukan? harusnya itu sudah banyak tutorial yang beredar di google, dulu juga saya menggunakannya untuk mendedeteksi siapa saja yang login melalui hotspot mikrotik saya lalu dikirim ke Telegram, namun karena jarang banget buka Telegram dan lebih berfokus menggunakan aplikasi yang bernama Discord, yap Discord adalah sebuah platform yang memungkinkan penggunanya untuk saling mengirim chat, gambar, audio, video, bahkan hingga share screen.]]></summary></entry><entry><title type="html">Tutorial Mounting Google Drive ke Server</title><link href="https://troke.id/2020/05/09/Tutorial-Mounting-Google-Drive-ke-Server.html" rel="alternate" type="text/html" title="Tutorial Mounting Google Drive ke Server" /><published>2020-05-09T00:00:00+00:00</published><updated>2020-05-09T00:00:00+00:00</updated><id>https://troke.id/2020/05/09/Tutorial-Mounting-Google-Drive-ke-Server</id><content type="html" xml:base="https://troke.id/2020/05/09/Tutorial-Mounting-Google-Drive-ke-Server.html"><![CDATA[<p>Seperti halnya dengan flashdisk, tinggal colok pasang, namun berbeda.</p>
+
+<p>Saya akan memberi cara bagaimana mounting google drive di server atau non-server, disini server saya menggunakan OS Ubuntu 18.04, kalian bebas menggunakan apa aja, lalu yang harus dilakukan pertama adalah menginstall <a href="https://github.com/astrada/google-drive-ocamlfuse">google-drive-ocamlfuse</a></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo add-apt-repository ppa:alessandro-strada/ppa
+sudo apt-get update
+sudo apt-get install google-drive-ocamlfuse
+</code></pre></div></div>
+<p>jika sudah selesai menginstall gunakan perintah ini</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>google-drive-ocamlfuse -headless -id 202264815644 -secret X4Z3ca8xfWDb1Voo-F9a7ZxJ 
+</code></pre></div></div>
+<p>setelah itu nanti akan muncul pesan untuk mendapatkan verified code, buka link yang ada di terminal pada browser lalu masukan akun google drive kalian
+dan tekan <strong>Allow</strong>, nanti otomatis akan mendapatkan verified code token, copy token tersebut dan masukkan ke terminal.</p>
+
+<p>hasilnya kira2 akan seperti ini :</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@ochi:~# google-drive-ocamlfuse <span class="nt">-headless</span> <span class="nt">-id</span> 202264815644 <span class="nt">-secret</span> X4Z3ca8xfWDb1Voo-F9a7ZxJ
+Please, open the following URL <span class="k">in </span>a web browser: https://accounts.google.com/o/oauth2/auth?client_id<span class="o">=</span>202264815644&amp;redirect_uri<span class="o">=</span>urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&amp;scope<span class="o">=</span>https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive&amp;response_type<span class="o">=</span>code&amp;access_type<span class="o">=</span>offline&amp;approval_prompt<span class="o">=</span>force
+Please enter the verification code: CODETOKEN YANG TADI
+Access token retrieved correctly. &lt;<span class="nt">---TOKEN</span> SUKSES
+</code></pre></div></div>
+
+<p>lalu kita bikin sebuah direktori sebagai penyimpanan lokal kita</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir googlebackup
+</code></pre></div></div>
+
+<p>saatnya mounting folder kita</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>google-drive-ocamlfuse /root/googlebackup
+</code></pre></div></div>
+
+<p>jika sudah bisa cek menggunakan <code class="language-plaintext highlighter-rouge">df -h</code></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@ochi:~# <span class="nb">df</span> <span class="nt">-h</span>
+Filesystem              Size  Used Avail Use% Mounted on
+udev                    960M     0  960M   0% /dev
+tmpfs                   195M   21M  175M  11% /run
+/dev/sda1                20G  8.3G   11G  43% /
+tmpfs                   973M     0  973M   0% /dev/shm
+tmpfs                   5.0M     0  5.0M   0% /run/lock
+tmpfs                   973M     0  973M   0% /sys/fs/cgroup
+/dev/sda15              105M  3.6M  101M   4% /boot/efi
+tmpfs                   195M     0  195M   0% /run/user/0
+datenshi-pro            1.0P     0  1.0P   0% /root/storage
+s3fs                    256T     0  256T   0% /root/dtbackup
+google-drive-ocamlfuse   17G  6.5G   11G  39% /root/googlebackup &lt;<span class="nt">---GDRIVE</span> KITA
+</code></pre></div></div>
+
+<p>selamat mencoba!</p>]]></content><author><name>troke12</name></author><category term="tutorial" /><summary type="html"><![CDATA[Seperti halnya dengan flashdisk, tinggal colok pasang, namun berbeda. Saya akan memberi cara bagaimana mounting google drive di server atau non-server, disini server saya menggunakan OS Ubuntu 18.04, kalian bebas menggunakan apa aja, lalu yang harus dilakukan pertama adalah menginstall google-drive-ocamlfuse sudo add-apt-repository ppa:alessandro-strada/ppa sudo apt-get update sudo apt-get install google-drive-ocamlfuse jika sudah selesai menginstall gunakan perintah ini google-drive-ocamlfuse -headless -id 202264815644 -secret X4Z3ca8xfWDb1Voo-F9a7ZxJ setelah itu nanti akan muncul pesan untuk mendapatkan verified code, buka link yang ada di terminal pada browser lalu masukan akun google drive kalian dan tekan Allow, nanti otomatis akan mendapatkan verified code token, copy token tersebut dan masukkan ke terminal. hasilnya kira2 akan seperti ini : root@ochi:~# google-drive-ocamlfuse -headless -id 202264815644 -secret X4Z3ca8xfWDb1Voo-F9a7ZxJ Please, open the following URL in a web browser: https://accounts.google.com/o/oauth2/auth?client_id=202264815644&amp;redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&amp;scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive&amp;response_type=code&amp;access_type=offline&amp;approval_prompt=force Please enter the verification code: CODETOKEN YANG TADI Access token retrieved correctly. &lt;---TOKEN SUKSES lalu kita bikin sebuah direktori sebagai penyimpanan lokal kita mkdir googlebackup saatnya mounting folder kita google-drive-ocamlfuse /root/googlebackup jika sudah bisa cek menggunakan df -h root@ochi:~# df -h Filesystem Size Used Avail Use% Mounted on udev 960M 0 960M 0% /dev tmpfs 195M 21M 175M 11% /run /dev/sda1 20G 8.3G 11G 43% / tmpfs 973M 0 973M 0% /dev/shm tmpfs 5.0M 0 5.0M 0% /run/lock tmpfs 973M 0 973M 0% /sys/fs/cgroup /dev/sda15 105M 3.6M 101M 4% /boot/efi tmpfs 195M 0 195M 0% /run/user/0 datenshi-pro 1.0P 0 1.0P 0% /root/storage s3fs 256T 0 256T 0% /root/dtbackup google-drive-ocamlfuse 17G 6.5G 11G 39% /root/googlebackup &lt;---GDRIVE KITA selamat mencoba!]]></summary></entry><entry><title type="html">BlueMi</title><link href="https://troke.id/2020/01/31/bluemi.html" rel="alternate" type="text/html" title="BlueMi" /><published>2020-01-31T00:00:00+00:00</published><updated>2020-01-31T00:00:00+00:00</updated><id>https://troke.id/2020/01/31/bluemi</id><content type="html" xml:base="https://troke.id/2020/01/31/bluemi.html"><![CDATA[<p><img src="https://cdn.discordapp.com/attachments/408950289962369025/685838041658556428/homenew.png" alt="BlueMi" /></p>
+
+<h3 id="description">Description</h3>
+<p>BlueMi - Template Login page for mikrotik simple build by Bootstrap and AdminLTE, if you found any bugs, post it on <a href="https://github.com/troke12/BlueMi/issues">issue page!</a>. This template are completely free, you can use for your Hotspot Business, but you can’t remove any credits from this Template and NOT FOR SALE.</p>
+
+<h3 id="links">Links</h3>
+<ul>
+  <li><a href="https://github.com/troke12/BlueMi">github</a></li>
+</ul>]]></content><author><name>troke12</name></author><category term="source-code" /><category term="project" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Membuat Static Routing Di Mikrotik</title><link href="https://troke.id/2019/08/01/Membuat-Static-Routing-Di-Mikrotik.html" rel="alternate" type="text/html" title="Membuat Static Routing Di Mikrotik" /><published>2019-08-01T00:00:00+00:00</published><updated>2019-08-01T00:00:00+00:00</updated><id>https://troke.id/2019/08/01/Membuat-Static-Routing-Di-Mikrotik</id><content type="html" xml:base="https://troke.id/2019/08/01/Membuat-Static-Routing-Di-Mikrotik.html"><![CDATA[<h3 id="persiapan">Persiapan</h3>
+<ul>
+  <li>Internet Connection dari ISP</li>
+  <li>Mikrotik</li>
+  <li>Kabel LAN</li>
+</ul>
+
+<h2 id="penjelasan">Penjelasan</h2>
+<p>Dengan menggunakan metode Static Routing, IP yang didapatkan oleh mikrotik tidak akan berubah-ubah, Umumnya orang lain lebih memilih menggunakan Dynamic Routing daripada menggunakan Static Routing karena lebih gampang menggunakan Dynamic, tapi Static Routing juga sangat gampang dilakukan, oleh karena itu saya disini akan membuat static routing yang mudah dipahami oleh pemula</p>
+
+<h3 id="pertama">Pertama</h3>
+<p>Siapkan Mikrotik apapun yg kalian punya (Disini saya memakai <strong>RB951Ui-2ND</strong>), nah selanjutnya kabel lan yg kalian sudah siapkan pasang di ether1 (Port1) dan ether2 (Port2), untuk Port1 itu jalur masuknya Internet dari Modem ISP, contoh : kalian punya Modem indihome, kabel lan sisi pertama untuk Indihome di port lan manapun kalian boleh pasang, nah sedangkan sisi kedua kabel lan kalian masuk ke Port1 Mikrotik kalian. Nah untuk Ether2 itu untuk Lokal Kalian, jadi kalian pasang ke mikrotik (ether2) lalu ke laptop.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606289857442217994/IMG_2275.JPG" alt="gambar1" /></p>
+
+<h3 id="kedua">Kedua</h3>
+<p>Nah Kalian harus masuk ke mikrotiknya terlebih dahulu menggunakan Winbox, pastikan Mikrotiknya sudah dalam keadaan reset total, jadi kita mulai dari 0 dulu. Yang harus dilakukan disini adalah mengetahui IP Modem dan segmentnya, jadi sebelum itu kita melakukan test dulu dari Modem ke laptop, kalau laptop kita dapat ip <em>192.168.1.3</em> berarti nanti di dalam Mikrotik kita Tambahkan IP Address <em>192.168.1.4</em> Interfacenya ether1, sebagai contoh disini IP Modem saya adalah <em>192.168.50.xxx</em> jadi saya putuskan di Addresses saya tambah <em>192.168.50.62/24</em> (kenapa 62? <del>karena negara kita adalah +62</del> karena disini kita bebas menggunakan berapapun itu asal tidak terjadi bentrok dengan ip yg lain, pastikan ip itu tidak ada yg menggunakannnya.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302918194495501/Screenshot_96.png" alt="gambar2" /></p>
+
+<h3 id="ketiga">Ketiga</h3>
+<p>Lalu kalian masuk ke IP &gt; Routes, disini sangat penting karena kita akan memasukan Gateway modem kita agar bisa mendapatkan akses dari modem ke mikrotik, simplenya kita masukkan kunci ke gembok. Nah IP Gateway modem saya disini adalah 192.168.50.1 jika segment ip kalian 192.168.1.xxx berarti pakai 192.168.1.1 untuk gateway nya, Pastikan nanti gateway yg kalian masukkan itu reachable karena kalau tidak reachable kalian tidak akan bisa mendapatkan akses internet.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302919658307606/Screenshot_97.png" alt="gambar3" /></p>
+
+<h3 id="keempat">Keempat</h3>
+<p>Setelah itu masuk ke IP &gt; Firewall, di Firewall pilih tab NAT lalu tambahkan seperti ini <strong>Chain : srcnat, Out.Interface : ether1</strong> (ini harus teliti, jika tidak ip dari gateway masih akan terblock oleh mikrotik, pastikan disini memilih interface yg dimana interface nya tersebut adalah sumber dari Internet kalian, lalu pada Tab <em>Action</em> kalian pilih <strong>masquerade</strong> lalu klik Apply dan OK.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302925500710912/Screenshot_98.png" alt="gambar4" />
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302930462572564/Screenshot_99.png" alt="gambar41" /></p>
+
+<h3 id="kelima">Kelima</h3>
+<p>Setelah itu kalian buka New Terminal dan ping 8.8.8.8, jika bisa… artinya kalian sudah bisa memiliki akses internet dari Modem ke mikrotik kalian.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302935516839947/Screenshot_100.png" alt="gambar5" /></p>
+
+<h3 id="keenam">Keenam</h3>
+<p>Selanjutnya kita akan menyalurkan internet tersebut ke Laptop, disini Ether2 yg sudah dipasangkan kabel ke Laptop kalian skrng kita setting agar bisa mendapatkan akses internet, Jadi kita kembali lagi ke <strong>IP -&gt; Addresses</strong> disini kalian bebas menggunakan IP apapun, Saya disini menggunakan 192.168.2.1/24 biar lebih simple dan pastikan interface nya adalah <strong>ether2</strong>.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302940096888872/Screenshot_101.png" alt="gambar6" /></p>
+
+<h3 id="ketujuh">Ketujuh</h3>
+<p>Lalu masuk ke <strong>IP -&gt; DHCP Server</strong> disini Fungsi DHCP Server, bagi kalian yang belum tau Fungsi dari DHCP Server ialah membuat IP yang tadi kita buat di Addresses dibagi-bagi/disebar oleh DHCP Server ini, jadi kalian hanya perlu membuatnya dengan mengklik tombol <strong>DHCP Setup</strong> dengan step seperti ini : 
+DHCP Setup &gt; interface = ether2 &gt; DHCP Addresses Space Next aja &gt; Gateway DHCP Network Next aja &gt; Addresses to Give out Next aja &gt; DNS Server (bebas isi 8.8.8.8 atau 1.1.1.1 boleh) &gt; Lease Time Next aja &gt; Finish
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302945071464449/Screenshot_102.png" alt="gambar7" /></p>
+
+<h3 id="kedelapan">Kedelapan</h3>
+<p>Setelah selesai membuat DHCP Server, kalian boleh mencabut kabel LAN kalian dari Mikrotik ke Laptop lalu pasang kembali, atau dengan cara Disable Enable Interface Network di Control Panel &gt; Network and Internet &gt; Network Connections, disini saya menggunakan disable dan enable saja karena males cabut hehehe.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302950712934420/Screenshot_103.png" alt="gambar8" />
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302956597280769/Screenshot_104.png" alt="gambar81" /></p>
+
+<h3 id="kesembilan">Kesembilan</h3>
+<p>Jika sudah terbuhung tandanya akan seperti digambar ini, nanti di Network and Sharing Center muncul <strong>Internet</strong> yang artinya sudah terhubung dengan koneksi Mikrotik ke laptop dan lakukan test ping di CMD.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/606302960816881664/Screenshot_105.png" alt="gambar9" /></p>
+
+<h3 id="kesepuluh">Kesepuluh</h3>
+<p>Nah itu saja tutorial dari saya, mudah-mudahan bermanfaat bagi kawan-kawan semua dan mohon maaf bila ada salah dan tolong dibenarkan jika saya salah, sekian dan Terima kasih sudah membaca artikel saya :)</p>]]></content><author><name>troke12</name></author><category term="tutorial" /><category term="network" /><summary type="html"><![CDATA[Persiapan Internet Connection dari ISP Mikrotik Kabel LAN]]></summary></entry><entry><title type="html">Cara Cek Kabel LAN Dengan Avometer</title><link href="https://troke.id/2019/05/09/Cara-Cek-Kabel-LAN-Dengan-Avometer.html" rel="alternate" type="text/html" title="Cara Cek Kabel LAN Dengan Avometer" /><published>2019-05-09T00:00:00+00:00</published><updated>2019-05-09T00:00:00+00:00</updated><id>https://troke.id/2019/05/09/Cara-Cek-Kabel-LAN-Dengan-Avometer</id><content type="html" xml:base="https://troke.id/2019/05/09/Cara-Cek-Kabel-LAN-Dengan-Avometer.html"><![CDATA[<h2 id="persiapan">Persiapan</h2>
+<ul>
+  <li>Avometer</li>
+  <li>Kabel LAN tanpa RJ45</li>
+</ul>
+
+<h2 id="penjelasan">Penjelasan</h2>
+<p>Maksud Saya kali ini adalah untuk mengecek fungsi kabel LAN tanpa menggunakan LAN Tester dengan kondisi kabel yang tanpa RJ45 nya,
+Umumnya orang lain ngecek kabel dengan menggunakan LAN Tester, tapi melihat kondisi di lapangan saat melakukan maintenance jaringan dan kalian harus dituntut untuk berpikir jernih,
+Seperti pengalaman saya, sewaktu maintenance kabel, saya melihat kabelnya terpotong pada ujungnya dan sudah kondisi jelek ada kemasukan air, nah hal seperti itu harus dengan teliti untuk ceknya.</p>
+
+<p>Kali ini saya akan memberikan contoh menggunakan Kabel LAN STP yang bekas dengan 2 ujungnya sudah tidak ada RJ45</p>
+
+<h3 id="pertama">Pertama</h3>
+<p>Ikat ujung-ujung kabel seperti ini, putih orange dengan orange, putih hijau dengan hijau, putih biru dengan biru dan putih coklat dengan coklat, dan pastikan kedua ujung seperti itu.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/575885836776636423/image0.jpg" alt="gambar" /></p>
+
+<h3 id="kedua">Kedua</h3>
+<p>Sekarang ubah Avometer ke x10 Ohm, saya gunakan itu untuk acuannya
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/575885896235089920/image0.jpg" alt="gambar" /></p>
+
+<h3 id="ketiga">Ketiga</h3>
+<p>Ikat salah satu kombinasi, contoh ujung pertama : Putih orange dengan orange diikat ke ujung jarum avometer dengan warna merah (bebas pake jarum apa aja) lalu ujung pertama juga sama iket dengan jarum warna hitam 
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/575885959409827840/image0.jpg" alt="gambar" /></p>
+
+<h3 id="keempat">Keempat</h3>
+<p>Kalau meterannya bergerak artinya kabel masih mulus dan lancar, kalau Tidak berarti not Good.
+<img src="https://cdn.discordapp.com/attachments/408950289962369025/575894320843063307/image0.jpg" alt="gambar" /></p>
+
+<p>Sekian Tutorial dari saya</p>]]></content><author><name>troke12</name></author><category term="tutorial" /><summary type="html"><![CDATA[Persiapan Avometer Kabel LAN tanpa RJ45]]></summary></entry><entry><title type="html">WhatsApp Direct Messages</title><link href="https://troke.id/2019/01/24/WhatsApp-Direct-Messages.html" rel="alternate" type="text/html" title="WhatsApp Direct Messages" /><published>2019-01-24T00:00:00+00:00</published><updated>2019-01-24T00:00:00+00:00</updated><id>https://troke.id/2019/01/24/WhatsApp-Direct-Messages</id><content type="html" xml:base="https://troke.id/2019/01/24/WhatsApp-Direct-Messages.html"><![CDATA[<p>Biasanya di WhatsApp versi Desktop/Web gk ada yang namanya tambah kontak atau ngirim pesan lewat WA nya, harus tambah kontak setelah itu baru bisa kirim pesan.</p>
+
+<p>Nah saya disini mau ngasi tau caranya agar bisa ngirim pesan tanpa tambah kontak dulu, tapi pastikan kalian harus Login di WhatsApp versi Desktop/Web dulu. Setelah itu cantumkan Code ini di addressbar kalian</p>
+
+<p><code class="language-plaintext highlighter-rouge">https://api.whatsapp.com/send?phone=NomorGanti</code></p>
+
+<p>atau</p>
+
+<p><code class="language-plaintext highlighter-rouge">https://wa.me/NomorGanti</code></p>
+
+<p>Inget jangan lupa pake +62 atau langsung 0859 misalnya</p>
+
+<p>Ganti dulu nomornya setelah itu enter nanti akan muncul seperti ini, nah kemudian langsung aja kirim pesan ke nomor tersebut</p>
+
+<p><img src="https://cdn.discordapp.com/attachments/408950289962369025/537866523398635520/unknown.png" alt="gambar" /></p>]]></content><author><name>troke12</name></author><category term="tutorial" /><summary type="html"><![CDATA[Biasanya di WhatsApp versi Desktop/Web gk ada yang namanya tambah kontak atau ngirim pesan lewat WA nya, harus tambah kontak setelah itu baru bisa kirim pesan.]]></summary></entry><entry><title type="html">Music Playlists</title><link href="https://troke.id/2019/01/04/music-playlists.html" rel="alternate" type="text/html" title="Music Playlists" /><published>2019-01-04T00:00:00+00:00</published><updated>2019-01-04T00:00:00+00:00</updated><id>https://troke.id/2019/01/04/music-playlists</id><content type="html" xml:base="https://troke.id/2019/01/04/music-playlists.html"><![CDATA[<iframe width="100%" height="100" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/147844560&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
+<iframe width="100%" height="100" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/459482355&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
+<iframe width="100%" height="100" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/290494362&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
+<iframe width="100%" height="100" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/256777076&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
+<iframe width="100%" height="100" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/244942174&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
+<iframe width="100%" height="100" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/405307935&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
+<iframe width="100%" height="100" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/338438377&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
+<iframe width="100%" height="100" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/460425954&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
+<iframe width="100%" height="100" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/528350982&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
+<iframe width="100%" height="100" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/349560148&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>]]></content><author><name>troke12</name></author><category term="hobby" /><summary type="html"><![CDATA[]]></summary></entry></feed>
