@@ -7,7 +7,7 @@ Balik lagi saya menulis mengenai permasalahan utama ketika melakukan beberapa ob
 
 Disini saya sering ketika daily stand-up mendengar issue dari team QA terjadi timeout di backend dan saya team infra disini bertanggung jawab untuk menelusuri permasalahan tersebut, beruntungnya dari team backend sendiri membantu saya dan melihat log pada sisi grafana terjadi error unknown host, dimana backend tersebut melakukan request ke external endpoint (example.com/api) namun terjadi unknown host, yang mengakibatkan backend tersebut gagal menerima payload dari endpoint external tersebut.
 
-![sentry log](image-1.png)
+![sentry log](https://troke.id/assets/images/image-1.png)
 
 Ketika issue tersebut muncul segera saya mencari permasalahn tersebut, dan mengetahui ada beberapa orang yang mempunyai issue sama, pada umumnya orang tidak mengetahui banyak kenapa ini bisa terjadi, karena memang untuk urusan service to service jarang terjadi masalah, namun jika service to external yang memiliki intensitas request paling banyak bisa jadi bermasalah.
 
@@ -74,7 +74,7 @@ Dalam yaml ini terdapat beberapa keterangan yaitu DNSPerf akan melakukan stresst
 
 ### Output:
 
-![Bench1](image-2.png)
+![Bench1](https://troke.id/assets/images/image-2.png)
 
 Terdapat performance jomplang dari 110ribu request yang tidak berhasil 160 (0.14%)
 
@@ -82,13 +82,13 @@ Terdapat performance jomplang dari 110ribu request yang tidak berhasil 160 (0.14
 
 Solusinya bagaimana? Saat mencari solusinya di dokumentasi RKE2 (https://docs.rke2.io/networking/networking_services) saya menemukan inti permasalahan pada komponen CoreDNS nya, by default NodeLocal yang menangani caching DNS pada cluster kubernetes tidak di hidupkan oleh RKE2
 
-![helm](image-3.png)
+![helm](https://troke.id/assets/images/image-3.png)
 
 Terlihat value dari rke2-coredns chart bagian `nodelocal` valuenya masih false.
 
 Lalu ada juga bagian lainnya yaitu forward DNS menggunakan dns dari yang dihasilkan oleh provider (/etc/resolv.conf)
 
-![etcresolv](image-4.png)
+![etcresolv](https://troke.id/assets/images/image-4.png)
 
 Solusinya pada bagian `nodelocal` diubah menjadi `true`
 
@@ -98,10 +98,10 @@ ini dikarenakan dns tersebut bisa meresolve seluruh dns yang ada di dunia, jika 
 
 ### Hasil stresstest kedua :
 
-![Bench2](image-5.png)
+![Bench2](https://troke.id/assets/images/image-5.png)
 
-Terlihat pada benchmark kedua ini melebihi request dari sebelumnya yaitu 110ribu menjadi 2 juta request dan total keberhasilannya adalah 100%
+Terlihat pada benchmark kedua ini melebihi request dari sebelumnya yaitu 110ribu menjadi 2 juta request dan total keberhasilannya adalah 100% , tandanya stresstest dengan jutaan request tidak menjadi issue dan sisanya tinggal melakukan tuning dari sisi application.
 
 ### Kesimpulan
 
-Penting sekali ketika saat sesudah membuat cluster kita harus menghidupkan fungsi `nodelocal` dan mengubah forward dns agar microservice kita berjalan sangat baik apalagi microservice yang dikelola sudah banyak.
+Penting sekali ketika saat sesudah membuat cluster kita harus menghidupkan fungsi `nodelocal` dan mengubah forward dns agar microservice kita berjalan sangat baik apalagi microservice yang dikelola sudah banyak. 
