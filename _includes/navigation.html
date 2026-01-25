@@ -9,11 +9,11 @@
     
     <ul class="nav-links">
       <li><a href="{% if is_landing %}#about{% else %}{{ '/#about' | relative_url }}{% endif %}">About</a></li>
+      <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
       <li><a href="{% if is_landing %}#skills{% else %}{{ '/#skills' | relative_url }}{% endif %}">Skills</a></li>
       <li><a href="{% if is_landing %}#projects{% else %}{{ '/#projects' | relative_url }}{% endif %}">Projects</a></li>
       <li><a href="{% if is_landing %}#experience{% else %}{{ '/#experience' | relative_url }}{% endif %}">Experience</a></li>
       <li><a href="{% if is_landing %}#contact{% else %}{{ '/#contact' | relative_url }}{% endif %}">Contact</a></li>
-      <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
     </ul>
 
     <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMobileMenu()">
@@ -30,11 +30,11 @@
   </button>
   <ul class="mobile-nav-links">
     <li><a href="{% if is_landing %}#about{% else %}{{ '/#about' | relative_url }}{% endif %}" onclick="closeMobileMenu()">About</a></li>
+    <li><a href="{{ '/blog/' | relative_url }}" onclick="closeMobileMenu()">Blog</a></li>
     <li><a href="{% if is_landing %}#skills{% else %}{{ '/#skills' | relative_url }}{% endif %}" onclick="closeMobileMenu()">Skills</a></li>
     <li><a href="{% if is_landing %}#projects{% else %}{{ '/#projects' | relative_url }}{% endif %}" onclick="closeMobileMenu()">Projects</a></li>
     <li><a href="{% if is_landing %}#experience{% else %}{{ '/#experience' | relative_url }}{% endif %}" onclick="closeMobileMenu()">Experience</a></li>
     <li><a href="{% if is_landing %}#contact{% else %}{{ '/#contact' | relative_url }}{% endif %}" onclick="closeMobileMenu()">Contact</a></li>
-    <li><a href="{{ '/blog/' | relative_url }}" onclick="closeMobileMenu()">Blog</a></li>
   </ul>
   {% include theme-toggle.html %}
 </div>

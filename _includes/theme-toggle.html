@@ -15,50 +15,33 @@
     </label>
 </div>
 <script type="text/javascript">
-const theme = localStorage.getItem('theme');
-
-if (theme === "light") {
-    document.documentElement.setAttribute('data-theme', 'light');
-} else {
-    document.documentElement.setAttribute('data-theme', 'dark');
-}
-const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
-
-function activateDarkTheme() {
-    document.getElementById('theme-toggle').checked = true;
-    document.documentElement.setAttribute('data-theme', 'dark');
-    document.documentElement.classList.add('theme--dark');
-    document.documentElement.classList.remove('theme--light');
-	document.getElementById("theme-toggle").className = 'light';
-	window.localStorage.setItem('theme', 'dark');
-}
-
-function activateLightTheme() {
-    document.getElementById('theme-toggle').checked = false;
-    document.documentElement.setAttribute('data-theme', 'light');
-    document.documentElement.classList.add('theme--light');
-    document.documentElement.classList.remove('theme--dark');
-	document.getElementById("theme-toggle").className = 'dark';
-	window.localStorage.setItem('theme', 'light');
-}
-
-if (theme === "dark") {
-    activateDarkTheme();
-} else if (theme === "light") {
-    activateLightTheme();
-} else if  (userPrefers === "light") {
-    activateDarkTheme();
-} else {
-    activateDarkTheme();
-}
-
-function modeSwitcher() {
-	// Read the new checkbox state (already changed by the time onchange fires)
-	const isChecked = document.getElementById('theme-toggle').checked;
-	if (isChecked) {
-	    activateDarkTheme();
-	} else {
-	    activateLightTheme();
-	}
-}
+(function() {
+    const toggle = document.getElementById('theme-toggle');
+    const theme = localStorage.getItem('theme');
+    
+    // Set theme without touching checkbox (for page load)
+    function setTheme(isDark) {
+        if (isDark) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.documentElement.classList.add('theme--dark');
+            document.documentElement.classList.remove('theme--light');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.documentElement.classList.add('theme--light');
+            document.documentElement.classList.remove('theme--dark');
+            localStorage.setItem('theme', 'light');
+        }
+    }
+    
+    // Initialize on page load
+    const isDark = theme !== 'light'; // default to dark
+    toggle.checked = isDark;
+    setTheme(isDark);
+    
+    // Handle toggle change - checkbox already changed naturally, just update theme
+    window.modeSwitcher = function() {
+        setTheme(toggle.checked);
+    };
+})();
 </script>
