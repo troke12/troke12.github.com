@@ -25,7 +25,13 @@ html {
   // Reset default page-content styles for landing
   .page-content {
     padding: 0;
+    overflow-x: hidden;
   }
+}
+
+// Prevent horizontal overflow globally
+* {
+  box-sizing: border-box;
 }
 
 // Section anchor offset for fixed nav

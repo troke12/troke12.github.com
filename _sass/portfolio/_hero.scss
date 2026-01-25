@@ -58,7 +58,6 @@
       font-weight: 700;
       margin-bottom: 15px;
       line-height: 1.15;
-      white-space: nowrap;
       @include themed() {
         color: t('foreground-color');
       }
@@ -69,6 +68,7 @@
 
       @media (max-width: 480px) {
         font-size: 1.75rem;
+        white-space: normal;
       }
 
       @media (max-width: 380px) {
