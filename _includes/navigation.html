@@ -36,7 +36,6 @@
     <li><a href="{% if is_landing %}#experience{% else %}{{ '/#experience' | relative_url }}{% endif %}" onclick="closeMobileMenu()">Experience</a></li>
     <li><a href="{% if is_landing %}#contact{% else %}{{ '/#contact' | relative_url }}{% endif %}" onclick="closeMobileMenu()">Contact</a></li>
   </ul>
-  {% include theme-toggle.html %}
 </div>
 
 <script>
