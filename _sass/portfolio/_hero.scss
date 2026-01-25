@@ -1,0 +1,230 @@
+// Hero Section
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 30px 80px;
+  position: relative;
+  overflow: hidden;
+
+  @include themed() {
+    background-color: t('background-color');
+  }
+
+  @media (max-width: 768px) {
+    padding: 100px 20px 60px;
+    min-height: auto;
+  }
+
+  .hero-content {
+    max-width: $max-content-width;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+
+    @media (max-width: 900px) {
+      flex-direction: column-reverse;
+      text-align: center;
+      align-items: center;
+      gap: 40px;
+    }
+  }
+
+  .hero-text {
+    flex: 1;
+
+    @media (max-width: 900px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .greeting {
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+      color: $color-cyan;
+      font-weight: 500;
+
+      @media (max-width: 480px) {
+        font-size: 1rem;
+      }
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      line-height: 1.15;
+      white-space: nowrap;
+      @include themed() {
+        color: t('foreground-color');
+      }
+
+      @media (max-width: 768px) {
+        font-size: 2.5rem;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 1.75rem;
+      }
+
+      @media (max-width: 380px) {
+        font-size: 1.5rem;
+      }
+    }
+
+    .tagline {
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      font-weight: 400;
+      @include themed() {
+        color: rgba(t('foreground-color'), 0.7);
+      }
+
+      @media (max-width: 768px) {
+        font-size: 1.15rem;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 1rem;
+      }
+    }
+
+    .hero-description {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      margin-bottom: 35px;
+      max-width: 520px;
+      @include themed() {
+        color: rgba(t('foreground-color'), 0.75);
+      }
+
+      @media (max-width: 900px) {
+        max-width: 100%;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 0.95rem;
+        line-height: 1.7;
+      }
+    }
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+
+    @media (max-width: 900px) {
+      justify-content: center;
+      width: 100%;
+    }
+
+    @media (max-width: 400px) {
+      flex-direction: column;
+      align-items: center;
+      
+      .btn {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
+      }
+    }
+  }
+
+  .hero-avatar {
+    flex-shrink: 0;
+
+    img {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid $color-cyan;
+      box-shadow: 0 0 50px rgba($color-cyan, 0.3);
+
+      @media (max-width: 768px) {
+        width: 220px;
+        height: 220px;
+      }
+
+      @media (max-width: 480px) {
+        width: 180px;
+        height: 180px;
+      }
+    }
+  }
+
+  .hero-social {
+    display: flex;
+    gap: 25px;
+    margin-top: 35px;
+
+    @media (max-width: 900px) {
+      justify-content: center;
+    }
+
+    a {
+      font-size: 1.6rem;
+      transition: color $transition-fast, transform $transition-fast;
+      @include themed() {
+        color: rgba(t('foreground-color'), 0.6);
+      }
+
+      &:hover {
+        color: $color-cyan;
+        transform: translateY(-3px);
+      }
+
+      @media (max-width: 480px) {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}
+
+// Buttons
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all $transition-fast;
+  cursor: pointer;
+  border: 2px solid transparent;
+
+  @media (max-width: 480px) {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+  }
+
+  &-primary {
+    background-color: $color-cyan;
+    color: #000;
+
+    &:hover {
+      background-color: darken($color-cyan, 10%);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba($color-cyan, 0.4);
+    }
+  }
+
+  &-outline {
+    background: transparent;
+    border-color: $color-cyan;
+    color: $color-cyan;
+
+    &:hover {
+      background-color: $color-cyan;
+      color: #000;
+      transform: translateY(-2px);
+    }
+  }
+}

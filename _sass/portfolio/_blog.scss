@@ -1,0 +1,763 @@
+// Blog Styles - Matching Portfolio Theme
+
+// Blog Header
+.blog-header {
+  text-align: center;
+  padding: 60px 20px 40px;
+  margin-bottom: 40px;
+
+  h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    @include themed() {
+      color: t('foreground-color');
+    }
+
+    @media (max-width: 480px) {
+      font-size: 2rem;
+    }
+  }
+
+  .blog-description {
+    font-size: 1.15rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+    @include themed() {
+      color: rgba(t('foreground-color'), 0.7);
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1rem;
+    }
+  }
+}
+
+// Back to home link
+.back-to-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 25px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color $transition-fast;
+  @include themed() {
+    color: rgba(t('foreground-color'), 0.7);
+  }
+
+  &:hover {
+    color: $color-cyan;
+    text-decoration: none;
+  }
+
+  i {
+    font-size: 0.85rem;
+  }
+}
+
+// Post Links Grid
+.post-links {
+  display: grid;
+  gap: 25px;
+  margin-bottom: 50px;
+  padding-top: 40px;
+}
+
+// Post Card
+.post-link-wrapper {
+  padding: 25px 30px;
+  border-radius: $card-radius;
+  transition: transform $transition-fast, box-shadow $transition-fast;
+  @include themed() {
+    background-color: t('background-color');
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    @include themed() {
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 20px;
+  }
+
+  .post-link {
+    font-size: 1.35rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 12px;
+    text-decoration: none;
+    transition: color $transition-fast;
+    @include themed() {
+      color: t('foreground-color');
+    }
+
+    &:hover {
+      color: $color-cyan;
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.15rem;
+    }
+  }
+
+  .post-meta {
+    font-size: 0.9rem;
+    @include themed() {
+      color: rgba(t('foreground-color'), 0.6);
+    }
+  }
+
+  .post-excerpt {
+    margin-top: 15px;
+    line-height: 1.7;
+    @include themed() {
+      color: rgba(t('foreground-color'), 0.75);
+    }
+  }
+}
+
+// Tags
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all $transition-fast;
+  background-color: rgba($color-cyan, 0.15);
+  color: $color-cyan;
+
+  &:hover {
+    background-color: $color-cyan;
+    color: #000;
+    text-decoration: none;
+  }
+
+  &:before {
+    content: none;
+  }
+}
+
+// Tag Cloud
+.tag-cloud {
+  margin: 40px 0;
+  padding: 25px;
+  border-radius: $card-radius;
+  @include themed() {
+    background-color: t('background-color');
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    @include themed() {
+      color: t('foreground-color');
+    }
+  }
+
+  a {
+    display: inline-block;
+    margin: 4px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all $transition-fast;
+    @include themed() {
+      background-color: rgba(t('foreground-color'), 0.1);
+      color: rgba(t('foreground-color'), 0.7);
+    }
+
+    &:hover {
+      background-color: $color-cyan;
+      color: #000;
+      text-decoration: none;
+    }
+
+    &:before {
+      content: none;
+    }
+  }
+}
+
+// Pagination
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 40px 0;
+
+  a, span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 15px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all $transition-fast;
+  }
+
+  a {
+    @include themed() {
+      background-color: t('background-color');
+      color: rgba(t('foreground-color'), 0.8);
+    }
+
+    &:hover {
+      background-color: $color-cyan;
+      color: #000;
+      text-decoration: none;
+    }
+  }
+
+  span {
+    @include themed() {
+      background-color: $color-cyan;
+      color: #000;
+    }
+  }
+
+  .previous, .next {
+    padding: 0 20px;
+  }
+}
+
+// Single Post
+.post {
+  max-width: 800px;
+  margin: 0 auto 50px;
+
+  .post-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 15px;
+    @include themed() {
+      color: t('foreground-color');
+    }
+
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.6rem;
+    }
+  }
+
+  .post-date {
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+    @include themed() {
+      color: rgba(t('foreground-color'), 0.6);
+    }
+  }
+
+  .post-description {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    padding: 20px 25px;
+    margin: 25px 0;
+    border-radius: 8px;
+    border-left: 4px solid $color-cyan;
+    @include themed() {
+      background-color: rgba(t('foreground-color'), 0.05);
+      color: rgba(t('foreground-color'), 0.85);
+    }
+
+    &:before, &:after {
+      content: none;
+    }
+  }
+
+  // Content typography
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+    color: $color-cyan;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba($color-cyan, 0.3);
+  }
+
+  h3 {
+    font-size: 1.4rem;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+  }
+
+  p {
+    line-height: 1.8;
+    margin-bottom: 1.25em;
+    @include themed() {
+      color: rgba(t('foreground-color'), 0.85);
+    }
+  }
+
+  a {
+    color: $color-cyan;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color $transition-fast;
+
+    &:hover {
+      border-bottom-color: $color-cyan;
+      text-decoration: none;
+    }
+  }
+
+  strong {
+    font-weight: 600;
+    @include themed() {
+      color: t('foreground-color');
+    }
+  }
+
+  img {
+    border-radius: 8px;
+    margin: 25px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  // Lists
+  ul, ol {
+    margin: 1.25em 0;
+    padding-left: 1.5em;
+  }
+
+  ul > li {
+    list-style: none;
+    margin-bottom: 0.75em;
+    padding-left: 1.5em;
+    position: relative;
+    @include themed() {
+      color: rgba(t('foreground-color'), 0.85);
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.6em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: $color-cyan;
+    }
+  }
+
+  ol > li {
+    margin-bottom: 0.75em;
+    padding-left: 0.5em;
+    @include themed() {
+      color: rgba(t('foreground-color'), 0.85);
+    }
+  }
+
+  // Blockquotes
+  blockquote {
+    margin: 2em 0;
+    padding: 20px 25px;
+    border-left: 4px solid $color-cyan;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    @include themed() {
+      background-color: rgba(t('foreground-color'), 0.05);
+      color: rgba(t('foreground-color'), 0.8);
+    }
+
+    &:before {
+      content: none;
+    }
+
+    p {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  // Code blocks - VS Code style
+  pre {
+    margin: 1.5em 0;
+    padding: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    position: relative;
+
+    code {
+      display: block;
+      background: none;
+      padding: 16px 20px;
+      font-size: 0.875rem;
+      line-height: 1.7;
+      overflow-x: auto;
+      color: #d4d4d4;
+
+      // Line numbers via .line spans
+      .line {
+        display: block;
+        padding-left: 45px;
+        position: relative;
+        min-height: 1.7em;
+
+        &::before {
+          counter-increment: line;
+          content: counter(line);
+          position: absolute;
+          left: 0;
+          width: 35px;
+          padding-right: 10px;
+          text-align: right;
+          color: #6e7681;
+          font-size: 0.8rem;
+          user-select: none;
+          border-right: 1px solid #333;
+        }
+      }
+    }
+
+    // Initialize counter
+    code.has-line-numbers {
+      counter-reset: line;
+    }
+
+    // Top bar with fake buttons (right side)
+    &::before {
+      content: '';
+      display: block;
+      height: 32px;
+      background: #323233;
+      border-bottom: 1px solid #333;
+      position: relative;
+      border-radius: 8px 8px 0 0;
+    }
+
+    // Buttons using ::after on the pre element
+    &::after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ff5f56;
+      box-shadow: -18px 0 0 #ffbd2e, -36px 0 0 #27c93f;
+    }
+  }
+
+  // Inline code
+  code {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    background-color: rgba(110, 118, 129, 0.4);
+    color: #e06c75;
+  }
+
+  // Highlight wrapper (Jekyll Rouge)
+  .highlight {
+    margin: 1.5em 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    position: relative;
+
+    pre {
+      margin: 0;
+      border: none;
+      border-radius: 0;
+
+      &::before {
+        border-radius: 0;
+      }
+
+      &::after {
+        top: 10px;
+      }
+    }
+
+    // Rouge line numbers table
+    table.rouge-table {
+      margin: 0;
+      border: none;
+      width: 100%;
+      border-collapse: collapse;
+
+      // Disable hover effects
+      tr:hover td {
+        background: transparent !important;
+      }
+
+      td {
+        padding: 0;
+        border: none;
+        vertical-align: top;
+        background: transparent !important;
+      }
+
+      pre {
+        margin: 0;
+        padding: 16px 20px;
+        background: transparent;
+
+        &::before, &::after {
+          display: none;
+        }
+      }
+
+      // Line numbers column
+      .gutter, .gl {
+        width: 1px;
+        padding-right: 0;
+        
+        pre {
+          padding: 16px 15px 16px 15px;
+          text-align: right;
+          color: #6e7681;
+          border-right: 1px solid #333;
+          user-select: none;
+        }
+      }
+
+      // Code column  
+      .code {
+        pre {
+          padding-left: 20px;
+        }
+      }
+    }
+
+    // Line numbers (lineno class)
+    .lineno {
+      color: #6e7681;
+      padding-right: 15px;
+      user-select: none;
+    }
+  }
+
+  // Tables
+  table {
+    width: 100%;
+    margin: 1.5em 0;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid rgba($color-cyan, 0.2);
+    }
+
+    th {
+      font-weight: 600;
+      background-color: rgba($color-cyan, 0.1);
+      @include themed() {
+        color: t('foreground-color');
+      }
+    }
+
+    td {
+      @include themed() {
+        color: rgba(t('foreground-color'), 0.85);
+      }
+    }
+
+    tr:hover td {
+      @include themed() {
+        background-color: rgba(t('foreground-color'), 0.03);
+      }
+    }
+  }
+}
+
+// Related Posts
+.related {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 2px solid rgba($color-cyan, 0.2);
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    @include themed() {
+      color: t('foreground-color');
+    }
+  }
+}
+
+ul.related-posts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    margin-bottom: 15px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    transition: all $transition-fast;
+    @include themed() {
+      background-color: rgba(t('foreground-color'), 0.05);
+    }
+
+    &:hover {
+      @include themed() {
+        background-color: rgba(t('foreground-color'), 0.1);
+      }
+    }
+
+    &:before {
+      content: none;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.1rem;
+
+      a {
+        text-decoration: none;
+        transition: color $transition-fast;
+        @include themed() {
+          color: t('foreground-color');
+        }
+
+        &:hover {
+          color: $color-cyan;
+        }
+      }
+    }
+  }
+}
+
+// Author Box (for blog pages)
+.author-box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 25px;
+  margin-bottom: 30px;
+  border-radius: $card-radius;
+  @include themed() {
+    background-color: t('background-color');
+  }
+
+  .author-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid $color-cyan;
+    flex-shrink: 0;
+  }
+
+  .description {
+    font-style: normal;
+    line-height: 1.6;
+    @include themed() {
+      color: rgba(t('foreground-color'), 0.8);
+    }
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    text-align: center;
+
+    .author-avatar {
+      margin: 0 auto;
+    }
+  }
+}
+
+// Post Meta (Medium style)
+.post-meta-medium {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 25px;
+
+  img.post-meta-avatar {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px;
+    max-width: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    cursor: default;
+  }
+}
+
+.post-meta-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.post-meta-author {
+  font-weight: 600;
+  font-size: 0.95rem;
+  @include themed() {
+    color: t('foreground-color');
+  }
+}
+
+.post-meta-details {
+  font-size: 0.85rem;
+  @include themed() {
+    color: rgba(t('foreground-color'), 0.6);
+  }
+}
+
+// Comments section
+.comments {
+  margin-top: 50px;
+  padding-top: 40px;
+  border-top: 2px solid rgba($color-cyan, 0.2);
+}
+
+// Blog page specific wrapper override
+.page-content .wrapper {
+  padding-top: 80px;
+
+  @media (max-width: 768px) {
+    padding-top: 70px;
+  }
+}
+
+// Credits override
+.credits {
+  display: none;
+}

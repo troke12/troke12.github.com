@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html class="{% if site.dash.rtl %}direction--rtl{% else %}direction--ltr{% endif %} landing-page" lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {%- include head.html -%}
+
+  <body>
+
+    {%- include navigation.html -%}
+
+    <main class="page-content" aria-label="Content">
+      
+      {%- include hero.html -%}
+      
+      {%- include skills.html -%}
+      
+      {%- include projects-grid.html -%}
+      
+      {%- include timeline.html -%}
+      
+      {%- include contact.html -%}
+
+      {{ content }}
+
+    </main>
+
+    {%- include footer.html -%}
+    
+    <script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>

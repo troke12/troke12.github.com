@@ -1,0 +1,98 @@
+<section class="projects-section" id="projects">
+  <div class="section-container">
+    <h2 class="section-title">GitHub Projects</h2>
+    
+    <div class="projects-grid" id="github-projects">
+      <div class="projects-loading">
+        <i class="fas fa-spinner fa-spin"></i> Loading projects...
+      </div>
+    </div>
+
+    <div class="projects-cta">
+      <a href="https://github.com/{{ site.dash.github_username }}?tab=repositories" target="_blank" class="btn btn-outline">
+        View All on GitHub <i class="fab fa-github"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+async function fetchGitHubProjects() {
+  const username = '{{ site.dash.github_username }}';
+  const container = document.getElementById('github-projects');
+  
+  try {
+    const response = await fetch(`https://api.github.com/users/${username}/repos?sort=stars&direction=desc&per_page=100`);
+    const repos = await response.json();
+    
+    if (!repos.length) {
+      container.innerHTML = '<p>No public repositories found.</p>';
+      return;
+    }
+    
+    // Filter out forked repos and sort by stars, take top 3
+    const ownRepos = repos
+      .filter(repo => !repo.fork)
+      .sort((a, b) => b.stargazers_count - a.stargazers_count)
+      .slice(0, 3);
+    
+    container.innerHTML = ownRepos.map(repo => `
+      <div class="project-card">
+        <div class="project-image">
+          <img src="https://opengraph.githubassets.com/1/${username}/${repo.name}" 
+               alt="${repo.name}" 
+               loading="lazy"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="project-placeholder" style="display: none;">
+            <i class="fas fa-${getRepoIcon(repo.language)}"></i>
+          </div>
+        </div>
+        <div class="project-content">
+          <h3>${repo.name}</h3>
+          <p>${repo.description || 'No description available'}</p>
+          
+          <div class="project-tech">
+            ${repo.language ? `<span>${repo.language}</span>` : ''}
+            ${repo.stargazers_count > 0 ? `<span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>` : ''}
+            ${repo.forks_count > 0 ? `<span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>` : ''}
+          </div>
+          
+          <div class="project-links">
+            <a href="${repo.html_url}" target="_blank">
+              <i class="fab fa-github"></i> Code
+            </a>
+            ${repo.homepage ? `<a href="${repo.homepage}" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>` : ''}
+          </div>
+        </div>
+      </div>
+    `).join('');
+    
+  } catch (error) {
+    console.error('Error fetching GitHub repos:', error);
+    container.innerHTML = '<p>Failed to load projects. Please visit my GitHub profile.</p>';
+  }
+}
+
+function getRepoIcon(language) {
+  const icons = {
+    'JavaScript': 'js-square',
+    'TypeScript': 'code',
+    'Python': 'python',
+    'HTML': 'html5',
+    'CSS': 'css3-alt',
+    'Shell': 'terminal',
+    'Go': 'code',
+    'Rust': 'cog',
+    'Java': 'java',
+    'PHP': 'php',
+    'Ruby': 'gem',
+    'C++': 'code',
+    'C': 'code',
+    'C#': 'code'
+  };
+  return icons[language] || 'code';
+}
+
+// Fetch projects when DOM is ready
+document.addEventListener('DOMContentLoaded', fetchGitHubProjects);
+</script>

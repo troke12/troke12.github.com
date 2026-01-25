@@ -1,0 +1,67 @@
+{% assign is_landing = false %}
+{% if page.layout == 'landing' %}
+  {% assign is_landing = true %}
+{% endif %}
+
+<nav class="portfolio-nav{% unless is_landing %} scrolled{% endunless %}" id="navbar">
+  <div class="nav-container">
+    <a href="{{ '/' | relative_url }}" class="nav-logo">{{ site.author }}</a>
+    
+    <ul class="nav-links">
+      <li><a href="{% if is_landing %}#about{% else %}{{ '/#about' | relative_url }}{% endif %}">About</a></li>
+      <li><a href="{% if is_landing %}#skills{% else %}{{ '/#skills' | relative_url }}{% endif %}">Skills</a></li>
+      <li><a href="{% if is_landing %}#projects{% else %}{{ '/#projects' | relative_url }}{% endif %}">Projects</a></li>
+      <li><a href="{% if is_landing %}#experience{% else %}{{ '/#experience' | relative_url }}{% endif %}">Experience</a></li>
+      <li><a href="{% if is_landing %}#contact{% else %}{{ '/#contact' | relative_url }}{% endif %}">Contact</a></li>
+      <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
+    </ul>
+
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMobileMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+</nav>
+
+<div class="menu-overlay" id="menuOverlay" onclick="closeMobileMenu()"></div>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-menu" aria-label="Close menu" onclick="closeMobileMenu()">
+    <i class="fas fa-times"></i>
+  </button>
+  <ul class="mobile-nav-links">
+    <li><a href="{% if is_landing %}#about{% else %}{{ '/#about' | relative_url }}{% endif %}" onclick="closeMobileMenu()">About</a></li>
+    <li><a href="{% if is_landing %}#skills{% else %}{{ '/#skills' | relative_url }}{% endif %}" onclick="closeMobileMenu()">Skills</a></li>
+    <li><a href="{% if is_landing %}#projects{% else %}{{ '/#projects' | relative_url }}{% endif %}" onclick="closeMobileMenu()">Projects</a></li>
+    <li><a href="{% if is_landing %}#experience{% else %}{{ '/#experience' | relative_url }}{% endif %}" onclick="closeMobileMenu()">Experience</a></li>
+    <li><a href="{% if is_landing %}#contact{% else %}{{ '/#contact' | relative_url }}{% endif %}" onclick="closeMobileMenu()">Contact</a></li>
+    <li><a href="{{ '/blog/' | relative_url }}" onclick="closeMobileMenu()">Blog</a></li>
+  </ul>
+  {% include theme-toggle.html %}
+</div>
+
+<script>
+{% if is_landing %}
+// Navbar scroll effect (only on landing page)
+window.addEventListener('scroll', function() {
+  const navbar = document.getElementById('navbar');
+  if (window.scrollY > 50) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+{% endif %}
+
+// Mobile menu
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('active');
+  document.getElementById('menuOverlay').classList.toggle('active');
+  document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('active') ? 'hidden' : '';
+}
+
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('active');
+  document.getElementById('menuOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+</script>

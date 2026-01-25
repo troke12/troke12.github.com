@@ -1,0 +1,139 @@
+// Skills Section
+.skills-section {
+  padding: $section-padding 30px;
+  @include themed() {
+    background-color: t('background-color-alt');
+  }
+
+  @media (max-width: 768px) {
+    padding: $section-padding-mobile 20px;
+  }
+
+  .section-container {
+    max-width: $max-content-width;
+    margin: 0 auto;
+  }
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 50px;
+  @include themed() {
+    color: t('foreground-color');
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: $color-cyan;
+    margin: 15px auto 0;
+    border-radius: 2px;
+  }
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.skill-category {
+  padding: 28px;
+  border-radius: $card-radius;
+  transition: transform $transition-fast, box-shadow $transition-fast;
+  @include themed() {
+    background-color: t('background-color');
+  }
+
+  @media (max-width: 480px) {
+    padding: 22px;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+
+    i {
+      font-size: 1.4rem;
+      color: $color-cyan;
+
+      @media (max-width: 480px) {
+        font-size: 1.2rem;
+      }
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin: 0;
+      @include themed() {
+        color: t('foreground-color');
+      }
+
+      @media (max-width: 480px) {
+        font-size: 1.05rem;
+      }
+    }
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    @media (max-width: 480px) {
+      gap: 8px;
+    }
+  }
+
+  .skill-tag {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: all $transition-fast;
+    @include themed() {
+      background-color: t('background-color-alt');
+      color: rgba(t('foreground-color'), 0.8);
+    }
+
+    @media (max-width: 480px) {
+      padding: 6px 12px;
+      font-size: 0.85rem;
+    }
+
+    &:hover {
+      background-color: $color-cyan;
+      color: #000;
+    }
+  }
+}

@@ -1,0 +1,85 @@
+// Updated footer styles
+.site-footer {
+  padding: 50px 30px 40px;
+  text-align: center;
+  @include themed() {
+    background-color: t('background-color-alt');
+    border-top: 1px solid rgba(t('foreground-color'), 0.1);
+  }
+
+  @media (max-width: 480px) {
+    padding: 40px 20px 30px;
+  }
+
+  .wrapper {
+    max-width: $max-content-width;
+    margin: 0 auto;
+  }
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 20px;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+      text-align: center;
+      gap: 20px;
+    }
+  }
+
+  .footer-copyright {
+    margin: 0;
+    font-size: 0.95rem;
+    @include themed() {
+      color: rgba(t('foreground-color'), 0.7);
+    }
+
+    @media (max-width: 480px) {
+      font-size: 0.9rem;
+    }
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+
+    a {
+      font-size: 1.4rem;
+      transition: color 0.2s ease, transform 0.2s ease;
+      @include themed() {
+        color: rgba(t('foreground-color'), 0.6);
+      }
+
+      &:hover {
+        color: $color-cyan;
+        transform: translateY(-2px);
+      }
+
+      @media (max-width: 480px) {
+        font-size: 1.3rem;
+      }
+    }
+  }
+
+  .credits {
+    font-size: 0.8rem;
+    @include themed() {
+      color: rgba(t('foreground-color'), 0.5);
+    }
+
+    a {
+      @include themed() {
+        color: rgba(t('foreground-color'), 0.5);
+      }
+      text-decoration: underline;
+
+      &:hover {
+        color: $color-cyan;
+      }
+    }
+  }
+}

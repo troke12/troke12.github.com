@@ -1,0 +1,83 @@
+<section class="timeline-section" id="experience">
+  <div class="section-container">
+    <h2 class="section-title">Work Experience</h2>
+    
+    <div class="timeline">
+      {% for job in site.data.timeline %}
+      <div class="timeline-item{% if job.current %} current{% endif %}" style="--delay: {{ forloop.index | minus: 1 }}">
+        <div class="timeline-marker">
+          <div class="timeline-icon">
+            {% if job.current %}
+            <i class="fas fa-briefcase"></i>
+            {% else %}
+            <i class="fas fa-building"></i>
+            {% endif %}
+          </div>
+          {% unless forloop.last %}
+          <div class="timeline-line"></div>
+          {% endunless %}
+        </div>
+        <div class="timeline-content">
+          {% if job.current %}
+          <div class="current-badge">
+            <span class="pulse"></span>
+            Current
+          </div>
+          {% endif %}
+          
+          <div class="timeline-company-header">
+            <i class="fas fa-building"></i>
+            <span class="company-name">{{ job.company }}</span>
+            {% if job.location %}
+            <span class="company-location">
+              <i class="fas fa-map-marker-alt"></i>
+              {{ job.location }}
+            </span>
+            {% endif %}
+          </div>
+          
+          {% if job.positions.size > 1 %}
+          <div class="career-progression">
+            <div class="progression-label">
+              <i class="fas fa-chart-line"></i>
+              Career Progression
+            </div>
+          </div>
+          {% endif %}
+          
+          <div class="positions-list{% if job.positions.size > 1 %} has-progression{% endif %}">
+            {% for position in job.positions %}
+            <div class="position-item{% if position.current %} position-current{% endif %}{% if job.positions.size > 1 %} multi-position{% endif %}">
+              {% if job.positions.size > 1 %}
+              <div class="position-marker">
+                <div class="position-dot{% if position.current %} dot-current{% endif %}"></div>
+                {% unless forloop.last %}
+                <div class="position-line"></div>
+                {% endunless %}
+              </div>
+              {% endif %}
+              <div class="position-content">
+                <div class="position-header">
+                  <h3>{{ position.role }}</h3>
+                  {% if position.type %}
+                  <span class="employment-type {{ position.type | downcase | replace: '-', '' | replace: ' ', '' }}">{{ position.type }}</span>
+                  {% endif %}
+                  {% if position.current and job.positions.size > 1 %}
+                  <span class="position-badge">Current Role</span>
+                  {% endif %}
+                </div>
+                <div class="position-period">
+                  <i class="far fa-calendar-alt"></i>
+                  {{ position.period }}
+                </div>
+                <p class="position-description">{{ position.description }}</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

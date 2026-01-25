@@ -1,0 +1,191 @@
+// Contact Section
+.contact-section {
+  padding: $section-padding 30px;
+  @include themed() {
+    background-color: t('background-color');
+  }
+
+  @media (max-width: 768px) {
+    padding: $section-padding-mobile 20px;
+  }
+
+  .section-container {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .contact-intro {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    @include themed() {
+      color: rgba(t('foreground-color'), 0.75);
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1rem;
+      margin-bottom: 30px;
+    }
+  }
+}
+
+.contact-form {
+  text-align: left;
+
+  .form-group {
+    margin-bottom: 25px;
+
+    @media (max-width: 480px) {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      font-weight: 500;
+      @include themed() {
+        color: t('foreground-color');
+      }
+
+      @media (max-width: 480px) {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+      }
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 16px 20px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color $transition-fast, background-color $transition-fast;
+      @include themed() {
+        background-color: t('background-color-alt');
+        color: t('foreground-color');
+      }
+
+      @media (max-width: 480px) {
+        padding: 14px 16px;
+        font-size: 0.95rem;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $color-cyan;
+      }
+
+      &::placeholder {
+        @include themed() {
+          color: t('foreground-color-alt');
+        }
+        opacity: 0.6;
+      }
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+
+      @media (max-width: 480px) {
+        min-height: 120px;
+      }
+    }
+  }
+
+  .form-submit {
+    text-align: center;
+    margin-top: 35px;
+
+    @media (max-width: 480px) {
+      margin-top: 25px;
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+.contact-alt {
+  margin-top: 50px;
+  padding-top: 40px;
+  border-top: 1px solid;
+  @include themed() {
+    border-color: t('background-color-alt');
+  }
+
+  @media (max-width: 480px) {
+    margin-top: 40px;
+    padding-top: 30px;
+  }
+
+  p {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    @include themed() {
+      color: rgba(t('foreground-color'), 0.7);
+    }
+
+    @media (max-width: 480px) {
+      font-size: 0.95rem;
+    }
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: color $transition-fast;
+      @include themed() {
+        color: t('foreground-color');
+      }
+
+      @media (max-width: 480px) {
+        font-size: 1rem;
+      }
+
+      &:hover {
+        color: $color-cyan;
+      }
+
+      i {
+        font-size: 1.3rem;
+      }
+    }
+  }
+}
+
+// Download Resume button in contact
+.resume-download {
+  margin-top: 30px;
+
+  @media (max-width: 480px) {
+    margin-top: 25px;
+
+    .btn {
+      width: 100%;
+      max-width: 280px;
+      justify-content: center;
+    }
+  }
+}

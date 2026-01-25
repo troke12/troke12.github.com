@@ -1,0 +1,21 @@
+<section class="skills-section" id="skills">
+  <div class="section-container">
+    <h2 class="section-title">Skills & Technologies</h2>
+    
+    <div class="skills-grid">
+      {% for category in site.data.skills.categories %}
+      <div class="skill-category">
+        <div class="category-header">
+          <i class="{{ category.icon }}"></i>
+          <h3>{{ category.name }}</h3>
+        </div>
+        <div class="skill-tags">
+          {% for item in category.items %}
+          <span class="skill-tag">{{ item }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

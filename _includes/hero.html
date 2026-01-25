@@ -1,0 +1,53 @@
+<section class="hero-section" id="about">
+  <div class="hero-content">
+    <div class="hero-text">
+      <p class="greeting">Hello, I'm</p>
+      <h1>{{ site.title }}</h1>
+      <p class="tagline">{{ site.tagline }}</p>
+      <p class="hero-description">
+        DevOps & Infrastructure Engineer based in Bali, Indonesia. Building reliable 
+        infrastructure across cybersecurity, cloud-native, and gaming environments. 
+        Experienced in Kubernetes, CI/CD automation, and developer platform engineering.
+      </p>
+      
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">
+          <i class="fas fa-envelope"></i> Get In Touch
+        </a>
+        {% if site.portfolio.resume_url %}
+        <a href="{{ site.portfolio.resume_url | relative_url }}" class="btn btn-outline" target="_blank">
+          <i class="fas fa-download"></i> Download CV
+        </a>
+        {% endif %}
+      </div>
+
+      <div class="hero-social">
+        {% if site.portfolio.github %}
+        <a href="{{ site.portfolio.github }}" target="_blank" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        {% endif %}
+        {% if site.portfolio.linkedin %}
+        <a href="{{ site.portfolio.linkedin }}" target="_blank" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        {% endif %}
+        {% if site.portfolio.twitter %}
+        <a href="{{ site.portfolio.twitter }}" target="_blank" aria-label="Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="hero-avatar">
+      {% if site.dash.avatar_source == "github" %}
+        <img src="https://github.com/{{ site.dash.github_username }}.png" alt="{{ site.title }}">
+      {% elsif site.dash.avatar_source == "local" %}
+        <img src="{{ site.dash.avatar_path | relative_url }}" alt="{{ site.title }}">
+      {% else %}
+        <img src="https://www.gravatar.com/avatar/{{ site.email | downcase | md5 }}?s=280" alt="{{ site.title }}">
+      {% endif %}
+    </div>
+  </div>
+</section>

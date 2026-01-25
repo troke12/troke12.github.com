@@ -1,0 +1,59 @@
+categories:
+  - name: DevOps & Automation
+    icon: fas fa-cogs
+    items:
+      - Jenkins
+      - GitLab CI
+      - GitHub Actions
+      - TravisCI
+      - Docker
+      - Docker Compose
+      - Kubernetes
+
+  - name: Infrastructure
+    icon: fas fa-server
+    items:
+      - Proxmox
+      - VMware Tanzu
+      - Bare-metal
+      - CloudStack
+      - AWS
+      - Linux
+
+  - name: Backend & Tools
+    icon: fas fa-code
+    items:
+      - Golang
+      - Python
+      - Node.js
+      - PHP
+      - Java
+
+  - name: Networking & Security
+    icon: fas fa-network-wired
+    items:
+      - MikroTik
+      - Ubiquiti
+      - ZeroTier
+      - Firewall
+      - SSH Hardening
+      - VPN
+
+  - name: Monitoring & Logging
+    icon: fas fa-chart-line
+    items:
+      - Grafana
+      - Prometheus
+      - Graylog
+      - cAdvisor
+      - New Relic
+
+  - name: Databases & Storage
+    icon: fas fa-database
+    items:
+      - PostgreSQL
+      - MongoDB
+      - MySQL
+      - Redis
+      - ElasticSearch
+      - MinIO

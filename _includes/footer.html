@@ -1,9 +1,13 @@
 <footer class="site-footer">
   <div class="wrapper">
-    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i>
+    <div class="footer-content">
+      <p class="footer-copyright">&copy; {{ site.time | date: '%Y' }} {{ site.title }}. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="{{ site.portfolio.github }}" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="{{ site.portfolio.linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="{{ site.portfolio.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a>
+      </div>
       {%- include theme-toggle.html -%}
     </div>
   </div>
 </footer>
-
-

@@ -1,0 +1,500 @@
+// Timeline Section - Enhanced Design with Career Progression
+.timeline-section {
+  padding: $section-padding 30px;
+  @include themed() {
+    background-color: t('background-color-alt');
+  }
+
+  @media (max-width: 768px) {
+    padding: $section-padding-mobile 20px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 40px 15px;
+  }
+
+  .section-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+}
+
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 25px;
+  position: relative;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideIn 0.5s ease forwards;
+  animation-delay: calc(var(--delay) * 0.1s);
+
+  @media (max-width: 600px) {
+    gap: 15px;
+  }
+
+  &:hover {
+    .timeline-content {
+      transform: translateX(5px);
+      @include themed() {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      }
+    }
+
+    .timeline-icon {
+      transform: scale(1.1);
+      background-color: $color-cyan;
+      color: #000;
+    }
+  }
+
+  &.current {
+    .timeline-icon {
+      background-color: $color-cyan;
+      color: #000;
+      box-shadow: 0 0 20px rgba($color-cyan, 0.5);
+    }
+
+    .timeline-line {
+      background: linear-gradient(to bottom, $color-cyan, rgba($color-cyan, 0.2));
+    }
+  }
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Timeline marker (icon + line)
+.timeline-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 50px;
+
+  @media (max-width: 600px) {
+    width: 40px;
+  }
+}
+
+.timeline-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  @include themed() {
+    background-color: t('background-color');
+    color: $color-cyan;
+    border: 2px solid rgba($color-cyan, 0.3);
+  }
+
+  @media (max-width: 600px) {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
+
+.timeline-line {
+  width: 2px;
+  flex: 1;
+  min-height: 30px;
+  margin: 10px 0;
+  border-radius: 1px;
+  @include themed() {
+    background: linear-gradient(to bottom, rgba(t('foreground-color'), 0.2), rgba(t('foreground-color'), 0.05));
+  }
+}
+
+// Timeline content card
+.timeline-content {
+  flex: 1;
+  padding: 25px;
+  border-radius: $card-radius;
+  margin-bottom: 25px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  @include themed() {
+    background-color: t('background-color');
+    border: 1px solid rgba(t('foreground-color'), 0.05);
+  }
+
+  // Decorative gradient line at top
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, $color-cyan, $color-purple);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+// Current badge
+.current-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 15px;
+  background-color: rgba($color-green, 0.15);
+  color: $color-green;
+
+  .pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: $color-green;
+    animation: pulse 2s infinite;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba($color-green, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba($color-green, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba($color-green, 0);
+  }
+}
+
+// Company header
+.timeline-company-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  @include themed() {
+    border-bottom: 1px solid rgba(t('foreground-color'), 0.1);
+  }
+
+  > i {
+    font-size: 1rem;
+    color: $color-cyan;
+  }
+
+  .company-name {
+    font-size: 1.15rem;
+    font-weight: 600;
+    @include themed() {
+      color: t('foreground-color');
+    }
+  }
+
+  .company-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85rem;
+    margin-left: auto;
+    @include themed() {
+      color: rgba(t('foreground-color'), 0.6);
+    }
+
+    i {
+      font-size: 0.75rem;
+      color: $color-cyan;
+    }
+
+    @media (max-width: 500px) {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+}
+
+// Career progression label
+.career-progression {
+  margin-bottom: 15px;
+
+  .progression-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: linear-gradient(135deg, rgba($color-cyan, 0.15), rgba($color-purple, 0.15));
+    color: $color-cyan;
+
+    i {
+      font-size: 0.85rem;
+    }
+  }
+}
+
+// Positions list
+.positions-list {
+  &.has-progression {
+    padding-left: 5px;
+  }
+}
+
+.position-item {
+  display: flex;
+  gap: 15px;
+
+  &.multi-position {
+    margin-bottom: 0;
+
+    &:last-child {
+      .position-content {
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  &:not(.multi-position) {
+    .position-content {
+      padding-left: 0;
+    }
+  }
+}
+
+// Position marker for career progression
+.position-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20px;
+  flex-shrink: 0;
+  padding-top: 8px;
+}
+
+.position-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  @include themed() {
+    background-color: rgba(t('foreground-color'), 0.3);
+    border: 2px solid t('background-color-alt');
+  }
+
+  &.dot-current {
+    background-color: $color-cyan;
+    box-shadow: 0 0 10px rgba($color-cyan, 0.5);
+  }
+}
+
+.position-line {
+  width: 2px;
+  flex: 1;
+  min-height: 20px;
+  margin: 8px 0;
+  @include themed() {
+    background: rgba(t('foreground-color'), 0.15);
+  }
+}
+
+// Position content
+.position-content {
+  flex: 1;
+  padding-bottom: 20px;
+  @include themed() {
+    border-bottom: 1px solid rgba(t('foreground-color'), 0.05);
+  }
+
+  .position-item:last-child & {
+    border-bottom: none;
+  }
+}
+
+.position-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 8px;
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    @include themed() {
+      color: t('foreground-color');
+    }
+  }
+
+  .position-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    background-color: rgba($color-cyan, 0.15);
+    color: $color-cyan;
+  }
+
+  .employment-type {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+
+    // Full-time - Green
+    &.fulltime {
+      background-color: rgba($color-green, 0.15);
+      color: $color-green;
+    }
+
+    // Probation - Orange/Yellow
+    &.probation {
+      background-color: rgba($color-orange, 0.15);
+      color: $color-orange;
+    }
+
+    // Freelance - Purple
+    &.freelance {
+      background-color: rgba($color-purple, 0.15);
+      color: $color-purple;
+    }
+
+    // Self-employed - Cyan
+    &.selfemployed {
+      background-color: rgba($color-cyan, 0.15);
+      color: $color-cyan;
+    }
+
+    // Internship - Blue
+    &.internship {
+      background-color: rgba($color-blue, 0.15);
+      color: $color-blue;
+    }
+
+    // Contract
+    &.contract {
+      background-color: rgba($color-teal, 0.15);
+      color: $color-teal;
+    }
+  }
+}
+
+.position-period {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+  @include themed() {
+    color: rgba(t('foreground-color'), 0.6);
+  }
+
+  i {
+    font-size: 0.8rem;
+    color: $color-cyan;
+  }
+}
+
+.position-description {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin: 0;
+  @include themed() {
+    color: rgba(t('foreground-color'), 0.75);
+  }
+}
+
+// Legacy support for single role format
+.timeline-header {
+  margin-bottom: 8px;
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    @include themed() {
+      color: t('foreground-color');
+    }
+  }
+}
+
+.timeline-company {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: $color-cyan;
+
+  i {
+    font-size: 0.9rem;
+    opacity: 0.7;
+  }
+}
+
+.timeline-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  @include themed() {
+    border-bottom: 1px solid rgba(t('foreground-color'), 0.1);
+  }
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    @include themed() {
+      color: rgba(t('foreground-color'), 0.6);
+    }
+
+    i {
+      font-size: 0.8rem;
+      color: $color-cyan;
+    }
+  }
+}
+
+.timeline-description {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0;
+  @include themed() {
+    color: rgba(t('foreground-color'), 0.75);
+  }
+}

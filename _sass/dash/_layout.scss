@@ -43,6 +43,30 @@
   }
 }
 
+.site-nav {
+  display: inline-flex;
+  gap: 20px;
+  margin-left: 30px;
+  float: left;
+  line-height: $base-line-height * $base-font-size * 2.25;
+
+  @include media-query($on-palm) {
+    display: none;
+  }
+
+  a {
+    font-size: $base-font-size * 0.9;
+    text-decoration: none;
+    @include themed() {
+      color: t('foreground-color-alt');
+    }
+
+    &:hover {
+      color: $color-cyan;
+    }
+  }
+}
+
 .site-footer {
   margin-bottom: 2em
 }

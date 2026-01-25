@@ -47,5 +47,31 @@ $spacing-unit: 30px !default;
   "dash/base",
   "dash/layout",
   "dash/dn-toggle",
-  "dash/syntax-highlighting"
+  "dash/syntax-highlighting",
+  "portfolio/variables",
+  "portfolio/navigation",
+  "portfolio/hero",
+  "portfolio/skills",
+  "portfolio/projects",
+  "portfolio/timeline",
+  "portfolio/contact",
+  "portfolio/blog",
+  "portfolio/footer"
 ;
+
+// Smooth scroll for anchor links
+html {
+  scroll-behavior: smooth;
+}
+
+// Landing page specific
+.landing-page {
+  .page-content {
+    padding: 0;
+  }
+}
+
+// Section anchor offset for fixed nav
+section[id] {
+  scroll-margin-top: 80px;
+}

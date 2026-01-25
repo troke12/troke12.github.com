@@ -1,0 +1,216 @@
+// Portfolio Navigation
+.portfolio-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 20px 0;
+  transition: background-color $transition-medium, box-shadow $transition-medium, padding $transition-medium;
+
+  @include themed() {
+    background-color: transparent;
+  }
+
+  &.scrolled {
+    padding: 12px 0;
+    @include themed() {
+      background-color: rgba(t('background-color'), 0.95);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-container {
+    max-width: $max-content-width;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (max-width: 480px) {
+      padding: 0 20px;
+    }
+  }
+
+  .nav-logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-decoration: none;
+    @include themed() {
+      color: t('foreground-color');
+    }
+    
+    &:hover {
+      color: $color-cyan;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.25rem;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 35px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    @media (max-width: 900px) {
+      display: none;
+    }
+
+    a {
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: color $transition-fast;
+      position: relative;
+      padding: 5px 0;
+      @include themed() {
+        color: rgba(t('foreground-color'), 0.8);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: $color-cyan;
+        transition: width $transition-fast;
+      }
+
+      &:hover {
+        color: $color-cyan;
+
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 1.5rem;
+    @include themed() {
+      color: t('foreground-color');
+    }
+
+    @media (max-width: 900px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:hover {
+      color: $color-cyan;
+    }
+  }
+}
+
+// Mobile menu
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 300px;
+  max-width: 85vw;
+  height: 100vh;
+  z-index: 1001;
+  padding: 100px 40px 40px;
+  transition: right $transition-medium;
+  @include themed() {
+    background-color: t('background-color-alt');
+  }
+
+  &.active {
+    right: 0;
+
+    .mobile-nav-links li {
+      opacity: 1;
+      transform: translateX(0);
+      
+      @for $i from 1 through 7 {
+        &:nth-child(#{$i}) {
+          transition-delay: #{$i * 0.05}s;
+        }
+      }
+    }
+  }
+
+  .mobile-nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 25px;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    a {
+      font-size: 1.4rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: block;
+      padding: 8px 0;
+      @include themed() {
+        color: t('foreground-color');
+      }
+
+      &:hover {
+        color: $color-cyan;
+      }
+    }
+  }
+
+  .close-menu {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background: none;
+    border: none;
+    font-size: 1.75rem;
+    cursor: pointer;
+    padding: 10px;
+    @include themed() {
+      color: t('foreground-color');
+    }
+
+    &:hover {
+      color: $color-cyan;
+    }
+  }
+
+  // Theme toggle - align left in mobile menu
+  .toggleWrapper {
+    float: none;
+    margin-top: 30px;
+  }
+}
+
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity $transition-medium, visibility $transition-medium;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}

@@ -1,0 +1,107 @@
+# Timeline dengan dukungan career progression dalam satu perusahaan
+- company: PT ITSEC Asia Tbk
+  location: Jakarta, Indonesia
+  current: true
+  positions:
+    - role: Junior DevOps Engineer
+      type: Full-time
+      period: February 2025 - Present
+      current: true
+      description: |
+        Develop and deploy cybersecurity-related internal tools, primarily using Golang, to support automation and infrastructure reliability.
+        Maintain and enhance Kubernetes clusters, ensuring stable and secure workloads across environments.
+        Manage Hybrid infrastructure (On-Prem & Cloud), including server provisioning, observability, and performance tuning.
+        Design foundational automation workflows to align all engineering projects with SDLC best practices.
+        Collaborate with R&D teams to improve CI/CD pipelines, environment consistency, and deployment processes.
+
+    - role: System Administrator
+      type: Full-time
+      period: July 2023 - February 2025
+      description: |
+        Oversee deployment and lifecycle management of R&D products across virtualized environments.
+        Administer Proxmox, including VM provisioning, lifecycle management, and environment optimization.
+        Implement monitoring using Grafana, Graylog, and system-level metrics to ensure high service reliability.
+        Manage CI/CD through Jenkins, supporting collaboration between backend and frontend developers.
+        Maintain on-premises GitLab, ensuring secure SCM, runner availability, and workflow standardization.
+        Participate in the team's transition toward containerization and Kubernetes adoption.
+
+    - role: DevOps Engineer
+      type: Probation
+      period: April 2023 - July 2023
+      description: |
+        Set up core development tools including Jenkins, SonarQube, GitLab, and BookStack to support CI/CD, code quality, and documentation workflows.
+        Provisioned and managed Proxmox VMs (pre-cloud phase), preparing isolated environments for backend and frontend developers.
+        Worked directly with engineers to integrate their repositories and automate deployments to VMs using Docker.
+        Built Dockerfiles for frontend applications and created docker-compose configurations to simplify local and staging environment setup.
+        Researched and implemented early automation in Jenkins, aligning pipelines with each team's repository structure.
+        Established VM-to-VM connectivity using static IP configurations and ZeroTier for Zero-Trust networking across different Proxmox nodes.
+        Investigated and tested developer-focused services such as MinIO, SeaweedFS, FerretDB, MongoDB, PostgreSQL, and Redis.
+        Experimented with Kong API Gateway, configuring routes and services to unify multiple backend services under a single gateway endpoint.
+
+- company: Fibr Corp.
+  location: Jakarta, Indonesia
+  positions:
+    - role: DevOps Engineer
+      type: Freelance
+      period: December 2023 - April 2024
+      description: |
+        Built and maintained infrastructure on VMware Tanzu Kubernetes Grid, supporting microservice-based development.
+        Designed CI/CD workflows to deploy microservices through Jenkins into Kubernetes environments.
+        Managed deployments and configurations for critical external platforms such as Keycloak, Kafka/Zookeeper, Harbor, PostgreSQL, and Redis Cluster.
+        Supported Git operations and repository structure optimization for engineering teams.
+
+- company: Datenshi Games Indonesia
+  location: Denpasar, Bali, Indonesia
+  current: true
+  positions:
+    - role: Founding Director
+      type: Self-employed
+      period: April 2020 - Present
+      current: true
+      description: |
+        Founded and scaled Indonesia's first osu! private server and multi-game environment, serving 2,000+ registered users.
+        Lead development, architecture, and operations across backend services written in Go, Python, PHP, Java, and Node.js.
+        Maintain game infrastructure including security, networking, and performance-critical backend services.
+        Implement CI pipelines using GitHub Actions and manage deployments using monolithic and service-based approaches.
+        Develop documentation for internal teams and community users, improving onboarding and project clarity.
+        Manage Linux servers, firewalls, logging, and monitoring to ensure highly available gaming services.
+
+- company: PT. ICE Messenger Indonesia
+  location: Jakarta, Indonesia
+  positions:
+    - role: DevOps Engineer
+      type: Full-time
+      period: July 2022 - April 2023
+      description: |
+        Developed multi-platform CI/CD pipelines using Jenkins, GitHub Actions, TravisCI, and GitLab Pipelines.
+        Built a private Docker registry using Harbor to streamline image distribution across environments.
+        Managed datacenter bare-metal servers including deployments, troubleshooting, and service availability.
+        Configured reverse proxy routing and DNS using NGINX and Cloudflare.
+        Set up and maintained databases: MongoDB, MySQL, Redis, ElasticSearch, including replication setups.
+        Managed virtualization with Proxmox for developers (VM & Container workloads).
+        Implemented secure Linux firewalls (iptables, fail2ban, UFW) and enhanced SSH hardening.
+        Deployed and maintained monitoring stacks: Prometheus, Grafana, cAdvisor, New Relic, and Statuspage.
+        Built a private cloud infrastructure using CloudStack and operated AWS (EC2, CloudWatch, S3, Route53).
+
+- company: PT Universal Broadband
+  location: Denpasar, Bali, Indonesia
+  positions:
+    - role: Network Technical Support
+      type: Full-time
+      period: February 2019 - July 2022
+      description: |
+        Troubleshot and maintained enterprise and residential network infrastructure.
+        Installed and configured networks using MikroTik (DHCP, VPN, Firewall, Hotspot, Queue, RouterOS API) and Ubiquiti systems.
+        Performed CCTV installation, maintenance, and network integration.
+        Provided customer education and technical support for network services.
+
+- company: DISC COMPUTER SYSTEM
+  location: Indonesia
+  positions:
+    - role: Computer Technician
+      type: Full-time
+      period: August 2018 - December 2018
+      description: |
+        Repaired laptops, PCs, printers, and peripheral devices, diagnosing hardware/software issues.
+        Installed OS environments and optimized system performance.
+        Supported school clients with scheduled maintenance and IT troubleshooting.

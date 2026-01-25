@@ -1,13 +1,55 @@
 url: https://troke.id
+baseurl: ""
 
 title: I Made Ocy Darma Putra
 author: troke12
 email: ochi@troke.id
-description: > # this means to ignore newlines until "show_exerpts:"
-  Hi, my name is I Made Ocy Darma Putra from Bali, Indonesia
-  <br/>Currently working at ITSEC Asia as System Administrator/DevOps for R&D Team in Jakarta, Indonesia
-  <br/>Feel free to contact me by email or linkedin profile!
-show_excerpts: true # set to true to show excerpts on the homepage
+description: >
+  DevOps & Infrastructure Engineer with expertise in system administration, 
+  backend operations, and developer platform engineering. Building reliable 
+  infrastructure across cybersecurity, cloud-native, and gaming environments.
+tagline: "SysAdmin | DevOps | Backend Engineer"
+show_excerpts: true
+
+# SEO Settings
+lang: en
+locale: en_US
+
+# Social/SEO
+twitter:
+  username: darma_ochi
+  card: summary_large_image
+
+facebook:
+  publisher: https://www.linkedin.com/in/troke
+
+social:
+  name: I Made Ocy Darma Putra
+  links:
+    - https://twitter.com/darma_ochi
+    - https://www.linkedin.com/in/troke
+    - https://github.com/troke12
+
+# Open Graph default image
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/avatar.png
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+      image: /assets/avatar.png
+
+# Google verification (add your verification code)
+# google_site_verification: YOUR_VERIFICATION_CODE
+
+# Webmaster tools verification
+webmaster_verifications:
+  google: # Add your Google Search Console verification code
+  bing: # Add your Bing Webmaster verification code
 
 paginate: 5
 paginate_path: "/blog/page:num/"
@@ -15,6 +57,20 @@ paginate_path: "/blog/page:num/"
 tag_permalink_style: pretty
 tag_page_layout: tag_page
 tag_page_dir: tag
+
+# Collections
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+# Portfolio settings
+portfolio:
+  resume_url: /resume-imadeocydarmaputra.pdf
+  github: https://github.com/troke12
+  linkedin: https://linkedin.com/in/troke
+  twitter: https://twitter.com/darma_ochi
+  email: ochi@troke.id
 
 # jekyll-dash date format
 # refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
@@ -54,6 +110,14 @@ dash:
   #avatar_source: local
   #avatar_path: /assets/avatar.png
 
+# Markdown & Syntax Highlighting
+markdown: kramdown
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
+
 # Build settings
 theme: jekyll-dash
 
@@ -61,5 +125,6 @@ plugins:
  - jekyll-feed
  - jekyll-seo-tag
  - jekyll-paginate
+ - jekyll-sitemap
  - liquid-md5
  - jekyll/tagging
