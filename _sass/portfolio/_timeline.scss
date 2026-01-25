@@ -1,6 +1,7 @@
 // Timeline Section - Enhanced Design with Career Progression
 .timeline-section {
   padding: $section-padding 30px;
+  overflow-x: hidden;
   @include themed() {
     background-color: t('background-color-alt');
   }

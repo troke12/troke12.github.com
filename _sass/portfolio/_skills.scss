@@ -1,12 +1,17 @@
 // Skills Section
 .skills-section {
   padding: $section-padding 30px;
+  overflow-x: hidden;
   @include themed() {
     background-color: t('background-color-alt');
   }
 
   @media (max-width: 768px) {
     padding: $section-padding-mobile 20px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 40px 15px;
   }
 
   .section-container {
