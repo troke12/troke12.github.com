@@ -1,5 +1,5 @@
 <div class="toggleWrapper">
-    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <input type="checkbox" class="dn" id="theme-toggle" onchange="modeSwitcher()" />
     <label for="theme-toggle" class="toggle">
     <span class="toggle__handler">
       <span class="crater crater--1"></span>
@@ -53,11 +53,12 @@ if (theme === "dark") {
 }
 
 function modeSwitcher() {
-	let currentMode = document.documentElement.getAttribute('data-theme');
-	if (currentMode === "dark") {
-	    activateLightTheme();
-	} else {
+	// Read the new checkbox state (already changed by the time onchange fires)
+	const isChecked = document.getElementById('theme-toggle').checked;
+	if (isChecked) {
 	    activateDarkTheme();
+	} else {
+	    activateLightTheme();
 	}
 }
 </script>
