@@ -113,6 +113,34 @@
     @include themed() {
       color: rgba(t('foreground-color'), 0.6);
     }
+
+    .post-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all $transition-fast;
+        background-color: rgba($color-cyan, 0.15);
+        color: $color-cyan;
+        margin: 0;
+
+        &:hover {
+          background-color: $color-cyan;
+          color: #000;
+          text-decoration: none;
+        }
+      }
+    }
   }
 
   .post-excerpt {
