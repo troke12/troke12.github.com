@@ -1,0 +1,15 @@
+# robots.txt for troke.id
+# Allow all search engines to crawl and index
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://troke.id/sitemap.xml
+
+# Crawl-delay (optional, be friendly to servers)
+Crawl-delay: 1
+
+# Disallow admin/private paths (if any)
+Disallow: /_site/
+Disallow: /vendor/
