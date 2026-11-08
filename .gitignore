@@ -12,5 +12,6 @@ Gemfile.lock
 .opencode/
 CLAUDE.md
 
-# FigCraft design: edited in the app and through the MCP, not tracked here
+# Agent tooling and generated artifacts: not site content
 design/
+scripts/
