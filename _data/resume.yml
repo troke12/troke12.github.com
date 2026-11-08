@@ -18,11 +18,14 @@ summary: >
   to the client while it runs. Strong background in CI/CD automation, container platforms,
   observability, virtualization, Linux administration, and secure networking.
 
+# One entry per line: degree, institution and location, then date and GPA. High school is
+# left out because the degree is done.
 education:
-  # Quoted: a plain scalar with ": " in a block sequence parses as a mapping, and the
-  # generator would print the hash instead of the line.
-  - "Bachelor's Degree, Information Systems — Universitas Terbuka (Graduated 2026, GPA 3.28)"
-  - Vocational High School, Computer and Network Engineering — SMK TI Mengwitani (2015 – 2018)
+  - degree: Bachelor of Information Systems (S.Kom.)
+    school: Universitas Terbuka
+    location: Bali, Indonesia
+    date: "Graduated: November 2026"
+    gpa: "3.28"
 
 certifications:
   - Blue Team Fundamental — CyberWarFair Labs
