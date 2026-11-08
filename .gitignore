@@ -6,3 +6,8 @@ Gemfile.lock
 *.gem
 *.idea
 .jekyll-cache
+
+# Agent/tool state, not site content
+.omc/
+.opencode/
+CLAUDE.md
