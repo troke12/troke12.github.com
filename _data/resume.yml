@@ -21,7 +21,7 @@ summary: >
 education:
   # Quoted: a plain scalar with ": " in a block sequence parses as a mapping, and the
   # generator would print the hash instead of the line.
-  - "Bachelor's Degree, Information Systems — Universitas Terbuka (Expected Graduation: August 2026)"
+  - "Bachelor's Degree, Information Systems — Universitas Terbuka (Graduated 2026, GPA 3.28)"
   - Vocational High School, Computer and Network Engineering — SMK TI Mengwitani (2015 – 2018)
 
 certifications:
