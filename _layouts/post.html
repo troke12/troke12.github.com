@@ -16,10 +16,10 @@ layout: default
     </div>
   </div>
 
-  {% if site.plugins contains "jekyll/tagging" %}
+  {% if site.plugins contains "jekyll-archives" %}
   <div class="post-tags">
       {% for tag in page.tags %}
-      <a class="tag" href="{{ tag | tag_url }}">{{ tag }}</a>
+      <a class="tag" href="{{ '/tag/' | relative_url }}{{ tag | slugify }}/">{{ tag }}</a>
       {% endfor %}
   </div>
   {% endif %}

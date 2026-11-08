@@ -1,8 +1,12 @@
 
-{% if site.plugins contains "jekyll/tagging" %}
-{% assign size = site | tag_cloud | size %}
+{% if site.plugins contains "jekyll-archives" %}
+{% assign size = site.tags | size %}
   {% if size != 0 %}
   <h2>all tags</h2>
-  <div class="tag-cloud">{{ site | tag_cloud }}</div>
+  <div class="tag-cloud">
+    {% for entry in site.tags %}
+      <a class="tag" href="{{ '/tag/' | relative_url }}{{ entry.first | slugify }}/">{{ entry.first }}</a>
+    {% endfor %}
+  </div>
   {% endif %}
 {% endif %}
