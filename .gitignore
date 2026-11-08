@@ -11,3 +11,9 @@ Gemfile.lock
 .omc/
 .opencode/
 CLAUDE.md
+
+# FigCraft build artifacts; the design file itself is committed
+design/build-site.jsonl
+design/measure.jsonl
+design/arrange.jsonl
+design/troke-site.json
