@@ -22,3 +22,28 @@ $themes: (
                 list-secondary: lighten($color-green, 20%)
         ),
 );
+
+// Theme tokens as CSS custom properties. The portfolio partials read these instead
+// of a fixed hex, so one accent has to clear contrast on both backgrounds. Each
+// value is the variant that clears 4.5:1 as text on its own theme's background
+// (the light accent is the darker variant; the dark one only reaches ~1.8:1 there).
+:root {
+  --accent: #4FC1E4;
+  --accent-contrast: #15171A;
+  --heading-color: #637AFE;
+  --link-color: #F24784;
+}
+
+.theme--dark {
+  --accent: #4FC1E4;          // 8.6:1 on #15171A, 7.7:1 on #1E2227
+  --accent-contrast: #15171A; // text placed on the accent fill
+  --heading-color: #637AFE;   // 4.9:1 / 4.4:1
+  --link-color: #F24784;      // 5.1:1 / 4.6:1
+}
+
+.theme--light {
+  --accent: #146C8E;          // 4.6:1 on #DAE4ED, 5.0:1 on #E8EEF2
+  --accent-contrast: #FFFFFF; // 5.5:1 on the accent fill
+  --heading-color: #3F55C8;   // 4.9:1 / 5.4:1
+  --link-color: #B0306A;      // 4.7:1 / 5.2:1
+}

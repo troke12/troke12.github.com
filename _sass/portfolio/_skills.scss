@@ -1,7 +1,6 @@
 // Skills Section
 .skills-section {
   padding: $section-padding 30px;
-  overflow-x: hidden;
   @include themed() {
     background-color: t('background-color-alt');
   }
@@ -44,7 +43,7 @@
     display: block;
     width: 60px;
     height: 4px;
-    background-color: $color-cyan;
+    background-color: var(--accent);
     margin: 15px auto 0;
     border-radius: 2px;
   }
@@ -90,7 +89,7 @@
 
     i {
       font-size: 1.4rem;
-      color: $color-cyan;
+      color: var(--accent);
 
       @media (max-width: 480px) {
         font-size: 1.2rem;
@@ -137,8 +136,8 @@
     }
 
     &:hover {
-      background-color: $color-cyan;
-      color: #000;
+      background-color: var(--accent);
+      color: var(--accent-contrast);
     }
   }
 }

@@ -56,12 +56,19 @@ $spacing-unit: 30px !default;
   "portfolio/timeline",
   "portfolio/contact",
   "portfolio/blog",
-  "portfolio/footer"
+  "portfolio/footer",
+  "portfolio/accessibility"
 ;
 
 // Smooth scroll for anchor links
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 // Landing page specific

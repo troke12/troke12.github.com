@@ -1,0 +1,48 @@
+// Target size. Icon-only controls are the ones below the 44px the audit wants;
+// the box grows, the glyph does not.
+.footer-links a,
+.pagination a,
+.pagination span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+// The nav toggle is display:none until the mobile breakpoint, so only its box is
+// enlarged here and the existing display rules stay in charge.
+.nav-toggle {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+// Reduced motion. The hero decoration and the timeline scroll-in are the only
+// always-on animations; with motion off the hero keeps its static gradient and
+// the timeline items land in their final position instead of travelling.
+@media (prefers-reduced-motion: reduce) {
+  .hero-gradient,
+  .hero-particles {
+    animation: none;
+  }
+
+  .hero-particles {
+    display: none;
+  }
+
+  .timeline-item,
+  .post-excerpt {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  // Hover/lift feedback still happens, it just does not animate.
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

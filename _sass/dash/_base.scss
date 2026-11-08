@@ -6,6 +6,9 @@ body {
        -o-font-feature-settings: "kern" 1;
           font-feature-settings: "kern" 1;
   font-kerning: normal;
+  // Long unbreakable strings (URLs, commands in code blocks) were the real source
+  // of the horizontal scroll the blanket `overflow-x: hidden` was masking.
+  overflow-wrap: break-word;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -19,11 +22,18 @@ body {
 body, html {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
 }
 
-*:focus {
+// Pointer focus stays quiet; keyboard focus gets a ring. The ring uses the theme's
+// accent token, which clears 3:1 on both backgrounds (the raw cyan only reached
+// ~1.8:1 on the light theme).
+*:focus:not(:focus-visible) {
     outline: none;
+}
+
+*:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
 }
 
 /**
@@ -46,7 +56,7 @@ figure {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: $color-blue;
+  color: var(--heading-color);
 }
 
 /**
@@ -108,7 +118,7 @@ h1, h2, h3, h4, h5, h6 {
  * Links
  */
 a {
-  color: $color-pink;
+  color: var(--link-color);
   text-decoration: none;
 
   &:hover {
@@ -132,8 +142,12 @@ a {
  * Blockquotes
  */
 blockquote {
+  // The theme map's `background-color` was used as the text colour here, which
+  // read as ~1.1:1 against the page background in both themes. `foreground-color-alt`
+  // is the muted variant but only reaches ~2.6:1 on the dark background, so the
+  // regular foreground is used.
   @include themed() {
-        color: t('background-color');
+        color: t('foreground-color');
   }
   @include relative-font-size(1.125);
   letter-spacing: -1px;

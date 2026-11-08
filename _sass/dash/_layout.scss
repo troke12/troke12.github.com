@@ -11,7 +11,7 @@
   }
 
   .command_prompt {
-    color: $color-blue;
+    color: var(--heading-color);
     font-size: $base-font-size;
     margin-left: 0.1em;
 
@@ -62,7 +62,7 @@
     }
 
     &:hover {
-      color: $color-cyan;
+      color: var(--accent);
     }
   }
 }
@@ -181,7 +181,7 @@
     content: $icon-chevron-right;
     @include font-awesome-icon;
     margin-right: 0.5em;
-    color: $color-blue;
+    color: var(--heading-color);
   }
 }
 

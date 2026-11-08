@@ -49,7 +49,7 @@
   }
 
   &:hover {
-    color: $color-cyan;
+    color: var(--accent);
     text-decoration: none;
   }
 
@@ -99,7 +99,7 @@
     }
 
     &:hover {
-      color: $color-cyan;
+      color: var(--accent);
       text-decoration: none;
     }
 
@@ -130,13 +130,13 @@
         font-weight: 500;
         text-decoration: none;
         transition: all $transition-fast;
-        background-color: rgba($color-cyan, 0.15);
-        color: $color-cyan;
+        background-color: color-mix(in srgb, var(--accent) 15%, transparent);
+        color: var(--accent);
         margin: 0;
 
         &:hover {
-          background-color: $color-cyan;
-          color: #000;
+          background-color: var(--accent);
+          color: var(--accent-contrast);
           text-decoration: none;
         }
       }
@@ -170,12 +170,12 @@
   font-weight: 500;
   text-decoration: none;
   transition: all $transition-fast;
-  background-color: rgba($color-cyan, 0.15);
-  color: $color-cyan;
+  background-color: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
 
   &:hover {
-    background-color: $color-cyan;
-    color: #000;
+    background-color: var(--accent);
+    color: var(--accent-contrast);
     text-decoration: none;
   }
 
@@ -215,8 +215,8 @@
     }
 
     &:hover {
-      background-color: $color-cyan;
-      color: #000;
+      background-color: var(--accent);
+      color: var(--accent-contrast);
       text-decoration: none;
     }
 
@@ -255,16 +255,16 @@
     }
 
     &:hover {
-      background-color: $color-cyan;
-      color: #000;
+      background-color: var(--accent);
+      color: var(--accent-contrast);
       text-decoration: none;
     }
   }
 
   span {
     @include themed() {
-      background-color: $color-cyan;
-      color: #000;
+      background-color: var(--accent);
+      color: var(--accent-contrast);
     }
   }
 
@@ -310,7 +310,7 @@
     padding: 20px 25px;
     margin: 25px 0;
     border-radius: 8px;
-    border-left: 4px solid $color-cyan;
+    border-left: 4px solid var(--accent);
     @include themed() {
       background-color: rgba(t('foreground-color'), 0.05);
       color: rgba(t('foreground-color'), 0.85);
@@ -326,13 +326,13 @@
     font-weight: 600;
     margin-top: 2em;
     margin-bottom: 0.75em;
-    color: $color-cyan;
+    color: var(--accent);
   }
 
   h2 {
     font-size: 1.75rem;
     padding-bottom: 10px;
-    border-bottom: 2px solid rgba($color-cyan, 0.3);
+    border-bottom: 2px solid color-mix(in srgb, var(--accent) 30%, transparent);
   }
 
   h3 {
@@ -352,13 +352,13 @@
   }
 
   a {
-    color: $color-cyan;
+    color: var(--accent);
     text-decoration: none;
     border-bottom: 1px solid transparent;
     transition: border-color $transition-fast;
 
     &:hover {
-      border-bottom-color: $color-cyan;
+      border-bottom-color: var(--accent);
       text-decoration: none;
     }
   }
@@ -399,7 +399,7 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background-color: $color-cyan;
+      background-color: var(--accent);
     }
   }
 
@@ -415,7 +415,7 @@
   blockquote {
     margin: 2em 0;
     padding: 20px 25px;
-    border-left: 4px solid $color-cyan;
+    border-left: 4px solid var(--accent);
     border-radius: 0 8px 8px 0;
     font-style: italic;
     @include themed() {
@@ -607,12 +607,12 @@
     th, td {
       padding: 12px 15px;
       text-align: left;
-      border-bottom: 1px solid rgba($color-cyan, 0.2);
+      border-bottom: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
     }
 
     th {
       font-weight: 600;
-      background-color: rgba($color-cyan, 0.1);
+      background-color: color-mix(in srgb, var(--accent) 10%, transparent);
       @include themed() {
         color: t('foreground-color');
       }
@@ -636,7 +636,7 @@
 .related {
   margin-top: 60px;
   padding-top: 40px;
-  border-top: 2px solid rgba($color-cyan, 0.2);
+  border-top: 2px solid color-mix(in srgb, var(--accent) 20%, transparent);
 
   h2 {
     font-size: 1.5rem;
@@ -683,7 +683,7 @@ ul.related-posts {
         }
 
         &:hover {
-          color: $color-cyan;
+          color: var(--accent);
         }
       }
     }
@@ -707,7 +707,7 @@ ul.related-posts {
     height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid $color-cyan;
+    border: 3px solid var(--accent);
     flex-shrink: 0;
   }
 
@@ -773,7 +773,7 @@ ul.related-posts {
 .comments {
   margin-top: 50px;
   padding-top: 40px;
-  border-top: 2px solid rgba($color-cyan, 0.2);
+  border-top: 2px solid color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
 // Blog page specific wrapper override

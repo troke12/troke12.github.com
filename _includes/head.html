@@ -127,12 +127,30 @@
   </script>
   {% endif %}
 
+  <!-- Theme: every themed() rule is keyed on a .theme--* class, so without this
+       the page paints unthemed until the footer toggle script runs. Default is
+       dark, matching theme-toggle.html. -->
+  <script>
+    (function () {
+      var theme = 'dark';
+      try { if (localStorage.getItem('theme') === 'light') theme = 'light'; } catch (e) {}
+      var root = document.documentElement;
+      root.setAttribute('data-theme', theme);
+      root.classList.add('theme--' + theme);
+    })();
+  </script>
+
   <!-- Stylesheets -->
   <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
   <link rel="icon" href="{{ "/assets/favicon.ico" | relative_url }}" />
   <link rel="apple-touch-icon" href="{{ "/assets/avatar.png" | relative_url }}">
+
+  <!-- Lightbox: only the post layout uses it (`_layouts/post.html` opens the
+       image modal), so nothing on the landing or tag pages pays for it. -->
+  {% if page.layout == 'post' %}
   <link rel="stylesheet" href="{{ "/assets/css/magnific-popup.css" | relative_url }}">
-  
+  {% endif %}
+
   <!-- RSS Feed -->
   {%- feed_meta -%}
   
@@ -142,6 +160,8 @@
   {%- endif -%}
   
   <!-- Scripts -->
-  <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
-  <script src="{{ "/assets/js/jquery.magnific-popup.js" | relative_url }}"></script>
+  {% if page.layout == 'post' %}
+  <script defer src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script defer src="{{ "/assets/js/jquery.magnific-popup.min.js" | relative_url }}"></script>
+  {% endif %}
 </head>

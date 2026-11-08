@@ -16,7 +16,7 @@
       <li><a href="{% if is_landing %}#contact{% else %}{{ '/#contact' | relative_url }}{% endif %}">Contact</a></li>
     </ul>
 
-    <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMobileMenu()">
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMobileMenu()">
       <i class="fas fa-bars"></i>
     </button>
   </div>
@@ -24,7 +24,7 @@
 
 <div class="menu-overlay" id="menuOverlay" onclick="closeMobileMenu()"></div>
 
-<div class="mobile-menu" id="mobileMenu">
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Site menu">
   <button class="close-menu" aria-label="Close menu" onclick="closeMobileMenu()">
     <i class="fas fa-times"></i>
   </button>
@@ -51,16 +51,49 @@ window.addEventListener('scroll', function() {
 });
 {% endif %}
 
-// Mobile menu
+// Mobile menu. The closed panel is visibility:hidden (see _navigation.scss), so
+// its links leave the tab order; focus moves in on open and back to the toggle
+// on close.
+function setMobileMenu(open) {
+  var menu = document.getElementById('mobileMenu');
+  var toggle = document.querySelector('.nav-toggle');
+  menu.classList.toggle('active', open);
+  document.getElementById('menuOverlay').classList.toggle('active', open);
+  toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  document.body.style.overflow = open ? 'hidden' : '';
+  if (open) {
+    menu.querySelector('.close-menu').focus();
+  } else {
+    toggle.focus();
+  }
+}
+
 function toggleMobileMenu() {
-  document.getElementById('mobileMenu').classList.toggle('active');
-  document.getElementById('menuOverlay').classList.toggle('active');
-  document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('active') ? 'hidden' : '';
+  setMobileMenu(!document.getElementById('mobileMenu').classList.contains('active'));
 }
 
 function closeMobileMenu() {
-  document.getElementById('mobileMenu').classList.remove('active');
-  document.getElementById('menuOverlay').classList.remove('active');
-  document.body.style.overflow = '';
+  setMobileMenu(false);
 }
+
+// Esc closes; Tab wraps inside the open panel (aria-modal promises this).
+document.addEventListener('keydown', function (e) {
+  var menu = document.getElementById('mobileMenu');
+  if (!menu.classList.contains('active')) return;
+  if (e.key === 'Escape') {
+    closeMobileMenu();
+    return;
+  }
+  if (e.key !== 'Tab') return;
+  var focusable = menu.querySelectorAll('a[href], button');
+  var first = focusable[0];
+  var last = focusable[focusable.length - 1];
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+  }
+});
 </script>

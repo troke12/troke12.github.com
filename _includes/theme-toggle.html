@@ -17,20 +17,28 @@
 <script type="text/javascript">
 (function() {
     const toggle = document.getElementById('theme-toggle');
-    const theme = localStorage.getItem('theme');
-    
+    // Storage can throw (blocked site data, private windows); the toggle must
+    // still work for the current page when it does.
+    function readTheme() {
+        try { return localStorage.getItem('theme'); } catch (e) { return null; }
+    }
+    function saveTheme(value) {
+        try { localStorage.setItem('theme', value); } catch (e) {}
+    }
+    const theme = readTheme();
+
     // Set theme without touching checkbox (for page load)
     function setTheme(isDark) {
         if (isDark) {
             document.documentElement.setAttribute('data-theme', 'dark');
             document.documentElement.classList.add('theme--dark');
             document.documentElement.classList.remove('theme--light');
-            localStorage.setItem('theme', 'dark');
+            saveTheme('dark');
         } else {
             document.documentElement.setAttribute('data-theme', 'light');
             document.documentElement.classList.add('theme--light');
             document.documentElement.classList.remove('theme--dark');
-            localStorage.setItem('theme', 'light');
+            saveTheme('light');
         }
     }
     

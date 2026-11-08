@@ -55,7 +55,7 @@
       }
 
       &:hover {
-        color: $color-cyan;
+        color: var(--accent);
         transform: translateY(-2px);
       }
 
@@ -78,7 +78,7 @@
       text-decoration: underline;
 
       &:hover {
-        color: $color-cyan;
+        color: var(--accent);
       }
     }
   }

@@ -43,7 +43,7 @@
     }
     
     &:hover {
-      color: $color-cyan;
+      color: var(--accent);
     }
 
     @media (max-width: 480px) {
@@ -80,12 +80,12 @@
         left: 0;
         width: 0;
         height: 2px;
-        background-color: $color-cyan;
+        background-color: var(--accent);
         transition: width $transition-fast;
       }
 
       &:hover {
-        color: $color-cyan;
+        color: var(--accent);
 
         &::after {
           width: 100%;
@@ -112,7 +112,7 @@
     }
 
     &:hover {
-      color: $color-cyan;
+      color: var(--accent);
     }
   }
 }
@@ -127,13 +127,18 @@
   height: 100vh;
   z-index: 1001;
   padding: 100px 40px 40px;
-  transition: right $transition-medium;
+  // visibility flips after the slide-out finishes, so the panel animates away
+  // and is then removed from the tab order.
+  visibility: hidden;
+  transition: right $transition-medium, visibility 0s linear 0.3s;
   @include themed() {
     background-color: t('background-color-alt');
   }
 
   &.active {
     right: 0;
+    visibility: visible;
+    transition: right $transition-medium, visibility 0s;
 
     .mobile-nav-links li {
       opacity: 1;
@@ -170,7 +175,7 @@
       }
 
       &:hover {
-        color: $color-cyan;
+        color: var(--accent);
       }
     }
   }
@@ -189,7 +194,7 @@
     }
 
     &:hover {
-      color: $color-cyan;
+      color: var(--accent);
     }
   }
 

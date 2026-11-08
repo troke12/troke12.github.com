@@ -1,7 +1,6 @@
 // Contact Section
 .contact-section {
   padding: $section-padding 30px;
-  overflow-x: hidden;
   @include themed() {
     background-color: t('background-color');
   }
@@ -32,93 +31,6 @@
     @media (max-width: 480px) {
       font-size: 1rem;
       margin-bottom: 30px;
-    }
-  }
-}
-
-.contact-form {
-  text-align: left;
-  width: 100%;
-  max-width: 100%;
-
-  .form-group {
-    margin-bottom: 25px;
-    width: 100%;
-
-    @media (max-width: 480px) {
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 1rem;
-      font-weight: 500;
-      @include themed() {
-        color: t('foreground-color');
-      }
-
-      @media (max-width: 480px) {
-        font-size: 0.95rem;
-        margin-bottom: 8px;
-      }
-    }
-
-    input,
-    textarea {
-      width: 100%;
-      max-width: 100%;
-      box-sizing: border-box;
-      padding: 16px 20px;
-      border-radius: 8px;
-      border: 2px solid transparent;
-      font-size: 1rem;
-      font-family: inherit;
-      transition: border-color $transition-fast, background-color $transition-fast;
-      @include themed() {
-        background-color: t('background-color-alt');
-        color: t('foreground-color');
-      }
-
-      @media (max-width: 480px) {
-        padding: 12px 14px;
-        font-size: 0.95rem;
-      }
-
-      &:focus {
-        outline: none;
-        border-color: $color-cyan;
-      }
-
-      &::placeholder {
-        @include themed() {
-          color: t('foreground-color-alt');
-        }
-        opacity: 0.6;
-      }
-    }
-
-    textarea {
-      min-height: 150px;
-      resize: vertical;
-
-      @media (max-width: 480px) {
-        min-height: 120px;
-      }
-    }
-  }
-
-  .form-submit {
-    text-align: center;
-    margin-top: 35px;
-
-    @media (max-width: 480px) {
-      margin-top: 25px;
-
-      .btn {
-        width: 100%;
-        justify-content: center;
-      }
     }
   }
 }
@@ -176,7 +88,7 @@
       }
 
       &:hover {
-        color: $color-cyan;
+        color: var(--accent);
       }
 
       i {
