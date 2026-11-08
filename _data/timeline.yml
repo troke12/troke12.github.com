@@ -1,5 +1,10 @@
 # Timeline dengan dukungan career progression dalam satu perusahaan
 - company: Freelance
+  # resume_bullets: the merged, shortened version scripts/resume.py prints;
+  # the site still renders the full position descriptions below.
+  resume_bullets:
+    - "Client-facing engineering: scope set by what each client needs, end to end from assessment to the point where it runs without me."
+    - "Work varies per client across infrastructure, automation, and day-to-day operational support."
   location: Remote
   current: true
   positions:
@@ -13,6 +18,15 @@
         Work varies per client across infrastructure, automation, and day-to-day operational support.
 
 - company: PT ITSEC Asia Tbk
+  # resume_bullets: the merged, shortened version scripts/resume.py prints;
+  # the site still renders the full position descriptions below.
+  resume_bullets:
+    - "Cybersecurity internal tools in Go for automation and infrastructure reliability."
+    - "Maintained Kubernetes clusters and hybrid on-prem and cloud infrastructure, including observability and performance tuning."
+    - "Proxmox VM provisioning and lifecycle management; supported the transition to containerized architecture."
+    - "CI/CD through Jenkins and on-prem GitLab, including runner availability and workflow standardization."
+    - "Monitoring with Grafana and Graylog; core tooling set up: Jenkins, SonarQube, GitLab, BookStack."
+    - "VM-to-VM connectivity with static IP and ZeroTier; Kong API Gateway routes unifying backend services."
   location: Jakarta, Indonesia
   positions:
     - role: Junior DevOps Engineer
@@ -50,6 +64,11 @@
         Experimented with Kong API Gateway, configuring routes and services to unify multiple backend services under a single gateway endpoint.
 
 - company: Fibr Corp.
+  # resume_bullets: the merged, shortened version scripts/resume.py prints;
+  # the site still renders the full position descriptions below.
+  resume_bullets:
+    - "Infrastructure on VMware Tanzu Kubernetes Grid for microservice-based development."
+    - "CI/CD through Jenkins into Kubernetes; Keycloak, Kafka/Zookeeper, Harbor, PostgreSQL, Redis Cluster."
   location: Jakarta, Indonesia
   positions:
     - role: DevOps Engineer
@@ -62,6 +81,12 @@
         Supported Git operations and repository structure optimization for engineering teams.
 
 - company: Datenshi Games Indonesia
+  # resume_bullets: the merged, shortened version scripts/resume.py prints;
+  # the site still renders the full position descriptions below.
+  resume_bullets:
+    - "Founded and scaled Indonesia's first osu! private server and multi-game environment, 2,000+ registered users."
+    - "Backend services in Go, Python, PHP, Java, and Node.js; CI pipelines through GitHub Actions."
+    - "Linux servers, firewalls, logging, and monitoring for highly available game services."
   location: Denpasar, Bali, Indonesia
   current: true
   positions:
@@ -78,6 +103,13 @@
         Manage Linux servers, firewalls, logging, and monitoring to ensure highly available gaming services.
 
 - company: PT. ICE Messenger Indonesia
+  # resume_bullets: the merged, shortened version scripts/resume.py prints;
+  # the site still renders the full position descriptions below.
+  resume_bullets:
+    - "Multi-platform CI/CD pipelines (Jenkins, GitHub Actions, TravisCI, GitLab); private Docker registry with Harbor."
+    - "Datacenter bare-metal servers, Proxmox virtualization, and databases: MongoDB, MySQL, Redis, ElasticSearch."
+    - "Linux firewalls (iptables, fail2ban, UFW), SSH hardening, reverse proxy and DNS (NGINX, Cloudflare)."
+    - "Monitoring stacks (Prometheus, Grafana, cAdvisor, New Relic); private cloud with CloudStack and AWS."
   location: Jakarta, Indonesia
   positions:
     - role: DevOps Engineer
@@ -95,6 +127,11 @@
         Built a private cloud infrastructure using CloudStack and operated AWS (EC2, CloudWatch, S3, Route53).
 
 - company: PT Universal Broadband
+  # resume_bullets: the merged, shortened version scripts/resume.py prints;
+  # the site still renders the full position descriptions below.
+  resume_bullets:
+    - "Troubleshot and maintained enterprise and residential networks with MikroTik and Ubiquiti."
+    - "CCTV installation and network integration; technical support for network services."
   location: Denpasar, Bali, Indonesia
   positions:
     - role: Network Technical Support
@@ -107,6 +144,10 @@
         Provided customer education and technical support for network services.
 
 - company: DISC COMPUTER SYSTEM
+  # resume_bullets: the merged, shortened version scripts/resume.py prints;
+  # the site still renders the full position descriptions below.
+  resume_bullets:
+    - "Diagnosed and repaired laptops, PCs, printers, and peripherals; OS installs and performance tuning."
   location: Indonesia
   positions:
     - role: Computer Technician
