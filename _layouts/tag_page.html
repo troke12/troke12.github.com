@@ -4,9 +4,11 @@ layout: default
 {% unless site.dash.show_author == false %}
   {% include author.html %}
 {% endunless %}
-<h1 class="post-title">articles tagged with <a class="tag" href="{{ page.url | relative_url }}">{{ page.title }}</a></h1>
+<h1 class="post-title">articles tagged with <a class="tag" href="{{ page.url | relative_url }}">{{ page.tag }}</a></h1>
   <div class="post-links">
-  {% for post in page.posts %}
+  {% for post in site.posts %}
+  {% if post.tags contains page.tag %}
+
 
       <div class="post-link-wrapper">
         <a href="{{ post.url | relative_url }}" class="post-link">{{ post.title }}</a>
@@ -25,6 +27,7 @@ layout: default
         </div>
 
         </div>
+  {% endif %}
   {% endfor %}
 
   </div>
