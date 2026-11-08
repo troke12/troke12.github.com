@@ -1,18 +1,29 @@
 # Timeline dengan dukungan career progression dalam satu perusahaan
+- company: Freelance
+  location: Remote
+  current: true
+  positions:
+    - role: Forward Deployed Engineer
+      type: Freelance
+      period: November 2026 - Present
+      current: true
+      description: |
+        Client-facing engineering role where the scope is set by what each client needs at the time, not by a fixed job description.
+        Works end to end on an engagement: understand the problem, implement it, and stay close to the client while it runs.
+        Work varies per client across infrastructure, automation, and day-to-day operational support.
+
 - company: PT ITSEC Asia Tbk
   location: Jakarta, Indonesia
-  current: true
   positions:
     - role: Junior DevOps Engineer
       type: Full-time
-      period: February 2025 - Present
-      current: true
+      period: February 2025 - October 2026
       description: |
-        Develop and deploy cybersecurity-related internal tools, primarily using Golang, to support automation and infrastructure reliability.
-        Maintain and enhance Kubernetes clusters, ensuring stable and secure workloads across environments.
-        Manage Hybrid infrastructure (On-Prem & Cloud), including server provisioning, observability, and performance tuning.
-        Design foundational automation workflows to align all engineering projects with SDLC best practices.
-        Collaborate with R&D teams to improve CI/CD pipelines, environment consistency, and deployment processes.
+        Developed and deployed cybersecurity-related internal tools, primarily using Golang, to support automation and infrastructure reliability.
+        Maintained and enhanced Kubernetes clusters, ensuring stable and secure workloads across environments.
+        Managed hybrid infrastructure (On-Prem & Cloud), including server provisioning, observability, and performance tuning.
+        Designed foundational automation workflows to align all engineering projects with SDLC best practices.
+        Collaborated with R&D teams to improve CI/CD pipelines, environment consistency, and deployment processes.
 
     - role: System Administrator
       type: Full-time

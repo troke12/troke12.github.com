@@ -1,0 +1,47 @@
+---
+layout: default
+title: Services
+---
+
+<section class="services-section" id="services">
+  <div class="section-container">
+    <h1 class="section-title">Services</h1>
+
+    <div class="services-intro">
+      {% for line in site.data.services.intro %}
+      <p>{{ line }}</p>
+      {% endfor %}
+    </div>
+
+    <div class="services-grid">
+      {% for engagement in site.data.services.engagements %}
+      <div class="service-card">
+        <div class="service-header">
+          <i class="{{ engagement.icon }}"></i>
+          <h2>{{ engagement.name }}</h2>
+        </div>
+        <p class="service-duration">{{ engagement.duration }}</p>
+        <p class="service-description">{{ engagement.description }}</p>
+        <ul class="service-deliverables">
+          {% for item in engagement.deliverables %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="services-terms">
+      <h2>How engagements are set</h2>
+      <ul>
+        {% for term in site.data.services.terms %}
+        <li>{{ term }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <p class="services-cta">
+      <a href="{{ '/#contact' | relative_url }}">Send the scope</a> and you get a quote for it.
+    </p>
+  </div>
+</section>

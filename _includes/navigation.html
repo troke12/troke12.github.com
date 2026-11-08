@@ -13,6 +13,7 @@
       <li><a href="{% if is_landing %}#skills{% else %}{{ '/#skills' | relative_url }}{% endif %}">Skills</a></li>
       <li><a href="{% if is_landing %}#projects{% else %}{{ '/#projects' | relative_url }}{% endif %}">Projects</a></li>
       <li><a href="{% if is_landing %}#experience{% else %}{{ '/#experience' | relative_url }}{% endif %}">Experience</a></li>
+      <li><a href="{{ '/services/' | relative_url }}">Services</a></li>
       <li><a href="{% if is_landing %}#contact{% else %}{{ '/#contact' | relative_url }}{% endif %}">Contact</a></li>
     </ul>
 
@@ -34,6 +35,7 @@
     <li><a href="{% if is_landing %}#skills{% else %}{{ '/#skills' | relative_url }}{% endif %}" onclick="closeMobileMenu()">Skills</a></li>
     <li><a href="{% if is_landing %}#projects{% else %}{{ '/#projects' | relative_url }}{% endif %}" onclick="closeMobileMenu()">Projects</a></li>
     <li><a href="{% if is_landing %}#experience{% else %}{{ '/#experience' | relative_url }}{% endif %}" onclick="closeMobileMenu()">Experience</a></li>
+    <li><a href="{{ '/services/' | relative_url }}" onclick="closeMobileMenu()">Services</a></li>
     <li><a href="{% if is_landing %}#contact{% else %}{{ '/#contact' | relative_url }}{% endif %}" onclick="closeMobileMenu()">Contact</a></li>
   </ul>
 </div>

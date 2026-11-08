@@ -1,0 +1,143 @@
+// Services page
+.services-section {
+  padding: $section-padding 30px;
+  @include themed() {
+    background-color: t('background-color');
+  }
+
+  @media (max-width: 768px) {
+    padding: $section-padding-mobile 20px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 40px 15px;
+  }
+
+  .section-container {
+    max-width: $max-content-width;
+    margin: 0 auto;
+  }
+}
+
+.services-intro {
+  max-width: 700px;
+
+  p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+    @include themed() {
+      color: rgba(t('foreground-color'), 0.75);
+    }
+  }
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+}
+
+.service-card {
+  padding: 25px;
+  border-radius: $card-radius;
+  @include themed() {
+    background-color: t('background-color-alt');
+  }
+
+  .service-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    i {
+      color: var(--accent);
+      font-size: 1.2rem;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+  }
+
+  .service-duration {
+    margin: 8px 0 14px;
+    font-size: 0.85rem;
+    @include themed() {
+      color: rgba(t('foreground-color'), 0.6);
+    }
+  }
+
+  .service-description {
+    margin-bottom: 15px;
+    line-height: 1.6;
+  }
+
+  .service-deliverables {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      @include themed() {
+        color: rgba(t('foreground-color'), 0.8);
+      }
+
+      &::before {
+        content: "\2022";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+      }
+    }
+  }
+}
+
+.services-terms {
+  margin-top: 40px;
+
+  h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      @include themed() {
+        color: rgba(t('foreground-color'), 0.8);
+      }
+
+      &::before {
+        content: "\2022";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+      }
+    }
+  }
+}
+
+.services-cta {
+  margin-top: 30px;
+  font-size: 1.05rem;
+}

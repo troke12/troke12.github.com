@@ -1,0 +1,60 @@
+# Services page. No published rate card: each engagement is quoted from scope.
+intro:
+  - >
+    I work embedded with a client rather than as a detached contractor. The scope is
+    whatever the client actually needs at the time, and I stay with it from assessment
+    to the point where it runs without me.
+  - >
+    Rates are quoted per engagement, not from a rate card.
+
+engagements:
+  - name: Discovery & audit
+    icon: fas fa-search
+    duration: 1 week
+    description: >
+      Read the environment as it actually is: what is running, what has no owner, what
+      is single-threaded, and what breaks at 3am.
+    deliverables:
+      - Written findings with the risks ranked
+      - A prioritised plan usable by the client's own team
+      - Monitoring and access documented as found
+
+  - name: Delivery sprint
+    icon: fas fa-bolt
+    duration: 2 weeks
+    description: >
+      Implement the agreed scope in the client's own environment: pipelines, cluster
+      work, IaC, monitoring, or the operational tooling the team is missing.
+    deliverables:
+      - Working changes in the client's environment, not a demo
+      - Documentation and handover notes
+      - A clear list of what is still open
+
+  - name: Monthly retainer
+    icon: fas fa-calendar-check
+    duration: Ongoing, monthly
+    description: >
+      A fixed monthly allocation for ongoing work, with priority access between other
+      engagements.
+    deliverables:
+      - Standing allocation of hours per month
+      - Monthly review of what changed and what is at risk
+      - Overage billed separately, never silently absorbed
+
+  - name: On-call add-on
+    icon: fas fa-pager
+    duration: Add-on to a retainer
+    description: >
+      Incident response outside retainer hours. Priced separately because availability
+      is a different product than work.
+    deliverables:
+      - Agreed response window
+      - Escalation path written down before the first incident
+
+terms:
+  # Quoted: a plain scalar with ": " inside a block sequence parses as a mapping,
+  # and Liquid then prints the hash instead of the string.
+  - "Minimum engagement: 20 hours, or one week of discovery"
+  - Quoted per engagement after a scoping call
+  - Overage outside the agreed allocation is billed at the quoted rate
+  - On-site work carries a premium over remote
